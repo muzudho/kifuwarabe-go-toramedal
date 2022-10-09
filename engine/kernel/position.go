@@ -197,7 +197,7 @@ func (position *Position) UctChildrenSize() int {
 // CreateBoardIteratorWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
 func CreateBoardIteratorWithoutWall(kernel *Kernel) func(func(Point)) {
 
-	var boardSize = BoardSize
+	var boardSize = kernel.BoardCoordinate.GetBoardWidth()
 	var boardIterator = func(onPoint func(Point)) {
 
 		// x,y は壁無しの盤での0から始まる座標、 z は壁有りの盤での0から始まる座標

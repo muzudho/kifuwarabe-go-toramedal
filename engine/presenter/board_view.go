@@ -69,7 +69,7 @@ func PrintBoard(kernel *e.Kernel, movesNum int) {
 	var b = &strings.Builder{}
 	b.Grow(sz8k)
 
-	var boardSize = e.BoardSize
+	var boardSize = kernel.BoardCoordinate.GetBoardWidth()
 
 	// Header (numbers)
 	b.WriteString("\n   ")

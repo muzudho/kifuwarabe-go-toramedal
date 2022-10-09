@@ -43,7 +43,6 @@ func main() {
 	var kernel = e.NewKernel()
 
 	kernel.BoardCoordinate.SetBoardSize(config.BoardSize())
-	e.SetBoardSize(config.BoardSize())
 
 	pl.InitKernel(kernel)
 	kernel.Position.SetBoard(config.GetBoardArray())

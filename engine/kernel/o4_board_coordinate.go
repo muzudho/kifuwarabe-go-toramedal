@@ -20,15 +20,9 @@ func NewBoardCoordinate(boardSize int) *BoardCoordinate {
 	return bc
 }
 
-// BoardSize - 何路盤
-var BoardSize int
-
 func (bc *BoardCoordinate) SetBoardSize(boardSize int) {
 	// 枠の分、２つ増える
 	bc.memoryWidth = boardSize + 2
-}
-func SetBoardSize(boardSize int) {
-	BoardSize = boardSize
 }
 
 func (bc *BoardCoordinate) GetBoardWidth() int {
@@ -44,11 +38,6 @@ func (bc *BoardCoordinate) GetBoardArea() int {
 // GetMemoryBoardWidth - 枠付きの盤の一辺の交点数
 func (bc *BoardCoordinate) GetMemoryBoardWidth() int {
 	return bc.memoryWidth
-}
-
-// GetMemoryBoardWidth - 枠付きの盤の一辺の交点数
-func GetMemoryBoardWidth() int {
-	return BoardSize + 2
 }
 
 // GetMemoryBoardArea - 壁付き盤の面積
@@ -69,7 +58,7 @@ func (bc *BoardCoordinate) GetZ4FromPoint(point Point) int {
 // GetPointFromXy - x,y 形式の座標を、 z （配列のインデックス）へ変換します。
 // x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
 func (bc *BoardCoordinate) GetPointFromXy(x int, y int) Point {
-	return Point((y+1)*GetMemoryBoardWidth() + x + 1)
+	return Point((y+1)*bc.GetMemoryBoardWidth() + x + 1)
 }
 
 // GetPointFromGtpMove - GTPの座標符号を Point に変換します

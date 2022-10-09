@@ -42,7 +42,6 @@ func RunGtpEngine(kernel *e.Kernel) {
 				}
 
 				kernel.BoardCoordinate.SetBoardSize(boardSize)
-				e.SetBoardSize(boardSize)
 
 				pl.InitKernel(kernel)
 

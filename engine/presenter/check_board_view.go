@@ -17,7 +17,7 @@ func PrintCheckBoard(kernel *e.Kernel) {
 	var b = &strings.Builder{}
 	b.Grow(sz8k)
 
-	var boardSize = e.BoardSize
+	var boardSize = kernel.BoardCoordinate.GetBoardWidth()
 
 	// Header
 	b.WriteString("\n   ")
