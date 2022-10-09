@@ -3,8 +3,8 @@ package main
 import (
 	"time"
 
-	e "github.com/muzudho/kifuwarabe-go-toramedal/engine"
 	code "github.com/muzudho/kifuwarabe-go-toramedal/engine/coding_obj"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/engine/kernel"
 	pl "github.com/muzudho/kifuwarabe-go-toramedal/engine/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-go-toramedal/engine/presenter"
 )

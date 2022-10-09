@@ -1,7 +1,7 @@
 package play_algorithm
 
 import (
-	e "github.com/muzudho/kifuwarabe-go-toramedal/engine"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/engine/kernel"
 )
 
 // プレイアウトする回数（あとで設定されます）

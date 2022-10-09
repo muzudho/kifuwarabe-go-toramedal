@@ -4,8 +4,8 @@ import (
 	"strconv"
 	"strings"
 
-	e "github.com/muzudho/kifuwarabe-go-toramedal/engine"
 	code "github.com/muzudho/kifuwarabe-go-toramedal/engine/coding_obj"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/engine/kernel"
 )
 
 var sz8k = 8 * 1024

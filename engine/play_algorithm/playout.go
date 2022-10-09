@@ -3,7 +3,7 @@ package play_algorithm
 import (
 	"math/rand"
 
-	e "github.com/muzudho/kifuwarabe-go-toramedal/engine"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/engine/kernel"
 )
 
 // Playout - 最後まで石を打ちます。得点を返します

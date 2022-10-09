@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	e "github.com/muzudho/kifuwarabe-go-toramedal/engine"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/engine/kernel"
 	pl "github.com/muzudho/kifuwarabe-go-toramedal/engine/play_algorithm"
 )
 

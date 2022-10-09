@@ -2,11 +2,11 @@ package config_obj
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 
-	e "github.com/muzudho/kifuwarabe-go-toramedal/engine"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/engine/kernel"
 	"github.com/pelletier/go-toml"
 )
 
@@ -73,7 +73,7 @@ func LoadGameConf(
 	onFatal func(string)) Config {
 
 	// ファイル読込
-	var fileData, err = ioutil.ReadFile(path)
+	var fileData, err = os.ReadFile(path)
 	if err != nil {
 		onFatal(fmt.Sprintf("path=%s", path))
 		panic(err)

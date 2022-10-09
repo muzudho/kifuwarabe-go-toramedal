@@ -1,4 +1,4 @@
-package engine
+package kernel
 
 // RecordItem - 棋譜の1手分
 type RecordItem struct {
