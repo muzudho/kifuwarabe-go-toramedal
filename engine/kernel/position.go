@@ -60,7 +60,7 @@ func (k *Kernel) InitPosition() {
 	var boardMax = k.BoardCoordinate.GetMemoryBoardArea()
 	k.Position.cells = make([]Stone, boardMax)
 	k.Position.checkBoard = make([]int, boardMax)
-	k.Position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(k.Position)
+	k.Position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(k)
 	Cell_Dir4 = [4]Point{1, Point(-k.BoardCoordinate.GetMemoryBoardWidth()), -1, Point(k.BoardCoordinate.GetMemoryBoardWidth())}
 
 	// 枠線
@@ -121,7 +121,7 @@ func (position *Position) SetColor(z Point, color Stone) {
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
-func (position *Position) GetEmptyZ() Point {
+func (kernel *Kernel) GetEmptyZ() Point {
 	var x, y int
 	var z Point
 	for {
@@ -129,7 +129,7 @@ func (position *Position) GetEmptyZ() Point {
 		x = rand.Intn(9)
 		y = rand.Intn(9)
 		z = GetPointFromXy(x, y)
-		if position.IsEmpty(z) { // 空点
+		if kernel.Position.IsEmpty(z) { // 空点
 			break
 		}
 	}
@@ -195,7 +195,7 @@ func (position *Position) UctChildrenSize() int {
 }
 
 // CreateBoardIteratorWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
-func CreateBoardIteratorWithoutWall(position *Position) func(func(Point)) {
+func CreateBoardIteratorWithoutWall(kernel *Kernel) func(func(Point)) {
 
 	var boardSize = BoardSize
 	var boardIterator = func(onPoint func(Point)) {

@@ -12,7 +12,7 @@ import (
 var numberLabels = [2]string{" 0", " 1"}
 
 // PrintCheckBoard - チェックボードを描画。
-func PrintCheckBoard(position *e.Position) {
+func PrintCheckBoard(kernel *e.Kernel) {
 
 	var b = &strings.Builder{}
 	b.Grow(sz8k)
@@ -36,7 +36,7 @@ func PrintCheckBoard(position *e.Position) {
 		b.WriteString("|")
 		for x := 0; x < boardSize; x++ {
 			var z = e.GetPointFromXy(x, y)
-			var number = position.CheckAt(z)
+			var number = kernel.Position.CheckAt(z)
 			b.WriteString(numberLabels[number])
 		}
 		b.WriteString(" |\n")
