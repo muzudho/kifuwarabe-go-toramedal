@@ -20,23 +20,23 @@ const (
 // # Return
 // (bestZ int, winRate float64)
 func GetBestZByUct(
-	position *e.Position,
+	kernel *e.Kernel,
 	color e.Stone,
 	print_calc *func(*e.Position, int, e.Point, float64, int),
 	print_calc_fin *func(*e.Position, e.Point, float64, int, int, int)) (e.Point, float64) {
 
 	// UCT計算フェーズ
 	NodeNum = 0 // カウンターリセット
-	var next = CreateNode(position)
+	var next = CreateNode(kernel.Position)
 	var uctLoopCount = UctLoopCount
 	for i := 0; i < uctLoopCount; i++ {
 		// 一時記憶
-		var copiedPosition = position.CopyPosition()
+		var copiedPosition = kernel.Position.CopyPosition()
 
-		SearchUct(position, color, next)
+		SearchUct(kernel.Position, color, next)
 
 		// 復元
-		position.ImportPosition(copiedPosition)
+		kernel.Position.ImportPosition(copiedPosition)
 	}
 
 	// ベスト値検索フェーズ
@@ -49,13 +49,13 @@ func GetBestZByUct(
 			bestI = i
 			max = c.Games
 		}
-		(*print_calc)(position, i, c.Z, c.Rate, c.Games)
+		(*print_calc)(kernel.Position, i, c.Z, c.Rate, c.Games)
 		// code.Console.Info("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, e.GetGtpMoveFromPoint(c.Z), c.Rate, c.Games)
 	}
 
 	// 結果
 	var bestZ = pN.Children[bestI].Z
-	(*print_calc_fin)(position, bestZ, pN.Children[bestI].Rate, max, AllPlayouts, NodeNum)
+	(*print_calc_fin)(kernel.Position, bestZ, pN.Children[bestI].Rate, max, AllPlayouts, NodeNum)
 	//code.Console.Info("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
 	//	e.GetGtpMoveFromPoint(bestZ), pN.Children[bestI].Rate, max, AllPlayouts, NodeNum)
 	return bestZ, pN.Children[bestI].Rate

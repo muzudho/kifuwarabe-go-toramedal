@@ -16,7 +16,7 @@ func SelfPlay(kernel *e.Kernel) {
 	var color = e.Stone_Black
 
 	for {
-		var z = GetComputerMoveDuringSelfPlay(kernel.Position, color)
+		var z = GetComputerMoveDuringSelfPlay(kernel, color)
 
 		var recItem = new(e.RecordItem)
 		recItem.Z = z
@@ -41,19 +41,19 @@ func SelfPlay(kernel *e.Kernel) {
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます
-func GetComputerMoveDuringSelfPlay(position *e.Position, color e.Stone) e.Point {
+func GetComputerMoveDuringSelfPlay(kernel *e.Kernel, color e.Stone) e.Point {
 
 	var start = time.Now()
 	pl.AllPlayouts = 0
 
 	var z, winRate = pl.GetBestZByUct(
-		position,
+		kernel,
 		color,
 		createPrintingOfCalc(),
 		createPrintingOfCalcFin())
 
 	var sec = time.Since(start).Seconds()
 	code.Console.Info("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(pl.AllPlayouts)/sec, e.GetZ4FromPoint(z), winRate, position.MovesNum, color, pl.AllPlayouts)
+		sec, float64(pl.AllPlayouts)/sec, e.GetZ4FromPoint(z), winRate, kernel.Position.MovesNum, color, pl.AllPlayouts)
 	return z
 }
