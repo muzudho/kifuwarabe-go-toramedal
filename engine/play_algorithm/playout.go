@@ -22,7 +22,7 @@ func Playout(
 
 	var color = turnColor
 	var previousZ e.Point = 0
-	var boardMax = e.GetMemoryBoardArea()
+	var boardMax = kernel.BoardCoordinate.GetMemoryBoardArea()
 
 	var playoutTrialCount = PlayoutTrialCount
 	for trial := 0; trial < playoutTrialCount; trial++ {

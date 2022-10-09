@@ -55,8 +55,3 @@ func GetMemoryBoardWidth() int {
 func (bc *BoardCoordinate) GetMemoryBoardArea() int {
 	return bc.GetMemoryBoardWidth() * bc.GetMemoryBoardWidth()
 }
-
-// GetMemoryBoardArea - 壁付き盤の面積
-func GetMemoryBoardArea() int {
-	return GetMemoryBoardWidth() * GetMemoryBoardWidth()
-}

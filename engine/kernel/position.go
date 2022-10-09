@@ -57,7 +57,7 @@ func (k *Kernel) InitPosition() {
 	k.Position.uctChildrenSize = GetBoardArea() + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し
-	var boardMax = GetMemoryBoardArea()
+	var boardMax = k.BoardCoordinate.GetMemoryBoardArea()
 	k.Position.cells = make([]Stone, boardMax)
 	k.Position.checkBoard = make([]int, boardMax)
 	k.Position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(k.Position)
