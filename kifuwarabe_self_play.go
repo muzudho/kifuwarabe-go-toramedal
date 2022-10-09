@@ -22,7 +22,7 @@ func SelfPlay(kernel *e.Kernel) {
 		recItem.Z = z
 		e.PutStoneOnRecord(kernel.Position, z, color, recItem)
 
-		code.Console.Print("z=%s,color=%d", e.GetGtpMoveFromPoint(z), color) // テスト
+		code.Console.Print("z=%s,color=%d", kernel.BoardCoordinate.GetGtpMoveFromPoint(z), color) // テスト
 		// p.PrintCheckBoard(position)                                        // テスト
 		p.PrintBoard(kernel, kernel.Position.MovesNum)
 
@@ -49,8 +49,8 @@ func GetComputerMoveDuringSelfPlay(kernel *e.Kernel, color e.Stone) e.Point {
 	var z, winRate = pl.GetBestZByUct(
 		kernel,
 		color,
-		createPrintingOfCalc(),
-		createPrintingOfCalcFin())
+		createPrintingOfCalc(kernel),
+		createPrintingOfCalcFin(kernel))
 
 	var sec = time.Since(start).Seconds()
 	code.Console.Info("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",

@@ -103,7 +103,7 @@ func RunGtpEngine(kernel *e.Kernel) {
 				color = 1
 			}
 			var z = PlayComputerMoveLesson09a(kernel, color)
-			code.Gtp.Print("= %s\n\n", e.GetGtpMoveFromPoint(z))
+			code.Gtp.Print("= %s\n\n", kernel.BoardCoordinate.GetGtpMoveFromPoint(z))
 
 		case "play":
 			// play black A3
@@ -151,8 +151,8 @@ func PlayComputerMoveLesson09a(
 	var z, winRate = pl.GetBestZByUct(
 		kernel,
 		color,
-		createPrintingOfCalc(),
-		createPrintingOfCalcFin())
+		createPrintingOfCalc(kernel),
+		createPrintingOfCalcFin(kernel))
 
 	if 1 < kernel.Position.MovesNum && // 初手ではないとして
 		kernel.Position.Record[kernel.Position.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで
