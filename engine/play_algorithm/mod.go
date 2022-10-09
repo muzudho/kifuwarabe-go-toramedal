@@ -14,11 +14,11 @@ var IsDislike *func(e.Stone, e.Point) bool
 // FlagTestPlayout - ？。
 var FlagTestPlayout int
 
-func InitKernel(k *e.Kernel) {
+func InitKernel(kernel *e.Kernel) {
 	// 盤サイズが変わっていることもあるので、先に初期化します
-	k.Position.InitPosition()
+	kernel.InitPosition()
 
-	GettingOfWinnerOnDuringUCTPlayout = WrapGettingOfWinner(k.Position)
-	IsDislike = gd.WrapIsDislike(k.Position)
-	AdjustParameters(k.Position)
+	GettingOfWinnerOnDuringUCTPlayout = WrapGettingOfWinner(kernel.Position)
+	IsDislike = gd.WrapIsDislike(kernel.Position)
+	AdjustParameters(kernel.Position)
 }

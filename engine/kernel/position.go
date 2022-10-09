@@ -31,11 +31,11 @@ type TemporaryPosition struct {
 }
 
 // CopyPosition - 盤データのコピー。
-func (position *Position) CopyPosition() *TemporaryPosition {
+func (k *Kernel) CopyPosition() *TemporaryPosition {
 	var temp = new(TemporaryPosition)
-	temp.Board = make([]Stone, GetMemoryBoardArea())
-	copy(temp.Board[:], position.cells[:])
-	temp.KoZ = position.KoZ
+	temp.Board = make([]Stone, k.BoardCoordinate.GetMemoryBoardArea())
+	copy(temp.Board[:], k.Position.cells[:])
+	temp.KoZ = k.Position.KoZ
 	return temp
 }
 
@@ -52,30 +52,30 @@ func NewPosition() *Position {
 }
 
 // InitPosition - 局面の初期化。
-func (position *Position) InitPosition() {
-	position.Record = make([]*RecordItem, MaxPositionNumber)
-	position.uctChildrenSize = GetBoardArea() + 1
+func (k *Kernel) InitPosition() {
+	k.Position.Record = make([]*RecordItem, MaxPositionNumber)
+	k.Position.uctChildrenSize = GetBoardArea() + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し
 	var boardMax = GetMemoryBoardArea()
-	position.cells = make([]Stone, boardMax)
-	position.checkBoard = make([]int, boardMax)
-	position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(position)
+	k.Position.cells = make([]Stone, boardMax)
+	k.Position.checkBoard = make([]int, boardMax)
+	k.Position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(k.Position)
 	Cell_Dir4 = [4]Point{1, Point(-GetMemoryBoardWidth()), -1, Point(GetMemoryBoardWidth())}
 
 	// 枠線
 	for z := Point(0); z < Point(boardMax); z++ {
-		position.SetColor(z, Stone_Wall)
+		k.Position.SetColor(z, Stone_Wall)
 	}
 
 	// 盤上
 	var onPoint = func(z Point) {
-		position.SetColor(z, 0)
+		k.Position.SetColor(z, 0)
 	}
-	position.iteratorWithoutWall(onPoint)
+	k.Position.iteratorWithoutWall(onPoint)
 
-	position.MovesNum = 0
-	position.KoZ = 0 // コウの指定がないので消します
+	k.Position.MovesNum = 0
+	k.Position.KoZ = 0 // コウの指定がないので消します
 }
 
 // SetBoard - 盤面を設定します
