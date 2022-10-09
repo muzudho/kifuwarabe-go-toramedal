@@ -50,3 +50,13 @@ func GetMemoryBoardWidth() int {
 func (bc *BoardCoordinate) GetMemoryBoardArea() int {
 	return bc.GetMemoryBoardWidth() * bc.GetMemoryBoardWidth()
 }
+
+// GetZ4FromPoint - z（配列のインデックス）を XXYY形式（3～4桁の数）の座標へ変換します。
+func (bc *BoardCoordinate) GetZ4FromPoint(point Point) int {
+	if point == 0 {
+		return 0
+	}
+	var y = int(point) / bc.GetMemoryBoardWidth()
+	var x = int(point) - y*bc.GetMemoryBoardWidth()
+	return x*100 + y
+}
