@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	e "github.com/muzudho/kifuwarabe-uec13/entities"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/entities"
 	"github.com/pelletier/go-toml"
 )
 

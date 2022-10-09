@@ -1,4 +1,4 @@
-module github.com/muzudho/kifuwarabe-uec13
+module github.com/muzudho/kifuwarabe-go-toramedal
 
 go 1.17
 

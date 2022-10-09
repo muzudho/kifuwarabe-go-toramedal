@@ -3,10 +3,10 @@ package main
 import (
 	"time"
 
-	code "github.com/muzudho/kifuwarabe-uec13/coding_obj"
-	e "github.com/muzudho/kifuwarabe-uec13/entities"
-	pl "github.com/muzudho/kifuwarabe-uec13/play_algorithm"
-	p "github.com/muzudho/kifuwarabe-uec13/presenter"
+	code "github.com/muzudho/kifuwarabe-go-toramedal/coding_obj"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/entities"
+	pl "github.com/muzudho/kifuwarabe-go-toramedal/play_algorithm"
+	p "github.com/muzudho/kifuwarabe-go-toramedal/presenter"
 )
 
 // SelfPlay - コンピューター同士の対局。

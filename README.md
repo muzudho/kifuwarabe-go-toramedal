@@ -88,14 +88,14 @@ BoardData = '''
 
 ## Set up - 3 - Download exe
 
-次に、以下から きふわらべの `kifuwarabe-uec13.exe` ファイルを入手してください。  
+次に、以下から きふわらべの `kifuwarabe-go-toramedal.exe` ファイルを入手してください。  
 
 ![20220130go71a2.png](./docs/img/20220130go71a2.png)  
 
-📖 [Kifuwarabe-uec13 Release 0.0.1](https://github.com/muzudho/kifuwarabe-uec13/releases/tag/0.0.1)
+📖 [kifuwarabe-go-toramedal Release 0.0.1](https://github.com/muzudho/kifuwarabe-go-toramedal/releases/tag/0.0.1)
 
 👆 .zip に圧縮されているので、解凍してください。  
-もし ウィルス扱いされてダウンロードできないなら、 以下の方法で、ソースをビルドして kifuwarabe-uec13.exe を作ってください。  
+もし ウィルス扱いされてダウンロードできないなら、 以下の方法で、ソースをビルドして kifuwarabe-go-toramedal.exe を作ってください。  
 
 ## Set up - 4 - Download source
 
@@ -111,7 +111,7 @@ BoardData = '''
 
 ![20220130go71a3.png](./docs/img/20220130go71a3.png)  
 
-📖 [Kifuwarabe-uec13 Release 0.0.1](https://github.com/muzudho/kifuwarabe-uec13/releases/tag/0.0.1)
+📖 [kifuwarabe-go-toramedal Release 0.0.1](https://github.com/muzudho/kifuwarabe-go-toramedal/releases/tag/0.0.1)
 
 👆 1つ目は、 リリースページの src をクリックする方法です。  
 
@@ -151,7 +151,7 @@ Visual Studio Code に戻りまして。
 go build
 ```
 
-👆 ターミナルに上記のコマンドを打鍵してください。 `kifuwarabe-uec13.exe` 実行ファイルが作成されます。  
+👆 ターミナルに上記のコマンドを打鍵してください。 `kifuwarabe-go-toramedal.exe` 実行ファイルが作成されます。  
 お疲れさまでした。  
 
 # Run
@@ -160,23 +160,31 @@ go build
 
 ```shell
 # GTP形式の思考エンジンとして対局するなら
-kifuwarabe-uec13
+kifuwarabe-go-toramedal
 
 # 動作テストするなら
-kifuwarabe-uec13 SelfPlay
+kifuwarabe-go-toramedal SelfPlay
 ```
 
 👆 拡張子を省いた実行ファイル名を打鍵してください
 
 ## Set up - 8 - CgfGoBan
 
-![20220130go76.png](doc/img/20220130go76.png)  
+![20221009_2255_launch_cgfgoban.png](./docs/img/20221009_2255_launch_cgfgoban.png)  
+
+👆 CgfGoBan を起動してください  
+
+![20221009_2256_configure_gtp.png](./docs/img/20221009_2256_configure_gtp.png)  
 
 👆 CgfGoBan を開いて、 `[設定] - [GTPの設定]` と進んでください  
 
-![20220130go77.png](doc/img/20220130go77.png)  
+![20220130go77.png](./docs/img/20220130go77.png)  
 
-👆 きふわらべの .exe へのフルパスを入れてください  
+👆 （さきほどビルドした） きふわらべの .exe ファイルへのフルパスを入れてください  
+
+**Tips**  
+.exe ファイルの名前は `kifuwarabe-go-toramedal-copy.exe` のように名前を変えておくと、  
+CgfGoBanでテスト対局させているとき、Visual Studio Code で開発中に `go build` できない、といった衝突がなくなります  
 
 ![20220130go78.png](doc/img/20220130go78.png)  
 

@@ -3,8 +3,8 @@ package presenter
 import (
 	"strings"
 
-	code "github.com/muzudho/kifuwarabe-uec13/coding_obj"
-	e "github.com/muzudho/kifuwarabe-uec13/entities"
+	code "github.com/muzudho/kifuwarabe-go-toramedal/coding_obj"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/entities"
 )
 
 // " 0" - 空点

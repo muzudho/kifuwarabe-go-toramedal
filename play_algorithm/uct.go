@@ -5,8 +5,8 @@ import (
 	"math/rand"
 	"os"
 
-	code "github.com/muzudho/kifuwarabe-uec13/coding_obj"
-	e "github.com/muzudho/kifuwarabe-uec13/entities"
+	code "github.com/muzudho/kifuwarabe-go-toramedal/coding_obj"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/entities"
 )
 
 // UCT

@@ -1,8 +1,8 @@
 package play_algorithm
 
 import (
-	e "github.com/muzudho/kifuwarabe-uec13/entities"
-	gd "github.com/muzudho/kifuwarabe-uec13/game_domain"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/entities"
+	gd "github.com/muzudho/kifuwarabe-go-toramedal/game_domain"
 )
 
 // AllPlayouts - プレイアウトした回数。
