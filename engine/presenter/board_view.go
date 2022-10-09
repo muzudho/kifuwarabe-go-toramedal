@@ -82,23 +82,23 @@ func PrintBoard(kernel *e.Kernel, movesNum int) {
 	for x := 0; x < boardSize; x++ {
 		b.WriteString(horizontalEdgeLabels[kernel.Position.ColorAt(e.Point(x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[kernel.Position.ColorAt(e.Point(e.GetMemoryBoardWidth()-1))]) // -+
+	b.WriteString(rightCornerLabels[kernel.Position.ColorAt(e.Point(kernel.BoardCoordinate.GetMemoryBoardWidth()-1))]) // -+
 	b.WriteString("\n")
 
 	// Body
 	for y := 0; y < boardSize; y++ {
-		b.WriteString(labelOfRows[y+1])                                                                        // number
-		b.WriteString(leftVerticalEdgeLabels[kernel.Position.ColorAt(e.Point((y+1)*e.GetMemoryBoardWidth()))]) // |
+		b.WriteString(labelOfRows[y+1])                                                                                             // number
+		b.WriteString(leftVerticalEdgeLabels[kernel.Position.ColorAt(e.Point((y+1)*kernel.BoardCoordinate.GetMemoryBoardWidth()))]) // |
 		for x := 0; x < boardSize; x++ {
-			b.WriteString(stoneLabels[kernel.Position.ColorAtXy(x, y)])
+			b.WriteString(stoneLabels[kernel.ColorAtXy(x, y)])
 		}
-		b.WriteString(rightVerticalEdgeLabels[kernel.Position.ColorAt(e.Point((y+2)*e.GetMemoryBoardWidth()-1))]) // " |"
+		b.WriteString(rightVerticalEdgeLabels[kernel.Position.ColorAt(e.Point((y+2)*kernel.BoardCoordinate.GetMemoryBoardWidth()-1))]) // " |"
 		b.WriteString("\n")
 	}
 
 	// Footer
 	b.WriteString("  ") // number space
-	var a = e.GetMemoryBoardWidth() * (e.GetMemoryBoardWidth() - 1)
+	var a = kernel.BoardCoordinate.GetMemoryBoardWidth() * (kernel.BoardCoordinate.GetMemoryBoardWidth() - 1)
 	b.WriteString(leftCornerLabels[kernel.Position.ColorAt(e.Point(a))]) // +
 	for x := 0; x < boardSize; x++ {
 		b.WriteString(horizontalEdgeLabels[kernel.Position.ColorAt(e.Point(a+x+1))]) // --

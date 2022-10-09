@@ -37,7 +37,7 @@ func SelfPlay(kernel *e.Kernel) {
 		color = e.FlipColor(color)
 	}
 
-	p.PrintSgf(kernel.Position, kernel.Position.MovesNum, kernel.Position.Record)
+	p.PrintSgf(kernel, kernel.Position.MovesNum, kernel.Position.Record)
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます

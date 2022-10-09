@@ -61,7 +61,7 @@ func (k *Kernel) InitPosition() {
 	k.Position.cells = make([]Stone, boardMax)
 	k.Position.checkBoard = make([]int, boardMax)
 	k.Position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(k.Position)
-	Cell_Dir4 = [4]Point{1, Point(-GetMemoryBoardWidth()), -1, Point(GetMemoryBoardWidth())}
+	Cell_Dir4 = [4]Point{1, Point(-k.BoardCoordinate.GetMemoryBoardWidth()), -1, Point(k.BoardCoordinate.GetMemoryBoardWidth())}
 
 	// 枠線
 	for z := Point(0); z < Point(boardMax); z++ {
@@ -101,8 +101,8 @@ func (position *Position) CheckAt(z Point) int {
 }
 
 // ColorAtXy - 指定した交点の石の色
-func (position *Position) ColorAtXy(x int, y int) Stone {
-	return position.cells[(y+1)*GetMemoryBoardWidth()+x+1]
+func (k *Kernel) ColorAtXy(x int, y int) Stone {
+	return k.Position.cells[(y+1)*k.BoardCoordinate.GetMemoryBoardWidth()+x+1]
 }
 
 // IsEmpty - 指定の交点は空点か？
@@ -114,7 +114,7 @@ func (position *Position) IsEmpty(z Point) bool {
 func (position *Position) SetColor(z Point, color Stone) {
 	// TODO 消す
 	// if z == Point(11) && color == Stone_Space { // テスト
-	// 	panic(fmt.Sprintf("z=%d color=%d GetMemoryBoardWidth()=%d", z, color, GetMemoryBoardWidth()))
+	// 	panic(fmt.Sprintf("z=%d color=%d kernel.BoardCoordinate.GetMemoryBoardWidth()=%d", z, color, kernel.BoardCoordinate.GetMemoryBoardWidth()))
 	// }
 
 	position.cells[z] = color
