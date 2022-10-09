@@ -49,7 +49,7 @@ func main() {
 	kernel.Position.SetBoard(config.GetBoardArray())
 
 	if lessonVer == "SelfPlay" {
-		SelfPlay(kernel.Position)
+		SelfPlay(kernel)
 	} else {
 		RunGtpEngine(kernel) // GTP
 	}

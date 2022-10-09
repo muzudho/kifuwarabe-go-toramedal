@@ -102,7 +102,7 @@ func RunGtpEngine(kernel *e.Kernel) {
 			} else {
 				color = 1
 			}
-			var z = PlayComputerMoveLesson09a(kernel.Position, color)
+			var z = PlayComputerMoveLesson09a(kernel, color)
 			code.Gtp.Print("= %s\n\n", e.GetGtpMoveFromPoint(z))
 
 		case "play":
@@ -129,7 +129,7 @@ func RunGtpEngine(kernel *e.Kernel) {
 				recItem.Z = z
 				recItem.Time = 0
 				e.PutStoneOnRecord(kernel.Position, z, color, recItem)
-				p.PrintBoard(kernel.Position, kernel.Position.MovesNum)
+				p.PrintBoard(kernel, kernel.Position.MovesNum)
 
 				code.Gtp.Print("= \n\n")
 			}
@@ -142,20 +142,20 @@ func RunGtpEngine(kernel *e.Kernel) {
 
 // PlayComputerMoveLesson09a - コンピューター・プレイヤーの指し手。 SelfPlay, RunGtpEngine から呼び出されます。
 func PlayComputerMoveLesson09a(
-	position *e.Position,
+	kernel *e.Kernel,
 	color e.Stone) e.Point {
 
 	var st = time.Now()
 	pl.AllPlayouts = 0
 
 	var z, winRate = pl.GetBestZByUct(
-		position,
+		kernel.Position,
 		color,
 		createPrintingOfCalc(),
 		createPrintingOfCalcFin())
 
-	if 1 < position.MovesNum && // 初手ではないとして
-		position.Record[position.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで
+	if 1 < kernel.Position.MovesNum && // 初手ではないとして
+		kernel.Position.Record[kernel.Position.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで
 		0.95 <= math.Abs(winRate) { // 95%以上の確率で勝ちか負けなら
 		// こちらもパスします
 		return 0
@@ -163,13 +163,13 @@ func PlayComputerMoveLesson09a(
 
 	var sec = time.Since(st).Seconds()
 	code.Console.Info("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(pl.AllPlayouts)/sec, e.GetZ4FromPoint(z), winRate, position.MovesNum, color, pl.AllPlayouts)
+		sec, float64(pl.AllPlayouts)/sec, e.GetZ4FromPoint(z), winRate, kernel.Position.MovesNum, color, pl.AllPlayouts)
 
 	var recItem = new(e.RecordItem)
 	recItem.Z = z
 	recItem.Time = sec
-	e.PutStoneOnRecord(position, z, color, recItem)
-	p.PrintBoard(position, position.MovesNum)
+	e.PutStoneOnRecord(kernel.Position, z, color, recItem)
+	p.PrintBoard(kernel, kernel.Position.MovesNum)
 
 	return z
 }

@@ -64,7 +64,7 @@ var leftVerticalEdgeLabels = [4]string{".", "x", "o", "|"}
 var rightVerticalEdgeLabels = [4]string{" .", " x", " o", " |"}
 
 // PrintBoard - 盤を描画。
-func PrintBoard(position *e.Position, movesNum int) {
+func PrintBoard(kernel *e.Kernel, movesNum int) {
 
 	var b = &strings.Builder{}
 	b.Grow(sz8k)
@@ -77,41 +77,41 @@ func PrintBoard(position *e.Position, movesNum int) {
 		b.WriteString(labelOfColumns[x+1])
 	}
 	// Header (line)
-	b.WriteString("\n  ")                                // number space
-	b.WriteString(leftCornerLabels[position.ColorAt(0)]) // +
+	b.WriteString("\n  ")                                       // number space
+	b.WriteString(leftCornerLabels[kernel.Position.ColorAt(0)]) // +
 	for x := 0; x < boardSize; x++ {
-		b.WriteString(horizontalEdgeLabels[position.ColorAt(e.Point(x+1))]) // --
+		b.WriteString(horizontalEdgeLabels[kernel.Position.ColorAt(e.Point(x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[position.ColorAt(e.Point(e.GetMemoryBoardWidth()-1))]) // -+
+	b.WriteString(rightCornerLabels[kernel.Position.ColorAt(e.Point(e.GetMemoryBoardWidth()-1))]) // -+
 	b.WriteString("\n")
 
 	// Body
 	for y := 0; y < boardSize; y++ {
-		b.WriteString(labelOfRows[y+1])                                                                 // number
-		b.WriteString(leftVerticalEdgeLabels[position.ColorAt(e.Point((y+1)*e.GetMemoryBoardWidth()))]) // |
+		b.WriteString(labelOfRows[y+1])                                                                        // number
+		b.WriteString(leftVerticalEdgeLabels[kernel.Position.ColorAt(e.Point((y+1)*e.GetMemoryBoardWidth()))]) // |
 		for x := 0; x < boardSize; x++ {
-			b.WriteString(stoneLabels[position.ColorAtXy(x, y)])
+			b.WriteString(stoneLabels[kernel.Position.ColorAtXy(x, y)])
 		}
-		b.WriteString(rightVerticalEdgeLabels[position.ColorAt(e.Point((y+2)*e.GetMemoryBoardWidth()-1))]) // " |"
+		b.WriteString(rightVerticalEdgeLabels[kernel.Position.ColorAt(e.Point((y+2)*e.GetMemoryBoardWidth()-1))]) // " |"
 		b.WriteString("\n")
 	}
 
 	// Footer
 	b.WriteString("  ") // number space
 	var a = e.GetMemoryBoardWidth() * (e.GetMemoryBoardWidth() - 1)
-	b.WriteString(leftCornerLabels[position.ColorAt(e.Point(a))]) // +
+	b.WriteString(leftCornerLabels[kernel.Position.ColorAt(e.Point(a))]) // +
 	for x := 0; x < boardSize; x++ {
-		b.WriteString(horizontalEdgeLabels[position.ColorAt(e.Point(a+x+1))]) // --
+		b.WriteString(horizontalEdgeLabels[kernel.Position.ColorAt(e.Point(a+x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[position.ColorAt(e.Point(e.GetMemoryBoardArea()-1))]) // -+
+	b.WriteString(rightCornerLabels[kernel.Position.ColorAt(e.Point(e.GetMemoryBoardArea()-1))]) // -+
 	b.WriteString("\n")
 
 	// Info
 	b.WriteString("  KoZ=")
-	if position.KoZ == e.Cell_Pass {
+	if kernel.Position.KoZ == e.Cell_Pass {
 		b.WriteString("_")
 	} else {
-		b.WriteString(e.GetGtpMoveFromPoint(position.KoZ))
+		b.WriteString(e.GetGtpMoveFromPoint(kernel.Position.KoZ))
 	}
 	if movesNum != -1 {
 		b.WriteString(",movesNum=")
