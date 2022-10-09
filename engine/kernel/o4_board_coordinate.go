@@ -1,5 +1,7 @@
 package kernel
 
+import "strings"
+
 // BoardCoordinate - 盤座標
 type BoardCoordinate struct {
 	// 枠付きの盤の一辺の交点の要素数
@@ -59,4 +61,31 @@ func (bc *BoardCoordinate) GetZ4FromPoint(point Point) int {
 	var y = int(point) / bc.GetMemoryBoardWidth()
 	var x = int(point) - y*bc.GetMemoryBoardWidth()
 	return x*100 + y
+}
+
+// GetPointFromGtpMove - GTPの座標符号を Point に変換します
+// * `gtp_z` - 最初の１文字はアルファベット、２文字目（あれば３文字目）は数字と想定。 例: q10
+func (bc *BoardCoordinate) GetPointFromGtpMove(gtp_z string) Point {
+	gtp_z = strings.ToUpper(gtp_z)
+
+	if gtp_z == "PASS" {
+		return 0
+	}
+
+	// 筋
+	var x = gtp_z[0] - 'A' + 1
+	if gtp_z[0] >= 'I' {
+		x--
+	}
+
+	// 段
+	var y = int(gtp_z[1] - '0')
+	if 2 < len(gtp_z) {
+		y *= 10
+		y += int(gtp_z[2] - '0')
+	}
+
+	// インデックス
+	var z = GetPointFromXy(int(x)-1, y-1)
+	return z
 }

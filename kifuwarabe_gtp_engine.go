@@ -124,7 +124,7 @@ func RunGtpEngine(kernel *e.Kernel) {
 					color = 1
 				}
 
-				var z = e.GetPointFromGtpMove(tokens[2])
+				var z = kernel.BoardCoordinate.GetPointFromGtpMove(tokens[2])
 				var recItem = new(e.RecordItem)
 				recItem.Z = z
 				recItem.Time = 0
