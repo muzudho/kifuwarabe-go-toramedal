@@ -1,5 +1,20 @@
 package kernel
 
+// BoardCoordinate - 盤座標
+type BoardCoordinate struct {
+	// 枠付きの盤の一辺の交点の要素数
+	memoryWidth int
+}
+
+func NewBoardCoordinate(boardSize int) *BoardCoordinate {
+	var bc = new(BoardCoordinate)
+
+	// 枠の分、２つ増える
+	bc.memoryWidth = boardSize + 2
+
+	return bc
+}
+
 func SetBoardSize(boardSize int) {
 	BoardSize = boardSize
 }
