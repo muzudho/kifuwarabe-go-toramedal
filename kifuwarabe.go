@@ -39,8 +39,12 @@ func main() {
 	var config = cnf.LoadGameConf("input/game_conf.toml", OnFatal)
 	e.Komi = e.KomiFloat(config.Komi())
 	e.MaxPositionNumber = e.PositionNumberInt(config.MaxPositionNumber())
-	e.SetBoardSize(config.BoardSize())
+
 	var kernel = e.NewKernel()
+
+	kernel.BoardCoordinate.SetBoardSize(config.BoardSize())
+	e.SetBoardSize(config.BoardSize())
+
 	pl.InitKernel(kernel)
 	kernel.Position.SetBoard(config.GetBoardArray())
 

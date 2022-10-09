@@ -17,7 +17,7 @@ import (
 
 // RunGtpEngine - レッスン９a
 // GTP2NNGS に対応しているのでは？
-func RunGtpEngine(k *e.Kernel) {
+func RunGtpEngine(kernel *e.Kernel) {
 	code.Console.Trace("# GoGo RunGtpEngine プログラム開始☆（＾～＾）\n")
 	code.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
 
@@ -41,8 +41,10 @@ func RunGtpEngine(k *e.Kernel) {
 					panic(err)
 				}
 
+				kernel.BoardCoordinate.SetBoardSize(boardSize)
 				e.SetBoardSize(boardSize)
-				pl.InitKernel(k)
+
+				pl.InitKernel(kernel)
 
 				code.Gtp.Print("= \n\n")
 			} else {
@@ -50,7 +52,7 @@ func RunGtpEngine(k *e.Kernel) {
 			}
 
 		case "clear_board":
-			pl.InitKernel(k)
+			pl.InitKernel(kernel)
 			code.Gtp.Print("= \n\n")
 
 		case "quit":
@@ -100,7 +102,7 @@ func RunGtpEngine(k *e.Kernel) {
 			} else {
 				color = 1
 			}
-			var z = PlayComputerMoveLesson09a(k.Position, color)
+			var z = PlayComputerMoveLesson09a(kernel.Position, color)
 			code.Gtp.Print("= %s\n\n", e.GetGtpMoveFromPoint(z))
 
 		case "play":
@@ -126,8 +128,8 @@ func RunGtpEngine(k *e.Kernel) {
 				var recItem = new(e.RecordItem)
 				recItem.Z = z
 				recItem.Time = 0
-				e.PutStoneOnRecord(k.Position, z, color, recItem)
-				p.PrintBoard(k.Position, k.Position.MovesNum)
+				e.PutStoneOnRecord(kernel.Position, z, color, recItem)
+				p.PrintBoard(kernel.Position, kernel.Position.MovesNum)
 
 				code.Gtp.Print("= \n\n")
 			}
