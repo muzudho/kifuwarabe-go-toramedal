@@ -5,14 +5,13 @@ import (
 	"strings"
 
 	e "github.com/muzudho/kifuwarabe-go-toramedal/engine/kernel"
-	pl "github.com/muzudho/kifuwarabe-go-toramedal/engine/play_algorithm"
 )
 
 // GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10
 func GetGtpZ(position *e.Position, z e.Point) string {
 	if z == 0 {
 		return "PASS"
-	} else if z == pl.IllegalZ {
+	} else if z == e.Cell_Illegal {
 		return "ILLEGAL" // GTP の仕様外です
 	}
 

@@ -13,7 +13,6 @@ import (
 const (
 	NodeMax   = 10000
 	NodeEmpty = -1
-	IllegalZ  = -1 // UCT計算中に石が置けなかった
 )
 
 // GetBestZByUct - Lesson08,09,09aで使用。 一番良いUCTである着手を選びます。 GetComputerMoveDuringSelfPlay などから呼び出されます。
@@ -81,7 +80,7 @@ func SearchUct(
 			break
 		}
 
-		c.Z = IllegalZ
+		c.Z = e.Cell_Illegal
 		// code.Console.Debug("ILLEGAL:z=%04d\n", GetZ4(z))
 	}
 
@@ -108,7 +107,7 @@ func selectBestUcb(nodeN int) int {
 	var ucb = 0.0
 	for i := 0; i < pN.ChildNum; i++ {
 		var c = &pN.Children[i]
-		if c.Z == IllegalZ {
+		if c.Z == e.Cell_Illegal {
 			continue
 		}
 		if c.Games == 0 {
