@@ -41,13 +41,13 @@ func main() {
 	e.MaxPositionNumber = e.PositionNumberInt(config.MaxPositionNumber())
 	e.SetBoardSize(config.BoardSize())
 	var kernel = e.NewKernel()
-	pl.InitPosition(kernel.Position)
+	pl.InitKernel(kernel)
 	kernel.Position.SetBoard(config.GetBoardArray())
 
 	if lessonVer == "SelfPlay" {
 		SelfPlay(kernel.Position)
 	} else {
-		RunGtpEngine(kernel.Position) // GTP
+		RunGtpEngine(kernel) // GTP
 	}
 }
 
