@@ -6,7 +6,7 @@ package game_domain
 // xx
 
 import (
-	e "github.com/muzudho/kifuwarabe-go-toramedal/entities"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/kernel"
 )
 
 // WrapIsDislike - 盤を束縛変数として与えます

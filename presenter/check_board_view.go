@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	code "github.com/muzudho/kifuwarabe-go-toramedal/coding_obj"
-	e "github.com/muzudho/kifuwarabe-go-toramedal/entities"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/kernel"
 )
 
 // " 0" - 空点

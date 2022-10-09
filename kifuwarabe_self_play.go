@@ -4,7 +4,7 @@ import (
 	"time"
 
 	code "github.com/muzudho/kifuwarabe-go-toramedal/coding_obj"
-	e "github.com/muzudho/kifuwarabe-go-toramedal/entities"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/kernel"
 	pl "github.com/muzudho/kifuwarabe-go-toramedal/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-go-toramedal/presenter"
 )

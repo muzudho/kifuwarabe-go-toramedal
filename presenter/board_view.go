@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	code "github.com/muzudho/kifuwarabe-go-toramedal/coding_obj"
-	e "github.com/muzudho/kifuwarabe-go-toramedal/entities"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/kernel"
 )
 
 var sz8k = 8 * 1024
