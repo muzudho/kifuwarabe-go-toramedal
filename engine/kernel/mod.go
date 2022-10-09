@@ -8,7 +8,6 @@ const (
 func SetBoardSize(boardSize int) {
 	BoardSize = boardSize
 	BoardArea = BoardSize * BoardSize
-	MemoryWidth = BoardSize + 2
 }
 
 // BoardSize - 何路盤
@@ -17,12 +16,14 @@ var BoardSize int
 // BoardArea - 壁無し盤の面積
 var BoardArea int
 
-// MemoryWidth - 枠付きの盤の一辺の交点数
-var MemoryWidth int
+// GetMemoryBoardWidth - 枠付きの盤の一辺の交点数
+func GetMemoryBoardWidth() int {
+	return BoardSize + 2
+}
 
 // GetMemoryBoardArea - 壁付き盤の面積
 func GetMemoryBoardArea() int {
-	return MemoryWidth * MemoryWidth
+	return GetMemoryBoardWidth() * GetMemoryBoardWidth()
 }
 
 type KomiType float64

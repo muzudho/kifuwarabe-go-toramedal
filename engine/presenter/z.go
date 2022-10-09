@@ -16,8 +16,8 @@ func GetGtpZ(position *e.Position, z e.Point) string {
 		return "ILLEGAL" // GTP の仕様外です
 	}
 
-	var y = int(z) / e.MemoryWidth
-	var x = int(z) % e.MemoryWidth
+	var y = int(z) / e.GetMemoryBoardWidth()
+	var x = int(z) % e.GetMemoryBoardWidth()
 
 	// 筋が25（'Z'）より大きくなることは想定していません
 	var alphabet_x = 'A' + x - 1

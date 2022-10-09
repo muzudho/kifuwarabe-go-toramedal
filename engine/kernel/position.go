@@ -61,7 +61,7 @@ func (position *Position) InitPosition() {
 	position.board = make([]Stone, boardMax)
 	position.checkBoard = make([]int, boardMax)
 	position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(position)
-	Dir4 = [4]Point{1, Point(-MemoryWidth), -1, Point(MemoryWidth)}
+	Dir4 = [4]Point{1, Point(-GetMemoryBoardWidth()), -1, Point(GetMemoryBoardWidth())}
 
 	// 枠線
 	for z := Point(0); z < Point(boardMax); z++ {
@@ -102,7 +102,7 @@ func (position *Position) CheckAt(z Point) int {
 
 // ColorAtXy - 指定した交点の石の色
 func (position *Position) ColorAtXy(x int, y int) Stone {
-	return position.board[(y+1)*MemoryWidth+x+1]
+	return position.board[(y+1)*GetMemoryBoardWidth()+x+1]
 }
 
 // IsEmpty - 指定の交点は空点か？
@@ -114,7 +114,7 @@ func (position *Position) IsEmpty(z Point) bool {
 func (position *Position) SetColor(z Point, color Stone) {
 	// TODO 消す
 	// if z == Point(11) && color == Stone_Space { // テスト
-	// 	panic(fmt.Sprintf("z=%d color=%d MemoryWidth=%d", z, color, MemoryWidth))
+	// 	panic(fmt.Sprintf("z=%d color=%d GetMemoryBoardWidth()=%d", z, color, GetMemoryBoardWidth()))
 	// }
 
 	position.board[z] = color
@@ -125,15 +125,15 @@ func (position *Position) GetZ4(z Point) int {
 	if z == 0 {
 		return 0
 	}
-	var y = int(z) / MemoryWidth
-	var x = int(z) - y*MemoryWidth
+	var y = int(z) / GetMemoryBoardWidth()
+	var x = int(z) - y*GetMemoryBoardWidth()
 	return x*100 + y
 }
 
 // GetZFromXy - x,y 形式の座標を、 z （配列のインデックス）へ変換します。
 // x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
 func (position *Position) GetZFromXy(x int, y int) Point {
-	return Point((y+1)*MemoryWidth + x + 1)
+	return Point((y+1)*GetMemoryBoardWidth() + x + 1)
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
