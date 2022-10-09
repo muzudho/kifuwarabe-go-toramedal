@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	e "github.com/muzudho/kifuwarabe-go-toramedal/kernel"
-	pl "github.com/muzudho/kifuwarabe-go-toramedal/play_algorithm"
+	pl "github.com/muzudho/kifuwarabe-go-toramedal/kernel/play_algorithm"
 )
 
 // GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10
