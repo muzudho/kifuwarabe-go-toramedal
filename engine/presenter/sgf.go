@@ -1,8 +1,8 @@
 package presenter
 
 import (
-	e "github.com/muzudho/kifuwarabe-go-toramedal/kernel"
-	code "github.com/muzudho/kifuwarabe-go-toramedal/kernel/coding_obj"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/engine"
+	code "github.com/muzudho/kifuwarabe-go-toramedal/engine/coding_obj"
 )
 
 // PrintSgf - SGF形式の棋譜表示。

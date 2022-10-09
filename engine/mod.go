@@ -1,4 +1,4 @@
-package kernel
+package engine
 
 const (
 	// Author - 囲碁思考エンジンの作者名だぜ☆（＾～＾）

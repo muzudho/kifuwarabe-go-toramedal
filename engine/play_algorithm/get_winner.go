@@ -1,7 +1,7 @@
 package play_algorithm
 
 import (
-	e "github.com/muzudho/kifuwarabe-go-toramedal/kernel"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/engine"
 )
 
 // WrapGettingOfWinner - 盤を束縛変数として与えます

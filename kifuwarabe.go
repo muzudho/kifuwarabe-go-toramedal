@@ -8,11 +8,11 @@ import (
 	"math/rand"
 	"time"
 
-	e "github.com/muzudho/kifuwarabe-go-toramedal/kernel"
-	code "github.com/muzudho/kifuwarabe-go-toramedal/kernel/coding_obj"
-	cnf "github.com/muzudho/kifuwarabe-go-toramedal/kernel/config_obj"
-	pl "github.com/muzudho/kifuwarabe-go-toramedal/kernel/play_algorithm"
-	p "github.com/muzudho/kifuwarabe-go-toramedal/kernel/presenter"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/engine"
+	code "github.com/muzudho/kifuwarabe-go-toramedal/engine/coding_obj"
+	cnf "github.com/muzudho/kifuwarabe-go-toramedal/engine/config_obj"
+	pl "github.com/muzudho/kifuwarabe-go-toramedal/engine/play_algorithm"
+	p "github.com/muzudho/kifuwarabe-go-toramedal/engine/presenter"
 )
 
 func main() {

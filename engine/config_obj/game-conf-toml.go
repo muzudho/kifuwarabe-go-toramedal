@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	e "github.com/muzudho/kifuwarabe-go-toramedal/kernel"
+	e "github.com/muzudho/kifuwarabe-go-toramedal/engine"
 	"github.com/pelletier/go-toml"
 )
 

@@ -1,9 +1,9 @@
-package kernel
+package engine
 
 import (
 	"os"
 
-	code "github.com/muzudho/kifuwarabe-go-toramedal/kernel/coding_obj"
+	code "github.com/muzudho/kifuwarabe-go-toramedal/engine/coding_obj"
 )
 
 // PutStoneOnRecord - SelfPlay, RunGtpEngine から呼び出されます
