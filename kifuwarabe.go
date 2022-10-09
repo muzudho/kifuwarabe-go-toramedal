@@ -8,9 +8,9 @@ import (
 	"math/rand"
 	"time"
 
-	code "github.com/muzudho/kifuwarabe-go-toramedal/coding_obj"
-	cnf "github.com/muzudho/kifuwarabe-go-toramedal/config_obj"
 	e "github.com/muzudho/kifuwarabe-go-toramedal/kernel"
+	code "github.com/muzudho/kifuwarabe-go-toramedal/kernel/coding_obj"
+	cnf "github.com/muzudho/kifuwarabe-go-toramedal/kernel/config_obj"
 	pl "github.com/muzudho/kifuwarabe-go-toramedal/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-go-toramedal/presenter"
 )

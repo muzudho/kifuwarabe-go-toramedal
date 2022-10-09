@@ -3,8 +3,8 @@ package play_algorithm
 import (
 	"os"
 
-	code "github.com/muzudho/kifuwarabe-go-toramedal/coding_obj"
 	e "github.com/muzudho/kifuwarabe-go-toramedal/kernel"
+	code "github.com/muzudho/kifuwarabe-go-toramedal/kernel/coding_obj"
 )
 
 // Child - 子。
