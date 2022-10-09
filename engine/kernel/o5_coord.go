@@ -1,13 +1,17 @@
 package kernel
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // GetGtpMoveFromPoint - 番地をGTP用の指し手に変換。 例: Q10
 func GetGtpMoveFromPoint(point Point) string {
 	if point == 0 {
 		return "PASS"
 	} else if point == Cell_Illegal {
-		return "ILLEGAL" // GTP の仕様外です
+		return "PASS" // 仕方なく
+		// return "ILLEGAL" // GTP の仕様外です
 	}
 
 	var y = int(point) / GetMemoryBoardWidth()
@@ -28,4 +32,31 @@ func GetGtpMoveFromPoint(point Point) string {
 // x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
 func GetPointFromXy(x int, y int) Point {
 	return Point((y+1)*GetMemoryBoardWidth() + x + 1)
+}
+
+// GetPointFromGtpMove - GTPの座標符号を Point に変換します
+// * `gtp_z` - 最初の１文字はアルファベット、２文字目（あれば３文字目）は数字と想定。 例: q10
+func GetPointFromGtpMove(gtp_z string) Point {
+	gtp_z = strings.ToUpper(gtp_z)
+
+	if gtp_z == "PASS" {
+		return 0
+	}
+
+	// 筋
+	var x = gtp_z[0] - 'A' + 1
+	if gtp_z[0] >= 'I' {
+		x--
+	}
+
+	// 段
+	var y = int(gtp_z[1] - '0')
+	if 2 < len(gtp_z) {
+		y *= 10
+		y += int(gtp_z[2] - '0')
+	}
+
+	// インデックス
+	var z = GetPointFromXy(int(x)-1, y-1)
+	return z
 }

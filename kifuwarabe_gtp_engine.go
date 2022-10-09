@@ -122,7 +122,7 @@ func RunGtpEngine(position *e.Position) {
 					color = 1
 				}
 
-				var z = p.GetZFromGtp(position, tokens[2])
+				var z = e.GetPointFromGtpMove(tokens[2])
 				var recItem = new(e.RecordItem)
 				recItem.Z = z
 				recItem.Time = 0
