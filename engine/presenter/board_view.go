@@ -111,7 +111,7 @@ func PrintBoard(position *e.Position, movesNum int) {
 	if position.KoZ == e.Cell_Pass {
 		b.WriteString("_")
 	} else {
-		b.WriteString(GetGtpZ(position, position.KoZ))
+		b.WriteString(e.GetGtpMoveFromPoint(position.KoZ))
 	}
 	if movesNum != -1 {
 		b.WriteString(",movesNum=")

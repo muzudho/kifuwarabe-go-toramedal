@@ -22,7 +22,7 @@ func SelfPlay(position *e.Position) {
 		recItem.Z = z
 		e.PutStoneOnRecord(position, z, color, recItem)
 
-		code.Console.Print("z=%s,color=%d", p.GetGtpZ(position, z), color) // テスト
+		code.Console.Print("z=%s,color=%d", e.GetGtpMoveFromPoint(z), color) // テスト
 		// p.PrintCheckBoard(position)                                        // テスト
 		p.PrintBoard(position, position.MovesNum)
 

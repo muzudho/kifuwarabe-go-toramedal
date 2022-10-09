@@ -101,7 +101,7 @@ func RunGtpEngine(position *e.Position) {
 				color = 1
 			}
 			var z = PlayComputerMoveLesson09a(position, color)
-			code.Gtp.Print("= %s\n\n", p.GetGtpZ(position, z))
+			code.Gtp.Print("= %s\n\n", e.GetGtpMoveFromPoint(z))
 
 		case "play":
 			// play black A3

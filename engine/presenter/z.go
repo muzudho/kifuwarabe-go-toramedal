@@ -1,33 +1,10 @@
 package presenter
 
 import (
-	"fmt"
 	"strings"
 
 	e "github.com/muzudho/kifuwarabe-go-toramedal/engine/kernel"
 )
-
-// GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10
-func GetGtpZ(position *e.Position, z e.Point) string {
-	if z == 0 {
-		return "PASS"
-	} else if z == e.Cell_Illegal {
-		return "ILLEGAL" // GTP の仕様外です
-	}
-
-	var y = int(z) / e.GetMemoryBoardWidth()
-	var x = int(z) % e.GetMemoryBoardWidth()
-
-	// 筋が25（'Z'）より大きくなることは想定していません
-	var alphabet_x = 'A' + x - 1
-	if alphabet_x >= 'I' {
-		alphabet_x++
-	}
-
-	// code.Console.Debug("y=%d x=%d z=%d alphabet_x=%d alphabet_x(char)=%c\n", y, x, z, alphabet_x, alphabet_x)
-
-	return fmt.Sprintf("%c%d", alphabet_x, y)
-}
 
 // GetZFromGtp - GTPの座標符号を z に変換します
 // * `gtp_z` - 最初の１文字はアルファベット、２文字目（あれば３文字目）は数字と想定。 例: q10
