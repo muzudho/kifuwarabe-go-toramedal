@@ -40,14 +40,14 @@ func main() {
 	e.Komi = e.KomiFloat(config.Komi())
 	e.MaxPositionNumber = e.PositionNumberInt(config.MaxPositionNumber())
 	e.SetBoardSize(config.BoardSize())
-	var position = e.NewPosition()
-	pl.InitPosition(position)
-	position.SetBoard(config.GetBoardArray())
+	var kernel = e.NewKernel()
+	pl.InitPosition(kernel.Position)
+	kernel.Position.SetBoard(config.GetBoardArray())
 
 	if lessonVer == "SelfPlay" {
-		SelfPlay(position)
+		SelfPlay(kernel.Position)
 	} else {
-		RunGtpEngine(position) // GTP
+		RunGtpEngine(kernel.Position) // GTP
 	}
 }
 
