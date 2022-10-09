@@ -63,6 +63,12 @@ func (bc *BoardCoordinate) GetZ4FromPoint(point Point) int {
 	return x*100 + y
 }
 
+// GetPointFromXy - x,y 形式の座標を、 z （配列のインデックス）へ変換します。
+// x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
+func (bc *BoardCoordinate) GetPointFromXy(x int, y int) Point {
+	return Point((y+1)*GetMemoryBoardWidth() + x + 1)
+}
+
 // GetPointFromGtpMove - GTPの座標符号を Point に変換します
 // * `gtp_z` - 最初の１文字はアルファベット、２文字目（あれば３文字目）は数字と想定。 例: q10
 func (bc *BoardCoordinate) GetPointFromGtpMove(gtp_z string) Point {
@@ -86,6 +92,6 @@ func (bc *BoardCoordinate) GetPointFromGtpMove(gtp_z string) Point {
 	}
 
 	// インデックス
-	var z = GetPointFromXy(int(x)-1, y-1)
+	var z = bc.GetPointFromXy(int(x)-1, y-1)
 	return z
 }

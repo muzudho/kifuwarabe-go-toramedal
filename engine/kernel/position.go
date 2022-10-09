@@ -121,15 +121,15 @@ func (position *Position) SetColor(z Point, color Stone) {
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
-func (kernel *Kernel) GetEmptyZ() Point {
+func (k *Kernel) GetEmptyZ() Point {
 	var x, y int
 	var z Point
 	for {
 		// ランダムに交点を選んで、空点を見つけるまで繰り返します。
 		x = rand.Intn(9)
 		y = rand.Intn(9)
-		z = GetPointFromXy(x, y)
-		if kernel.Position.IsEmpty(z) { // 空点
+		z = k.BoardCoordinate.GetPointFromXy(x, y)
+		if k.Position.IsEmpty(z) { // 空点
 			break
 		}
 	}
@@ -203,7 +203,7 @@ func CreateBoardIteratorWithoutWall(kernel *Kernel) func(func(Point)) {
 		// x,y は壁無しの盤での0から始まる座標、 z は壁有りの盤での0から始まる座標
 		for y := 0; y < boardSize; y++ {
 			for x := 0; x < boardSize; x++ {
-				var z = GetPointFromXy(x, y)
+				var z = kernel.BoardCoordinate.GetPointFromXy(x, y)
 				onPoint(z)
 			}
 		}
