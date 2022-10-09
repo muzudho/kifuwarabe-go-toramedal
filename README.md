@@ -178,7 +178,7 @@ kifuwarabe-go-toramedal SelfPlay
 
 👆 CgfGoBan を開いて、 `[設定] - [GTPの設定]` と進んでください  
 
-![20220130go77.png](./docs/img/20220130go77.png)  
+![20221009_2302_gtp_setting.png](./docs/img/20221009_2302_gtp_setting.png)  
 
 👆 （さきほどビルドした） きふわらべの .exe ファイルへのフルパスを入れてください  
 
@@ -186,15 +186,15 @@ kifuwarabe-go-toramedal SelfPlay
 .exe ファイルの名前は `kifuwarabe-go-toramedal-copy.exe` のように名前を変えておくと、  
 CgfGoBanでテスト対局させているとき、Visual Studio Code で開発中に `go build` できない、といった衝突がなくなります  
 
-![20220130go78.png](doc/img/20220130go78.png)  
+![20221009_2305_game_start.png](./docs/img/20221009_2305_game_start.png)  
 
 👆 `[対局] - [対局開始]` と進んでください  
 
-![20220130go79.png](doc/img/20220130go79.png)  
+![20221009_2307_play_setting.png](./docs/img/20221009_2307_play_setting.png)  
 
-👆 Black と White のどちらか片方を `Computer(GTP)` にしてください。  
+👆 Black と White のどちらか片方を `Human` 、反対側を `Computer(GTP)` にしてください  
 
-![20220130go80.png](doc/img/20220130go80.png)  
+![20221009_2311_play.png](./docs/img/20221009_2311_play.png)  
 
 👆 これで きふわらべと対局できました。  
 お疲れさまでした。  

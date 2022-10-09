@@ -60,7 +60,7 @@ func RunGtpEngine(position *e.Position) {
 			code.Gtp.Print("= 2\n\n")
 
 		case "name":
-			code.Gtp.Print("= KifuwarabeUEC13\n\n")
+			code.Gtp.Print("= KifuwarabeMedal\n\n")
 
 		case "version":
 			code.Gtp.Print("= 0.0.3\n\n")
