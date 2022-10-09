@@ -54,7 +54,7 @@ func NewPosition() *Position {
 // InitPosition - 局面の初期化。
 func (position *Position) InitPosition() {
 	position.Record = make([]*RecordItem, MaxMovesNum)
-	position.uctChildrenSize = BoardArea + 1
+	position.uctChildrenSize = GetBoardArea() + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し
 	var boardMax = GetMemoryBoardArea()

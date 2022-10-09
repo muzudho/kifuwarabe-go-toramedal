@@ -45,5 +45,5 @@ func AdjustParameters(position *e.Position) {
 	}
 
 	// 盤面全体を１回は選ぶことを、完璧ではありませんが、ある程度の精度でカバーします
-	UctLoopCount = GetRandomPigeonX(e.BoardArea)
+	UctLoopCount = GetRandomPigeonX(e.GetBoardArea())
 }
