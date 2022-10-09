@@ -120,16 +120,6 @@ func (position *Position) SetColor(z Point, color Stone) {
 	position.board[z] = color
 }
 
-// GetZ4 - z（配列のインデックス）を XXYY形式（3～4桁の数）の座標へ変換します。
-func (position *Position) GetZ4(z Point) int {
-	if z == 0 {
-		return 0
-	}
-	var y = int(z) / GetMemoryBoardWidth()
-	var x = int(z) - y*GetMemoryBoardWidth()
-	return x*100 + y
-}
-
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
 func (position *Position) GetEmptyZ() Point {
 	var x, y int

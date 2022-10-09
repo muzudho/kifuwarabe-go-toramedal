@@ -60,3 +60,13 @@ func GetPointFromGtpMove(gtp_z string) Point {
 	var z = GetPointFromXy(int(x)-1, y-1)
 	return z
 }
+
+// GetZ4FromPoint - z（配列のインデックス）を XXYY形式（3～4桁の数）の座標へ変換します。
+func GetZ4FromPoint(point Point) int {
+	if point == 0 {
+		return 0
+	}
+	var y = int(point) / GetMemoryBoardWidth()
+	var x = int(point) - y*GetMemoryBoardWidth()
+	return x*100 + y
+}

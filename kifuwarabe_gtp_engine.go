@@ -161,7 +161,7 @@ func PlayComputerMoveLesson09a(
 
 	var sec = time.Since(st).Seconds()
 	code.Console.Info("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(pl.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, pl.AllPlayouts)
+		sec, float64(pl.AllPlayouts)/sec, e.GetZ4FromPoint(z), winRate, position.MovesNum, color, pl.AllPlayouts)
 
 	var recItem = new(e.RecordItem)
 	recItem.Z = z

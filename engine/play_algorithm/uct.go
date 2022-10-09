@@ -81,7 +81,7 @@ func SearchUct(
 		}
 
 		c.Z = e.Cell_Illegal
-		// code.Console.Debug("ILLEGAL:z=%04d\n", GetZ4(z))
+		// code.Console.Debug("ILLEGAL:z=%04d\n", e.GetZ4FromPoint(z))
 	}
 
 	var winner int // 手番が勝ちなら1、引分けなら0、手番の負けなら-1 としてください
