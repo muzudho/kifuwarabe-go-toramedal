@@ -61,7 +61,7 @@ func (position *Position) InitPosition() {
 	position.board = make([]Stone, boardMax)
 	position.checkBoard = make([]int, boardMax)
 	position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(position)
-	Dir4 = [4]Point{1, Point(-GetMemoryBoardWidth()), -1, Point(GetMemoryBoardWidth())}
+	Cell_Dir4 = [4]Point{1, Point(-GetMemoryBoardWidth()), -1, Point(GetMemoryBoardWidth())}
 
 	// 枠線
 	for z := Point(0); z < Point(boardMax); z++ {
@@ -174,7 +174,7 @@ func (position *Position) countLibertySub(z Point, color Stone, libertyArea *int
 	position.checkBoard[z] = 1
 	*renArea++
 	for i := 0; i < 4; i++ {
-		var adjZ = z + Dir4[i]
+		var adjZ = z + Cell_Dir4[i]
 		if position.checkBoard[adjZ] != 0 {
 			continue
 		}
@@ -192,7 +192,7 @@ func (position *Position) TakeStone(z Point, color Stone) {
 	position.board[z] = Stone_Space // 石を消します
 
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + Dir4[dir]
+		var adjZ = z + Cell_Dir4[dir]
 
 		if position.board[adjZ] == color { // 再帰します
 			position.TakeStone(adjZ, color)

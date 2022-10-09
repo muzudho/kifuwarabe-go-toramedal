@@ -29,7 +29,7 @@ func getWinner(position *e.Position, turnColor e.Stone) int {
 			mk[1] = 0
 			mk[2] = 0
 			for dir := 0; dir < 4; dir++ {
-				mk[position.ColorAt(z+e.Dir4[dir])]++
+				mk[position.ColorAt(z+e.Cell_Dir4[dir])]++
 			}
 			if mk[1] != 0 && mk[2] == 0 {
 				blackArea++

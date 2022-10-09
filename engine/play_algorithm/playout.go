@@ -41,12 +41,12 @@ func Playout(
 		position.IterateWithoutWall(onPoint)
 
 		var r = 0
-		var dislikeZ = e.Pass
+		var dislikeZ = e.Cell_Pass
 		var randomPigeonX = GetRandomPigeonX(emptyNum) // 見切りを付ける試行回数を算出
 		var i int
 		for i = 0; i < randomPigeonX; i++ {
 			if emptyNum == 0 { // 空点が無ければパスします
-				z = e.Pass
+				z = e.Cell_Pass
 			} else {
 				r = rand.Intn(emptyNum) // 空点を適当に選びます
 				z = empty[r]
@@ -55,7 +55,7 @@ func Playout(
 			var err = e.PutStone(position, z, color)
 			if err == 0 { // 石が置けたか、パスなら
 
-				if z == e.Pass || // パスか、
+				if z == e.Cell_Pass || // パスか、
 					!(*isDislike)(color, z) { // 石を置きたくないわけでなければ
 					break // 確定
 				}

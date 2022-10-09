@@ -34,7 +34,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 	var myBreathFriend = 0          // 呼吸できる自分の石と隣接している向きの数
 	var captureSum = 0              // アゲハマの数
 
-	if z == Pass { // 投了なら、コウを消して関数を正常終了
+	if z == Cell_Pass { // 投了なら、コウを消して関数を正常終了
 		position.KoZ = 0
 		return 0
 	}
@@ -43,7 +43,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 	for dir := 0; dir < 4; dir++ { // ４方向
 		around[dir] = NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
-		var adjZ = z + Dir4[dir]              // 隣の交点
+		var adjZ = z + Cell_Dir4[dir]         // 隣の交点
 		var adjColor = position.ColorAt(adjZ) // 隣(adjacent)の交点の石の色
 		if adjColor == Stone_Space {          // 空点
 			space++
@@ -96,7 +96,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 
 	// 石を取り上げます
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + Dir4[dir]          // 隣接する交点
+		var adjZ = z + Cell_Dir4[dir]     // 隣接する交点
 		var lib = around[dir].LibertyArea // 隣接する連の呼吸点の数
 		var adjColor = around[dir].Color  // 隣接する連の石の色
 

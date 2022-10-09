@@ -108,7 +108,7 @@ func PrintBoard(position *e.Position, movesNum int) {
 
 	// Info
 	b.WriteString("  KoZ=")
-	if position.KoZ == e.Pass {
+	if position.KoZ == e.Cell_Pass {
 		b.WriteString("_")
 	} else {
 		b.WriteString(GetGtpZ(position, position.KoZ))

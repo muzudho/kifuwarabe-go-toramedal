@@ -27,7 +27,7 @@ func SelfPlay(position *e.Position) {
 		p.PrintBoard(position, position.MovesNum)
 
 		// パスで２手目以降で棋譜の１つ前（相手）もパスなら終了します。
-		if z == e.Pass && 1 < position.MovesNum && position.Record[position.MovesNum-2].GetZ() == e.Pass {
+		if z == e.Cell_Pass && 1 < position.MovesNum && position.Record[position.MovesNum-2].GetZ() == e.Cell_Pass {
 			break
 		}
 		// 自己対局は400手で終了します。

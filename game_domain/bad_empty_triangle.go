@@ -18,14 +18,14 @@ func WrapIsDislike(position *e.Position) *func(e.Stone, e.Point) bool {
 		// 432
 		// 5S1
 		// 678
-		var eastZ = z + e.Dir4[e.East]
-		var northEastZ = z + e.Dir4[e.North] + 1
-		var northZ = z + e.Dir4[e.North]
-		var northWestZ = z + e.Dir4[e.North] - 1
-		var westZ = z + e.Dir4[e.West]
-		var southWestZ = z + e.Dir4[e.South] - 1
-		var southZ = z + e.Dir4[e.South]
-		var southEastZ = z + e.Dir4[e.South] + 1
+		var eastZ = z + e.Cell_Dir4[e.Cell_East]
+		var northEastZ = z + e.Cell_Dir4[e.Cell_North] + 1
+		var northZ = z + e.Cell_Dir4[e.Cell_North]
+		var northWestZ = z + e.Cell_Dir4[e.Cell_North] - 1
+		var westZ = z + e.Cell_Dir4[e.Cell_West]
+		var southWestZ = z + e.Cell_Dir4[e.Cell_South] - 1
+		var southZ = z + e.Cell_Dir4[e.Cell_South]
+		var southEastZ = z + e.Cell_Dir4[e.Cell_South] + 1
 
 		// 東北
 		// **
