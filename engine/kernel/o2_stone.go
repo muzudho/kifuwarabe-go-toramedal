@@ -13,3 +13,8 @@ const (
 	// Stone_Wall - 壁
 	Stone_Wall
 )
+
+// FlipColor - 白黒反転させます。
+func FlipColor(color Stone) Stone {
+	return 3 - color
+}

@@ -5,11 +5,6 @@ const (
 	Author = "Satoshi Takahashi"
 )
 
-// FlipColor - 白黒反転させます。
-func FlipColor(color Stone) Stone {
-	return 3 - color
-}
-
 func SetBoardSize(boardSize int) {
 	BoardSize = boardSize
 	BoardArea = BoardSize * BoardSize
