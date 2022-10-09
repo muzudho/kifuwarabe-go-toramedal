@@ -69,7 +69,7 @@ func isEmptyTriangle(position *e.Position, myColor e.Stone, points [3]e.Point) b
 		var color = position.ColorAt(z)
 		if color == myColor {
 			myColorNum++
-		} else if color == e.Empty {
+		} else if color == e.Stone_Space {
 			emptyNum++
 		}
 	}

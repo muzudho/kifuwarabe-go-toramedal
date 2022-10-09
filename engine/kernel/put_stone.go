@@ -45,11 +45,11 @@ func PutStone(position *Position, z Point, color Stone) int {
 
 		var adjZ = z + Dir4[dir]              // 隣の交点
 		var adjColor = position.ColorAt(adjZ) // 隣(adjacent)の交点の石の色
-		if adjColor == Empty {                // 空点
+		if adjColor == Stone_Space {          // 空点
 			space++
 			continue
 		}
-		if adjColor == Wall { // 壁
+		if adjColor == Stone_Wall { // 壁
 			wall++
 			continue
 		}

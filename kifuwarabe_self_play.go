@@ -13,7 +13,7 @@ import (
 func SelfPlay(position *e.Position) {
 	code.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
 
-	var color = e.Black
+	var color = e.Stone_Black
 
 	for {
 		var z = GetComputerMoveDuringSelfPlay(position, color)

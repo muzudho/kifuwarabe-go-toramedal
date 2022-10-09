@@ -65,7 +65,7 @@ func (position *Position) InitPosition() {
 
 	// 枠線
 	for z := Point(0); z < Point(boardMax); z++ {
-		position.SetColor(z, Wall)
+		position.SetColor(z, Stone_Wall)
 	}
 
 	// 盤上
@@ -107,13 +107,13 @@ func (position *Position) ColorAtXy(x int, y int) Stone {
 
 // IsEmpty - 指定の交点は空点か？
 func (position *Position) IsEmpty(z Point) bool {
-	return position.board[z] == Empty
+	return position.board[z] == Stone_Space
 }
 
 // SetColor - 盤データ。
 func (position *Position) SetColor(z Point, color Stone) {
 	// TODO 消す
-	// if z == Point(11) && color == Empty { // テスト
+	// if z == Point(11) && color == Stone_Space { // テスト
 	// 	panic(fmt.Sprintf("z=%d color=%d SentinelWidth=%d", z, color, SentinelWidth))
 	// }
 
@@ -189,7 +189,7 @@ func (position *Position) countLibertySub(z Point, color Stone, libertyArea *int
 
 // TakeStone - 石を打ち上げ（取り上げ、取り除き）ます。
 func (position *Position) TakeStone(z Point, color Stone) {
-	position.board[z] = Empty // 石を消します
+	position.board[z] = Stone_Space // 石を消します
 
 	for dir := 0; dir < 4; dir++ {
 		var adjZ = z + Dir4[dir]
