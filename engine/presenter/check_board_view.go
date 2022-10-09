@@ -35,7 +35,7 @@ func PrintCheckBoard(position *e.Position) {
 		b.WriteString(labelOfRows[y+1])
 		b.WriteString("|")
 		for x := 0; x < boardSize; x++ {
-			var z = position.GetZFromXy(x, y)
+			var z = e.GetPointFromXy(x, y)
 			var number = position.CheckAt(z)
 			b.WriteString(numberLabels[number])
 		}

@@ -130,12 +130,6 @@ func (position *Position) GetZ4(z Point) int {
 	return x*100 + y
 }
 
-// GetZFromXy - x,y 形式の座標を、 z （配列のインデックス）へ変換します。
-// x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
-func (position *Position) GetZFromXy(x int, y int) Point {
-	return Point((y+1)*GetMemoryBoardWidth() + x + 1)
-}
-
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
 func (position *Position) GetEmptyZ() Point {
 	var x, y int
@@ -144,7 +138,7 @@ func (position *Position) GetEmptyZ() Point {
 		// ランダムに交点を選んで、空点を見つけるまで繰り返します。
 		x = rand.Intn(9)
 		y = rand.Intn(9)
-		z = position.GetZFromXy(x, y)
+		z = GetPointFromXy(x, y)
 		if position.IsEmpty(z) { // 空点
 			break
 		}
@@ -219,7 +213,7 @@ func CreateBoardIteratorWithoutWall(position *Position) func(func(Point)) {
 		// x,y は壁無しの盤での0から始まる座標、 z は壁有りの盤での0から始まる座標
 		for y := 0; y < boardSize; y++ {
 			for x := 0; x < boardSize; x++ {
-				var z = position.GetZFromXy(x, y)
+				var z = GetPointFromXy(x, y)
 				onPoint(z)
 			}
 		}

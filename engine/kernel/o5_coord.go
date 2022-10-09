@@ -23,3 +23,9 @@ func GetGtpMoveFromPoint(point Point) string {
 
 	return fmt.Sprintf("%c%d", alphabet_x, y)
 }
+
+// GetPointFromXy - x,y 形式の座標を、 z （配列のインデックス）へ変換します。
+// x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
+func GetPointFromXy(x int, y int) Point {
+	return Point((y+1)*GetMemoryBoardWidth() + x + 1)
+}

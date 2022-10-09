@@ -29,7 +29,7 @@ func GetZFromGtp(position *e.Position, gtp_z string) e.Point {
 	}
 
 	// インデックス
-	var z = position.GetZFromXy(int(x)-1, y-1)
+	var z = e.GetPointFromXy(int(x)-1, y-1)
 	// code.Console.Trace("# x=%d y=%d z=%d z4=%04d\n", x, y, z, position.GetZ4(z))
 	return z
 }
