@@ -12,7 +12,7 @@ import (
 	code "github.com/muzudho/kifuwarabe-go-toramedal/kernel/coding_obj"
 	cnf "github.com/muzudho/kifuwarabe-go-toramedal/kernel/config_obj"
 	pl "github.com/muzudho/kifuwarabe-go-toramedal/kernel/play_algorithm"
-	p "github.com/muzudho/kifuwarabe-go-toramedal/presenter"
+	p "github.com/muzudho/kifuwarabe-go-toramedal/kernel/presenter"
 )
 
 func main() {
