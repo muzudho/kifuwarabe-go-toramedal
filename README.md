@@ -22,17 +22,17 @@ GoGo をベースとしています
 
 👆 **がんばって** 好きなところに解凍してください  
 
-![20220130go70.png](./docs/img/20220130go70.png)  
+![20221009_1619_files.png](./docs/img/20221009_1619_files.png)  
 
 👆 最初の中身はこんな感じです  
 
 ## Set up - 2 - Make directories
 
-![202201go1.png](./doc/img/202201go1.png)  
+![20221009_2238_make_directories.png](./docs/img/20221009_2238_make_directories.png)  
 
 👆 CgfGoBan の `cgfgoban.exe` ファイルと同じディレクトリーに、  
-以下の図を参考に `📂input/game_conf.toml` と `📂output`（空ディレクトリー） を置いてください  
-`game_conf.toml` は、この Git hub の `📂input` の中に置いてあります  
+以下の図を参考に 📄 `input/game_conf.toml` と 📂 `output`（空ディレクトリー） を置いてください  
+`game_conf.toml` は、このリポジトリの 📂 `input` の中に置いてあります  
 
 ```plain
 📂 cgfgoban108
@@ -44,7 +44,6 @@ GoGo をベースとしています
 +----📂 output （空っぽ）
 |
 +----📄 cgfgoban.exe
-
 ```
 
 game_conf.toml テキストファイルの内容は以下の通りです  
@@ -91,7 +90,7 @@ BoardData = '''
 
 次に、以下から きふわらべの `kifuwarabe-uec13.exe` ファイルを入手してください。  
 
-![20220130go71a2.png](doc/img/20220130go71a2.png)  
+![20220130go71a2.png](./docs/img/20220130go71a2.png)  
 
 📖 [Kifuwarabe-uec13 Release 0.0.1](https://github.com/muzudho/kifuwarabe-uec13/releases/tag/0.0.1)
 
@@ -104,40 +103,39 @@ BoardData = '''
 
 ![20220130thr-go9a2.png](./doc/img/20220130thr-go9a2.png)  
 
-👆 Go言語では ソースをどこに置くかは決まりがあるので、わたしは  
-`C:/Users/{ユーザー名}/go/src/github.com/muzudho/kifuwarabe-uec13`  
+👆 **がんばって** ソースをどこかに置いてください。 わたしは  
+`C:\Users\むずでょ\Documents\GitHub\kifuwarabe-collection\go\kifuwarabe-go-toramedal`  
 に置いています  
 
 きふわらべのソースコードは、２つの方法で入手できます  
 
-![20220130go71a3.png](./doc/img/20220130go71a3.png)  
+![20220130go71a3.png](./docs/img/20220130go71a3.png)  
 
 📖 [Kifuwarabe-uec13 Release 0.0.1](https://github.com/muzudho/kifuwarabe-uec13/releases/tag/0.0.1)
 
 👆 1つ目は、 リリースページの src をクリックする方法です。  
 
-![20220130go73a2.png](./doc/img/20220130go73a2.png)  
+![20220130go73a2.png](./docs/img/20220130go73a2.png)  
 
 👆 2つ目は、 `GitHub Desktop` を使ってダウンロードする方法です。 **がんばって** `GitHub Desktop` をインストールしておいてください。  
 
-![GitHub Desktop](./doc/img/20220130go74.png)  
+![GitHub Desktop](./docs/img/20220130go74.png)  
 
-👆 そのあと がんばって ローカルPCに `kifuwarabe-uec13のリポジトリ―` を作ってください  
-何がなにやら分からないかも知れませんが **がんばって** ください  
+👆 そのあと **がんばって** ローカルPCに `kifuwarabe-go-toramedal のリポジトリ―` を作ってください  
 
 ## Set up - 5 - Editor
 
-![20220130go72.png](./doc/img/20220130go72.png)  
+![20220130go72.png](./docs/img/20220130go72.png)  
 
 📖 [Visual Studio Code](https://code.visualstudio.com/)  
 
-👆 プログラムを編集するツールとしては Visual Studio Code で十分でしょう。 **がんばって** インストールしてください  
-**がんばって** `kifuwarabe-uec13のリポジトリ―` の📂フォルダーを開いてください。  
+👆 わたしは プログラムを編集するツールとして Visual Studio Code を使います。 **がんばって** インストールしてください  
+**がんばって** `kifuwarabe-go-toramedal のリポジトリ―` の📂フォルダーを開いてください。  
 上図画面下のコマンドを打つところは **ターミナル** という名前です。 **がんばって** ターミナルを表示してください。  
 
 ## Set up - 6 - Install Go Programming Language
 
-![20220130thr-go1a2.png](./doc/img/20220130thr-go1a2.png)  
+![20220130thr-go1a2.png](./docs/img/20220130thr-go1a2.png)  
 
 📖 [きふわらべのGo言語インストール解説](./doc/install/go.md)  
 
@@ -147,7 +145,7 @@ BoardData = '''
 
 Visual Studio Code に戻りまして。  
 
-![20220130go75a2.png](doc/img/20220130go75a2.png)  
+![20220130go75a2.png](./docs/img/20220130go75a2.png)  
 
 ```shell
 go build
