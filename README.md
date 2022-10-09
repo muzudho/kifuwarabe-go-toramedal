@@ -12,21 +12,17 @@ GoGo をベースとしています
 きふわらべは 思考エンジンだけですので、GUI が別途必要です。  
 ここでは CgfGoBan で動かす例を示します。  
 
-![20220130go67a2.png](doc/img/20220130go67a2.png)  
+![20221009_1601_cgfgoban110_o1.png](./docs/img/20221009_1601_cgfgoban110_o1.png)  
 
 📖 [CgfGoBan](http://www.yss-aya.com/cgfgoban_j.html)  
 
-👆 CgfGoBan のページから英語版に飛んでください  
+👆 `cgfgoban110.zip` をクリックして `cgfgoban110.zip` ファイルをダウンロードしてきてください  
 
-![20220130go68a2.png](doc/img/20220130go68a2.png)  
-
-👆 `Download CgfGoBan 1.08 2015/03/16` をクリックして `cgfgoban108.zip` ファイルをダウンロードしてきてください  
-
-![20220130go69.png](doc/img/20220130go69.png)  
+![20221009_1615_unzip.png](./docs/img/20221009_1615_unzip.png)  
 
 👆 **がんばって** 好きなところに解凍してください  
 
-![20220130go70.png](doc/img/20220130go70.png)  
+![20220130go70.png](./docs/img/20220130go70.png)  
 
 👆 最初の中身はこんな感じです  
 
