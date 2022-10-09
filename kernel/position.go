@@ -1,4 +1,4 @@
-package entities
+package kernel
 
 import (
 	"math/rand"

@@ -1,4 +1,4 @@
-package entities
+package kernel
 
 // Ren - 連
 type Ren struct {
