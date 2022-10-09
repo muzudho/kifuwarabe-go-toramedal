@@ -13,7 +13,7 @@ import (
 //
 // 手番が勝ったら 1、引分けなら 0、 相手が勝ったら -1
 func Playout(
-	position *e.Position,
+	kernel *e.Kernel,
 	turnColor e.Stone,
 	getWinner *func(e.Stone) int,
 	isDislike *func(e.Stone, e.Point) bool) int {
@@ -33,12 +33,12 @@ func Playout(
 		// TODO 空点を差分更新できないか？ 毎回スキャンは重くないか？
 		// 空点を記憶します
 		var onPoint = func(z e.Point) {
-			if position.IsEmpty(z) { // 空点なら
+			if kernel.Position.IsEmpty(z) { // 空点なら
 				empty[emptyNum] = z
 				emptyNum++
 			}
 		}
-		position.IterateWithoutWall(onPoint)
+		kernel.Position.IterateWithoutWall(onPoint)
 
 		var r = 0
 		var dislikeZ = e.Cell_Pass
@@ -52,7 +52,7 @@ func Playout(
 				z = empty[r]
 			}
 
-			var err = e.PutStone(position, z, color)
+			var err = e.PutStone(kernel.Position, z, color)
 			if err == 0 { // 石が置けたか、パスなら
 
 				if z == e.Cell_Pass || // パスか、
@@ -73,8 +73,8 @@ func Playout(
 
 		// テストのときは棋譜を残します
 		if FlagTestPlayout != 0 {
-			position.Record[position.MovesNum].SetZ(z)
-			position.MovesNum++
+			kernel.Position.Record[kernel.Position.MovesNum].SetZ(z)
+			kernel.Position.MovesNum++
 		}
 
 		if z == 0 && previousZ == 0 {

@@ -33,7 +33,7 @@ func GetBestZByUct(
 		// 一時記憶
 		var copiedPosition = kernel.Position.CopyPosition()
 
-		SearchUct(kernel.Position, color, next)
+		SearchUct(kernel, color, next)
 
 		// 復元
 		kernel.Position.ImportPosition(copiedPosition)
@@ -63,7 +63,7 @@ func GetBestZByUct(
 
 // SearchUct - 再帰関数。 GetBestZByUct() から呼び出されます
 func SearchUct(
-	position *e.Position,
+	kernel *e.Kernel,
 	color e.Stone,
 	nodeN int) int {
 
@@ -75,7 +75,7 @@ func SearchUct(
 		c = &pN.Children[selectI]
 		var z = c.Z
 
-		var err = e.PutStone(position, z, color)
+		var err = e.PutStone(kernel.Position, z, color)
 		if err == 0 { // 石が置けたなら
 			break
 		}
@@ -86,12 +86,12 @@ func SearchUct(
 
 	var winner int // 手番が勝ちなら1、引分けなら0、手番の負けなら-1 としてください
 	if c.Games <= 0 {
-		winner = -Playout(position, e.FlipColor(color), GettingOfWinnerOnDuringUCTPlayout, IsDislike)
+		winner = -Playout(kernel, e.FlipColor(color), GettingOfWinnerOnDuringUCTPlayout, IsDislike)
 	} else {
 		if c.Next == NodeEmpty {
-			c.Next = CreateNode(position)
+			c.Next = CreateNode(kernel.Position)
 		}
-		winner = -SearchUct(position, e.FlipColor(color), c.Next)
+		winner = -SearchUct(kernel, e.FlipColor(color), c.Next)
 	}
 	c.Rate = (c.Rate*float64(c.Games) + float64(winner)) / float64(c.Games+1)
 	c.Games++

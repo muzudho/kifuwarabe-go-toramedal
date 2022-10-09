@@ -103,7 +103,7 @@ func PrintBoard(kernel *e.Kernel, movesNum int) {
 	for x := 0; x < boardSize; x++ {
 		b.WriteString(horizontalEdgeLabels[kernel.Position.ColorAt(e.Point(a+x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[kernel.Position.ColorAt(e.Point(e.GetMemoryBoardArea()-1))]) // -+
+	b.WriteString(rightCornerLabels[kernel.Position.ColorAt(e.Point(kernel.BoardCoordinate.GetMemoryBoardArea()-1))]) // -+
 	b.WriteString("\n")
 
 	// Info

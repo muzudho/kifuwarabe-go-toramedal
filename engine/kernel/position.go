@@ -82,7 +82,7 @@ func (position *Position) InitPosition() {
 func (position *Position) SetBoard(cells []Stone) {
 	// TODO 消す
 	// fmt.Print("[[")
-	// for z := 0; z < GetMemoryBoardArea(); z++ {
+	// for z := 0; z < kernel.BoardCoordinateGetMemoryBoardArea(); z++ {
 	// 	fmt.Printf("%d,", cells[z])
 	// 	position.SetColor(Point(z), cells[z])
 	// }
