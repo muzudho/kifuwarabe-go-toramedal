@@ -36,11 +36,6 @@ func (bc *BoardCoordinate) GetBoardArea() int {
 	return bc.GetBoardWidth() * bc.GetBoardWidth()
 }
 
-// GetBoardArea - 壁無し盤の面積
-func GetBoardArea() int {
-	return BoardSize * BoardSize
-}
-
 // GetMemoryBoardWidth - 枠付きの盤の一辺の交点数
 func (bc *BoardCoordinate) GetMemoryBoardWidth() int {
 	return bc.memoryWidth

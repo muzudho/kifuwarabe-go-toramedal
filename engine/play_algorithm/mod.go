@@ -20,5 +20,5 @@ func InitKernel(kernel *e.Kernel) {
 
 	GettingOfWinnerOnDuringUCTPlayout = WrapGettingOfWinner(kernel.Position)
 	IsDislike = gd.WrapIsDislike(kernel.Position)
-	AdjustParameters(kernel.Position)
+	AdjustParameters(kernel)
 }

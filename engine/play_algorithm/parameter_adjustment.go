@@ -22,7 +22,7 @@ func GetRandomPigeonX(N int) int {
 	// return int(math.Ceil(float64(N) * randomPigeonA))
 }
 
-func AdjustParameters(position *e.Position) {
+func AdjustParameters(kernel *e.Kernel) {
 	var boardSize = e.BoardSize
 	if boardSize < 10 {
 		// 10路盤より小さいとき
@@ -45,5 +45,5 @@ func AdjustParameters(position *e.Position) {
 	}
 
 	// 盤面全体を１回は選ぶことを、完璧ではありませんが、ある程度の精度でカバーします
-	UctLoopCount = GetRandomPigeonX(e.GetBoardArea())
+	UctLoopCount = GetRandomPigeonX(kernel.BoardCoordinate.GetBoardArea())
 }
