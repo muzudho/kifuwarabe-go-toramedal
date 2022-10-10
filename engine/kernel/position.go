@@ -8,8 +8,8 @@ import (
 type Position struct {
 	// 盤
 	board *Board
-	// 呼吸点を数えるための一時盤
-	checkBoard []int
+	// チェック盤。呼吸点を数えるのに使う
+	checkBoard *CheckBoard
 	// KoZ - コウの交点。Idx（配列のインデックス）表示。 0 ならコウは無し？
 	KoZ Point
 	// MovesNum - 手数
@@ -22,8 +22,14 @@ type Position struct {
 	uctChildrenSize int
 }
 
+// GetBoard - 盤取得
 func (p *Position) GetBoard() *Board {
 	return p.board
+}
+
+// GetCheckBoard - チェック盤取得
+func (p *Position) GetCheckBoard() *CheckBoard {
+	return p.checkBoard
 }
 
 // TemporaryPosition - 盤をコピーするときの一時メモリーとして使います
@@ -61,14 +67,16 @@ func (k *Kernel) InitPosition() {
 	k.Position.uctChildrenSize = k.BoardCoordinate.GetBoardArea() + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し
-	var boardMax = k.BoardCoordinate.GetMemoryBoardArea()
-	k.Position.board.SetCells(make([]Stone, boardMax))
-	k.Position.checkBoard = make([]int, boardMax)
+	var memoryBoardArea = k.BoardCoordinate.GetMemoryBoardArea()
+	k.Position.board.SetCells(make([]Stone, memoryBoardArea))
+
+	k.Position.checkBoard = NewCheckBoard(memoryBoardArea)
+
 	k.Position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(k)
 	Cell_Dir4 = [4]Point{1, Point(-k.BoardCoordinate.GetMemoryBoardWidth()), -1, Point(k.BoardCoordinate.GetMemoryBoardWidth())}
 
 	// 枠線
-	for z := Point(0); z < Point(boardMax); z++ {
+	for z := Point(0); z < Point(memoryBoardArea); z++ {
 		k.Position.GetBoard().SetStoneAt(z, Stone_Wall)
 	}
 
@@ -80,11 +88,6 @@ func (k *Kernel) InitPosition() {
 
 	k.Position.MovesNum = 0
 	k.Position.KoZ = 0 // コウの指定がないので消します
-}
-
-// CheckAt - 指定した交点のチェック
-func (position *Position) CheckAt(z Point) int {
-	return position.checkBoard[z]
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
@@ -112,7 +115,7 @@ func (position *Position) CountLiberty(z Point, libertyArea *int, renArea *int) 
 
 	// チェックボードの初期化
 	var onPoint = func(z Point) {
-		position.checkBoard[z] = 0
+		position.checkBoard.SetMarkAt(z, Mark_Empty)
 	}
 	position.iteratorWithoutWall(onPoint)
 
@@ -122,15 +125,21 @@ func (position *Position) CountLiberty(z Point, libertyArea *int, renArea *int) 
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
 func (position *Position) countLibertySub(z Point, color Stone, libertyArea *int, renArea *int) {
-	position.checkBoard[z] = 1
+
+	position.checkBoard.SetMarkAt(z, Mark_Checked)
+
 	*renArea++
 	for i := 0; i < 4; i++ {
 		var adjZ = z + Cell_Dir4[i]
-		if position.checkBoard[adjZ] != 0 {
+
+		if !position.checkBoard.IsEmptyAt(adjZ) {
 			continue
 		}
+
 		if position.GetBoard().IsSpaceAt(adjZ) { // 空点
-			position.checkBoard[adjZ] = 1
+
+			position.checkBoard.SetMarkAt(adjZ, Mark_Checked)
+
 			*libertyArea++
 		} else if position.board.GetStoneAt(adjZ) == color {
 			position.countLibertySub(adjZ, color, libertyArea, renArea) // 再帰
