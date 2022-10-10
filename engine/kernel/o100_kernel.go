@@ -13,7 +13,7 @@ func NewKernel() *Kernel {
 
 	// 既定値で新規作成
 	k.BoardCoordinate = NewBoardCoordinate(19)
-	k.Position = NewPosition()
+	k.Position = NewPosition(19)
 
 	return k
 }

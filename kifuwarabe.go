@@ -45,6 +45,7 @@ func main() {
 	kernel.BoardCoordinate.SetBoardSize(config.BoardSize())
 
 	pl.InitKernel(kernel)
+
 	kernel.Position.GetBoard().SetCells(config.GetBoardArray())
 
 	if lessonVer == "SelfPlay" {

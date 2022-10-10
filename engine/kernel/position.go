@@ -17,9 +17,20 @@ type Position struct {
 	// Record - 棋譜
 	Record []*RecordItem
 	// 二重ループ
-	iteratorWithoutWall func(func(Point))
+	foreachPointWithoutWall func(func(Point))
 	// UCT計算中の子の数
 	uctChildrenSize int
+}
+
+// NewPosition - 空っぽの局面を生成します
+// あとで InitPosition() を呼び出してください
+func NewPosition(boardSize int) *Position {
+	var p = new(Position)
+
+	p.board = NewBoard()
+	p.checkBoard = NewCheckBoard((boardSize + 2) ^ 2)
+
+	return p
 }
 
 // GetBoard - 盤取得
@@ -55,12 +66,6 @@ func (position *Position) ImportPosition(temp *TemporaryPosition) {
 	position.KoZ = temp.KoZ
 }
 
-// NewPosition - 空っぽの局面を生成します
-// あとで InitPosition() を呼び出してください
-func NewPosition() *Position {
-	return new(Position)
-}
-
 // InitPosition - 局面の初期化。
 func (k *Kernel) InitPosition() {
 	k.Position.Record = make([]*RecordItem, MaxPositionNumber)
@@ -72,7 +77,7 @@ func (k *Kernel) InitPosition() {
 
 	k.Position.checkBoard = NewCheckBoard(memoryBoardArea)
 
-	k.Position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(k)
+	k.Position.foreachPointWithoutWall = k.PackForeachPointWithoutWall()
 	Cell_Dir4 = [4]Point{1, Point(-k.BoardCoordinate.GetMemoryBoardWidth()), -1, Point(k.BoardCoordinate.GetMemoryBoardWidth())}
 
 	// 壁枠を設定
@@ -82,7 +87,7 @@ func (k *Kernel) InitPosition() {
 	var onPoint = func(z Point) {
 		k.Position.GetBoard().SetStoneAt(z, 0)
 	}
-	k.Position.iteratorWithoutWall(onPoint)
+	k.Position.foreachPointWithoutWall(onPoint)
 
 	k.Position.MovesNum = 0
 	k.Position.KoZ = 0 // コウの指定がないので消します
@@ -115,7 +120,7 @@ func (position *Position) CountLiberty(z Point, libertyArea *int, renArea *int) 
 	var onPoint = func(z Point) {
 		position.checkBoard.SetMarkAt(z, Mark_Empty)
 	}
-	position.iteratorWithoutWall(onPoint)
+	position.foreachPointWithoutWall(onPoint)
 
 	position.countLibertySub(z, position.board.GetStoneAt(z), libertyArea, renArea)
 }
@@ -160,7 +165,7 @@ func (position *Position) TakeStone(z Point, color Stone) {
 
 // IterateWithoutWall - 盤イテレーター
 func (position *Position) IterateWithoutWall(onPoint func(Point)) {
-	position.iteratorWithoutWall(onPoint)
+	position.foreachPointWithoutWall(onPoint)
 }
 
 // UctChildrenSize - UCTの最大手数
@@ -168,17 +173,17 @@ func (position *Position) UctChildrenSize() int {
 	return position.uctChildrenSize
 }
 
-// CreateBoardIteratorWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
-func CreateBoardIteratorWithoutWall(kernel *Kernel) func(func(Point)) {
+// PackForeachPointWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
+func (k *Kernel) PackForeachPointWithoutWall() func(func(Point)) {
 
-	var boardSize = kernel.BoardCoordinate.GetBoardWidth()
+	var boardSize = k.BoardCoordinate.GetBoardWidth()
 	var boardIterator = func(onPoint func(Point)) {
 
 		// x,y は壁無しの盤での0から始まる座標、 z は壁有りの盤での0から始まる座標
 		for y := 0; y < boardSize; y++ {
 			for x := 0; x < boardSize; x++ {
-				var z = kernel.BoardCoordinate.GetPointFromXy(x, y)
-				onPoint(z)
+				var point = k.BoardCoordinate.GetPointFromXy(x, y)
+				onPoint(point)
 			}
 		}
 	}

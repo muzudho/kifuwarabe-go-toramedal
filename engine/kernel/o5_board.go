@@ -5,6 +5,12 @@ type Board struct {
 	cells []Stone
 }
 
+func NewBoard() *Board {
+	var b = new(Board)
+
+	return b
+}
+
 // GetSlice - 配列のスライスを取得
 func (b *Board) GetSlice() []Stone {
 	return b.cells[:]
