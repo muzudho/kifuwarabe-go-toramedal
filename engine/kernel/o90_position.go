@@ -51,7 +51,7 @@ func (k *Kernel) InitPosition() {
 	k.Position.checkBoard = NewCheckBoard(memoryBoardArea)
 
 	// 棋譜の作り直し
-	k.Record.Items = make([]*RecordItem, k.Position.board.gameRule.GetMaxPositionNumber())
+	k.Record.Items = make([]RecordItem, k.Position.board.gameRule.GetMaxPositionNumber())
 
 	// UCTアルゴリズムの初期設定
 	k.Position.uctAlgorithm.uctChildrenSize = k.Position.board.coordinate.GetBoardArea() + 1

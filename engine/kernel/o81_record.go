@@ -3,7 +3,7 @@ package kernel
 // Record - 棋譜
 type Record struct {
 	// Items - 棋譜項目の配列
-	Items []*RecordItem
+	Items []RecordItem
 }
 
 // NewRecord - 新規作成
@@ -13,6 +13,6 @@ func NewRecord() *Record {
 }
 
 // GetItems - 棋譜項目の配列
-func (r *Record) GetItems() []*RecordItem {
+func (r *Record) GetItems() []RecordItem {
 	return r.Items
 }
