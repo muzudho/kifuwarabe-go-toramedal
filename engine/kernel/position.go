@@ -69,12 +69,12 @@ func (k *Kernel) InitPosition() {
 
 	// 枠線
 	for z := Point(0); z < Point(boardMax); z++ {
-		k.Position.SetColor(z, Stone_Wall)
+		k.Position.GetBoard().SetStoneAt(z, Stone_Wall)
 	}
 
 	// 盤上
 	var onPoint = func(z Point) {
-		k.Position.SetColor(z, 0)
+		k.Position.GetBoard().SetStoneAt(z, 0)
 	}
 	k.Position.iteratorWithoutWall(onPoint)
 
@@ -91,16 +91,6 @@ func (position *Position) CheckAt(z Point) int {
 func (k *Kernel) ColorAtXy(x int, y int) Stone {
 	var point = Point((y+1)*k.BoardCoordinate.GetMemoryBoardWidth() + x + 1)
 	return k.Position.board.GetStoneAt(point)
-}
-
-// SetColor - 盤データ。
-func (position *Position) SetColor(z Point, color Stone) {
-	// TODO 消す
-	// if z == Point(11) && color == Stone_Space { // テスト
-	// 	panic(fmt.Sprintf("z=%d color=%d kernel.BoardCoordinate.GetMemoryBoardWidth()=%d", z, color, kernel.BoardCoordinate.GetMemoryBoardWidth()))
-	// }
-
-	position.board.SetStoneAt(z, color)
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。

@@ -113,7 +113,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 		}
 	}
 
-	position.SetColor(z, color)
+	position.GetBoard().SetStoneAt(z, color)
 	position.CountLiberty(z, &libertyArea, &renArea)
 
 	return 0
