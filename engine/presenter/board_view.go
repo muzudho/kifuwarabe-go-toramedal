@@ -77,33 +77,33 @@ func PrintBoard(kernel *e.Kernel, movesNum int) {
 		b.WriteString(labelOfColumns[x+1])
 	}
 	// Header (line)
-	b.WriteString("\n  ")                                       // number space
-	b.WriteString(leftCornerLabels[kernel.Position.ColorAt(0)]) // +
+	b.WriteString("\n  ")                                                     // number space
+	b.WriteString(leftCornerLabels[kernel.Position.GetBoard().GetStoneAt(0)]) // +
 	for x := 0; x < boardSize; x++ {
-		b.WriteString(horizontalEdgeLabels[kernel.Position.ColorAt(e.Point(x+1))]) // --
+		b.WriteString(horizontalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[kernel.Position.ColorAt(e.Point(kernel.BoardCoordinate.GetMemoryBoardWidth()-1))]) // -+
+	b.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.BoardCoordinate.GetMemoryBoardWidth()-1))]) // -+
 	b.WriteString("\n")
 
 	// Body
 	for y := 0; y < boardSize; y++ {
-		b.WriteString(labelOfRows[y+1])                                                                                             // number
-		b.WriteString(leftVerticalEdgeLabels[kernel.Position.ColorAt(e.Point((y+1)*kernel.BoardCoordinate.GetMemoryBoardWidth()))]) // |
+		b.WriteString(labelOfRows[y+1])                                                                                                           // number
+		b.WriteString(leftVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+1)*kernel.BoardCoordinate.GetMemoryBoardWidth()))]) // |
 		for x := 0; x < boardSize; x++ {
 			b.WriteString(stoneLabels[kernel.ColorAtXy(x, y)])
 		}
-		b.WriteString(rightVerticalEdgeLabels[kernel.Position.ColorAt(e.Point((y+2)*kernel.BoardCoordinate.GetMemoryBoardWidth()-1))]) // " |"
+		b.WriteString(rightVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+2)*kernel.BoardCoordinate.GetMemoryBoardWidth()-1))]) // " |"
 		b.WriteString("\n")
 	}
 
 	// Footer
 	b.WriteString("  ") // number space
 	var a = kernel.BoardCoordinate.GetMemoryBoardWidth() * (kernel.BoardCoordinate.GetMemoryBoardWidth() - 1)
-	b.WriteString(leftCornerLabels[kernel.Position.ColorAt(e.Point(a))]) // +
+	b.WriteString(leftCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(a))]) // +
 	for x := 0; x < boardSize; x++ {
-		b.WriteString(horizontalEdgeLabels[kernel.Position.ColorAt(e.Point(a+x+1))]) // --
+		b.WriteString(horizontalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(a+x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[kernel.Position.ColorAt(e.Point(kernel.BoardCoordinate.GetMemoryBoardArea()-1))]) // -+
+	b.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.BoardCoordinate.GetMemoryBoardArea()-1))]) // -+
 	b.WriteString("\n")
 
 	// Info

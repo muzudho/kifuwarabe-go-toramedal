@@ -66,7 +66,7 @@ func isEmptyTriangle(position *e.Position, myColor e.Stone, points [3]e.Point) b
 	var emptyNum = 0
 
 	for _, z := range points {
-		var color = position.ColorAt(z)
+		var color = position.GetBoard().GetStoneAt(z)
 		if color == myColor {
 			myColorNum++
 		} else if color == e.Stone_Space {

@@ -23,13 +23,13 @@ func getWinner(position *e.Position, turnColor e.Stone) int {
 	var score, blackArea, whiteArea, blackSum, whiteSum int
 
 	var onPoint = func(z e.Point) {
-		var color2 = position.ColorAt(z)
+		var color2 = position.GetBoard().GetStoneAt(z)
 		kind[color2]++
 		if color2 == 0 {
 			mk[1] = 0
 			mk[2] = 0
 			for dir := 0; dir < 4; dir++ {
-				mk[position.ColorAt(z+e.Cell_Dir4[dir])]++
+				mk[position.GetBoard().GetStoneAt(z+e.Cell_Dir4[dir])]++
 			}
 			if mk[1] != 0 && mk[2] == 0 {
 				blackArea++

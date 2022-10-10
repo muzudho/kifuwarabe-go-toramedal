@@ -82,11 +82,6 @@ func (k *Kernel) InitPosition() {
 	k.Position.KoZ = 0 // コウの指定がないので消します
 }
 
-// ColorAt - 指定した交点の石の色
-func (position *Position) ColorAt(z Point) Stone {
-	return position.board.GetStoneAt(z)
-}
-
 // CheckAt - 指定した交点のチェック
 func (position *Position) CheckAt(z Point) int {
 	return position.checkBoard[z]

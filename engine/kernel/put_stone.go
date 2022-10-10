@@ -43,9 +43,9 @@ func PutStone(position *Position, z Point, color Stone) int {
 	for dir := 0; dir < 4; dir++ { // ４方向
 		around[dir] = NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
-		var adjZ = z + Cell_Dir4[dir]         // 隣の交点
-		var adjColor = position.ColorAt(adjZ) // 隣(adjacent)の交点の石の色
-		if adjColor == Stone_Space {          // 空点
+		var adjZ = z + Cell_Dir4[dir]                       // 隣の交点
+		var adjColor = position.GetBoard().GetStoneAt(adjZ) // 隣(adjacent)の交点の石の色
+		if adjColor == Stone_Space {                        // 空点
 			space++
 			continue
 		}
