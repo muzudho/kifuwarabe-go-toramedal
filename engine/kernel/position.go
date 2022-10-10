@@ -38,14 +38,14 @@ type TemporaryPosition struct {
 func (k *Kernel) CopyPosition() *TemporaryPosition {
 	var temp = new(TemporaryPosition)
 	temp.Board = make([]Stone, k.BoardCoordinate.GetMemoryBoardArea())
-	copy(temp.Board[:], k.Position.board.GetCells()[:])
+	copy(temp.Board[:], k.Position.board.GetSlice())
 	temp.KoZ = k.Position.KoZ
 	return temp
 }
 
 // ImportPosition - 盤データのコピー。
 func (position *Position) ImportPosition(temp *TemporaryPosition) {
-	copy(position.board.GetCells()[:], temp.Board[:])
+	copy(position.board.GetSlice(), temp.Board[:])
 	position.KoZ = temp.KoZ
 }
 
@@ -96,7 +96,7 @@ func (position *Position) SetBoard(cells []Stone) {
 
 // ColorAt - 指定した交点の石の色
 func (position *Position) ColorAt(z Point) Stone {
-	return position.board.GetCells()[z]
+	return position.board.GetStoneAt(z)
 }
 
 // CheckAt - 指定した交点のチェック
@@ -106,12 +106,13 @@ func (position *Position) CheckAt(z Point) int {
 
 // ColorAtXy - 指定した交点の石の色
 func (k *Kernel) ColorAtXy(x int, y int) Stone {
-	return k.Position.board.GetCells()[(y+1)*k.BoardCoordinate.GetMemoryBoardWidth()+x+1]
+	var point = Point((y+1)*k.BoardCoordinate.GetMemoryBoardWidth() + x + 1)
+	return k.Position.board.GetStoneAt(point)
 }
 
 // IsEmpty - 指定の交点は空点か？
 func (position *Position) IsEmpty(z Point) bool {
-	return position.board.GetCells()[z] == Stone_Space
+	return position.board.GetStoneAt(z) == Stone_Space
 }
 
 // SetColor - 盤データ。
@@ -121,7 +122,7 @@ func (position *Position) SetColor(z Point, color Stone) {
 	// 	panic(fmt.Sprintf("z=%d color=%d kernel.BoardCoordinate.GetMemoryBoardWidth()=%d", z, color, kernel.BoardCoordinate.GetMemoryBoardWidth()))
 	// }
 
-	position.board.GetCells()[z] = color
+	position.board.SetStoneAt(z, color)
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
@@ -153,7 +154,7 @@ func (position *Position) CountLiberty(z Point, libertyArea *int, renArea *int) 
 	}
 	position.iteratorWithoutWall(onPoint)
 
-	position.countLibertySub(z, position.board.GetCells()[z], libertyArea, renArea)
+	position.countLibertySub(z, position.board.GetStoneAt(z), libertyArea, renArea)
 }
 
 // * `libertyArea` - 呼吸点の数
@@ -169,7 +170,7 @@ func (position *Position) countLibertySub(z Point, color Stone, libertyArea *int
 		if position.IsEmpty(adjZ) { // 空点
 			position.checkBoard[adjZ] = 1
 			*libertyArea++
-		} else if position.board.GetCells()[adjZ] == color {
+		} else if position.board.GetStoneAt(adjZ) == color {
 			position.countLibertySub(adjZ, color, libertyArea, renArea) // 再帰
 		}
 	}
@@ -177,12 +178,12 @@ func (position *Position) countLibertySub(z Point, color Stone, libertyArea *int
 
 // TakeStone - 石を打ち上げ（取り上げ、取り除き）ます。
 func (position *Position) TakeStone(z Point, color Stone) {
-	position.board.GetCells()[z] = Stone_Space // 石を消します
+	position.board.SetStoneAt(z, Stone_Space) // 石を消します
 
 	for dir := 0; dir < 4; dir++ {
 		var adjZ = z + Cell_Dir4[dir]
 
-		if position.board.GetCells()[adjZ] == color { // 再帰します
+		if position.board.GetStoneAt(adjZ) == color { // 再帰します
 			position.TakeStone(adjZ, color)
 		}
 	}
