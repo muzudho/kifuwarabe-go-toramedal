@@ -128,7 +128,7 @@ func RunGtpEngine(kernel *e.Kernel) {
 				recItem.Z = z
 				recItem.Time = 0
 				e.PutStoneOnRecord(kernel, z, color, recItem)
-				p.PrintBoard(kernel, kernel.Position.MovesNum)
+				p.PrintBoard(kernel, kernel.Position.PositionNumber)
 
 				code.Gtp.Print("= \n\n")
 			}
@@ -153,22 +153,22 @@ func PlayComputerMoveLesson09a(
 		createPrintingOfCalc(kernel),
 		createPrintingOfCalcFin(kernel))
 
-	if 1 < kernel.Position.MovesNum && // 初手ではないとして
-		kernel.Record[kernel.Position.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで
+	if 1 < kernel.Position.PositionNumber && // 初手ではないとして
+		kernel.Record[kernel.Position.PositionNumber-1].GetZ() == 0 && // １つ前の手がパスで
 		0.95 <= math.Abs(winRate) { // 95%以上の確率で勝ちか負けなら
 		// こちらもパスします
 		return 0
 	}
 
 	var sec = time.Since(st).Seconds()
-	code.Console.Info("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(pl.AllPlayouts)/sec, kernel.Position.GetBoard().GetCoordinate().GetZ4FromPoint(z), winRate, kernel.Position.MovesNum, color, pl.AllPlayouts)
+	code.Console.Info("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,positionNumber=%d,color=%d,playouts=%d\n",
+		sec, float64(pl.AllPlayouts)/sec, kernel.Position.GetBoard().GetCoordinate().GetZ4FromPoint(z), winRate, kernel.Position.PositionNumber, color, pl.AllPlayouts)
 
 	var recItem = new(e.RecordItem)
 	recItem.Z = z
 	recItem.Time = sec
 	e.PutStoneOnRecord(kernel, z, color, recItem)
-	p.PrintBoard(kernel, kernel.Position.MovesNum)
+	p.PrintBoard(kernel, kernel.Position.PositionNumber)
 
 	return z
 }

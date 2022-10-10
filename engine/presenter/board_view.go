@@ -33,7 +33,7 @@ var sz8k = 8 * 1024
 // 18| . . . . . . . . . . . . . . . . . . . |
 // 19| . . . . . . . . . . . . . . . . . . . |
 //   +---------------------------------------+
-//  KoZ=0,movesNum=999
+//  KoZ=0,positionNumber=999
 //
 // ASCII文字を使います（全角、半角の狂いがないため）
 // 黒石は x 、 白石は o （ダークモードでもライトモードでも識別できるため）
@@ -64,7 +64,7 @@ var leftVerticalEdgeLabels = [4]string{".", "x", "o", "|"}
 var rightVerticalEdgeLabels = [4]string{" .", " x", " o", " |"}
 
 // PrintBoard - 盤を描画。
-func PrintBoard(kernel *e.Kernel, movesNum int) {
+func PrintBoard(kernel *e.Kernel, positionNumber e.PositionNumberInt) {
 
 	var b = &strings.Builder{}
 	b.Grow(sz8k)
@@ -113,9 +113,9 @@ func PrintBoard(kernel *e.Kernel, movesNum int) {
 	} else {
 		b.WriteString(kernel.Position.GetBoard().GetCoordinate().GetGtpMoveFromPoint(kernel.Position.KoZ))
 	}
-	if movesNum != -1 {
-		b.WriteString(",movesNum=")
-		b.WriteString(strconv.Itoa(movesNum))
+	if positionNumber != -1 {
+		b.WriteString(",positionNumber=")
+		b.WriteString(strconv.Itoa(int(positionNumber)))
 	}
 	b.WriteString("\n")
 

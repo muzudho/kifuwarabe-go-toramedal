@@ -8,8 +8,8 @@ type Position struct {
 	checkBoard *CheckBoard
 	// KoZ - コウの交点。Idx（配列のインデックス）表示。 0 ならコウは無し？
 	KoZ Point
-	// MovesNum - 手数
-	MovesNum int
+	// PositionNumber - 手数
+	PositionNumber PositionNumberInt
 	// UCT計算アルゴリズム
 	uctAlgorithm *UctAlgorithm
 }
@@ -56,6 +56,6 @@ func (k *Kernel) InitPosition() {
 	// UCTアルゴリズムの初期設定
 	k.Position.uctAlgorithm.uctChildrenSize = k.Position.board.coordinate.GetBoardArea() + 1
 
-	k.Position.MovesNum = 0
+	k.Position.PositionNumber = 0
 	k.Position.KoZ = 0 // コウの指定がないので消します
 }

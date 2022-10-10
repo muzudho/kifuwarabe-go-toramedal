@@ -24,22 +24,22 @@ func SelfPlay(kernel *e.Kernel) {
 
 		code.Console.Print("z=%s,color=%d", kernel.Position.GetBoard().GetCoordinate().GetGtpMoveFromPoint(z), color) // テスト
 		// p.PrintCheckBoard(position)                                        // テスト
-		p.PrintBoard(kernel, kernel.Position.MovesNum)
+		p.PrintBoard(kernel, kernel.Position.PositionNumber)
 
 		// パスで２手目以降で棋譜の１つ前（相手）もパスなら終了します。
-		if z == e.Cell_Pass && 1 < kernel.Position.MovesNum && kernel.Record[kernel.Position.MovesNum-2].GetZ() == e.Cell_Pass {
+		if z == e.Cell_Pass && 1 < kernel.Position.PositionNumber && kernel.Record[kernel.Position.PositionNumber-2].GetZ() == e.Cell_Pass {
 			break
 		}
 
 		// 自己対局は400手で終了します。
-		if 400 < kernel.Position.MovesNum {
+		if 400 < kernel.Position.PositionNumber {
 			break
 		} // too long
 
 		color = e.FlipColor(color)
 	}
 
-	p.PrintSgf(kernel, kernel.Position.MovesNum, kernel.Record)
+	p.PrintSgf(kernel, kernel.Position.PositionNumber, kernel.Record)
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます
@@ -55,7 +55,7 @@ func GetComputerMoveDuringSelfPlay(kernel *e.Kernel, color e.Stone) e.Point {
 		createPrintingOfCalcFin(kernel))
 
 	var sec = time.Since(start).Seconds()
-	code.Console.Info("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(pl.AllPlayouts)/sec, kernel.Position.GetBoard().GetCoordinate().GetZ4FromPoint(z), winRate, kernel.Position.MovesNum, color, pl.AllPlayouts)
+	code.Console.Info("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,positionNumber=%d,color=%d,playouts=%d\n",
+		sec, float64(pl.AllPlayouts)/sec, kernel.Position.GetBoard().GetCoordinate().GetZ4FromPoint(z), winRate, kernel.Position.PositionNumber, color, pl.AllPlayouts)
 	return z
 }
