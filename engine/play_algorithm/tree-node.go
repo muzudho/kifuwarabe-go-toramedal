@@ -48,11 +48,11 @@ func CreateNode(position *e.Position) int {
 	}
 	var pN = &Nodes[NodeNum]
 	pN.ChildNum = 0
-	pN.Children = make([]Child, position.UctChildrenSize())
+	pN.Children = make([]Child, position.GetUctAlgorithm().UctChildrenSize())
 	pN.ChildGameSum = 0
 
 	var onPoint = func(z e.Point) {
-		if position.GetBoard().IsSpaceAt(z) { // 空点なら
+		if position.GetUctAlgorithm().GetBoard().IsSpaceAt(z) { // 空点なら
 			addChild(pN, z)
 		}
 	}

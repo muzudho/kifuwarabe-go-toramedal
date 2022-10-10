@@ -25,7 +25,7 @@ func NewPosition(boardSize int) *Position {
 
 	p.board = NewBoard()
 	p.checkBoard = NewCheckBoard((boardSize + 2) ^ 2)
-	p.uctAlgorithm = NewUctAlgorithm()
+	p.uctAlgorithm = NewUctAlgorithm(p.board)
 
 	return p
 }
@@ -38,6 +38,11 @@ func (p *Position) GetBoard() *Board {
 // GetCheckBoard - チェック盤取得
 func (p *Position) GetCheckBoard() *CheckBoard {
 	return p.checkBoard
+}
+
+// GetUctAlgorithm - UCT算法
+func (p *Position) GetUctAlgorithm() *UctAlgorithm {
+	return p.uctAlgorithm
 }
 
 // TemporaryPosition - 盤をコピーするときの一時メモリーとして使います
@@ -90,11 +95,6 @@ func (k *Kernel) InitPosition() {
 // IterateWithoutWall - 盤イテレーター
 func (position *Position) IterateWithoutWall(onPoint func(Point)) {
 	position.foreachPointWithoutWall(onPoint)
-}
-
-// UctChildrenSize - UCTの最大手数
-func (position *Position) UctChildrenSize() int {
-	return position.uctAlgorithm.uctChildrenSize
 }
 
 // PackForeachPointWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
