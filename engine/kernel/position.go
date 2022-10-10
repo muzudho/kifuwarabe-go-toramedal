@@ -77,8 +77,6 @@ func (k *Kernel) InitPosition() {
 
 	k.Position.checkBoard = NewCheckBoard(memoryBoardArea)
 
-	Cell_Dir4 = [4]Point{1, Point(-k.BoardCoordinate.GetMemoryBoardWidth()), -1, Point(k.BoardCoordinate.GetMemoryBoardWidth())}
-
 	// 空っぽの盤にします
 	k.Position.GetBoard().DrawEmptyBoard()
 

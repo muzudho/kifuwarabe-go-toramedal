@@ -9,6 +9,9 @@ import (
 type BoardCoordinate struct {
 	// 枠付きの盤の一辺の交点の要素数
 	memoryWidth int
+
+	// ４方向（東、北、西、南）の番地。2015年講習会サンプル、GoGo とは順序が違います
+	cellDir4 [4]Point
 }
 
 func NewBoardCoordinate(boardSize int) *BoardCoordinate {
@@ -17,7 +20,56 @@ func NewBoardCoordinate(boardSize int) *BoardCoordinate {
 	// 枠の分、２つ増える
 	bc.memoryWidth = boardSize + 2
 
+	var memoryBoardWidth = boardSize + 2
+	// ４方向
+	bc.cellDir4 = [4]Point{1, Point(-memoryBoardWidth), -1, Point(memoryBoardWidth)}
+
 	return bc
+}
+
+// GetCellDir4 - ４方向（東、北、西、南）の番地。2015年講習会サンプル、GoGo とは順序が違います
+func (bc *BoardCoordinate) GetCellDir4() [4]Point {
+	return bc.cellDir4
+}
+
+// GetEastOf - 東
+func (bc *BoardCoordinate) GetEastOf(point Point) Point {
+	return point + bc.cellDir4[Cell_East]
+}
+
+// GetNorthEastOf - 北東
+func (bc *BoardCoordinate) GetNorthEastOf(point Point) Point {
+	return point + bc.cellDir4[Cell_North] + bc.cellDir4[Cell_East]
+}
+
+// GetNorthOf - 北
+func (bc *BoardCoordinate) GetNorthOf(point Point) Point {
+	return point + bc.cellDir4[Cell_North]
+}
+
+// GetNorthWestOf - 北西
+func (bc *BoardCoordinate) GetNorthWestOf(point Point) Point {
+	return point + bc.cellDir4[Cell_North] + bc.cellDir4[Cell_West]
+}
+
+// GetWestOf - 西
+func (bc *BoardCoordinate) GetWestOf(point Point) Point {
+	return point + bc.cellDir4[Cell_West]
+}
+
+// GetSouthWestOf - 南西
+func (bc *BoardCoordinate) GetSouthWestOf(point Point) Point {
+	return point + bc.cellDir4[Cell_South] + bc.cellDir4[Cell_West]
+}
+
+// GetSouthOf - 南
+func (bc *BoardCoordinate) GetSouthOf(point Point) Point {
+	return point + bc.cellDir4[Cell_South]
+}
+
+// GetSouthEastOf - 南東
+func (bc *BoardCoordinate) GetSouthEastOf(point Point) Point {
+	return point + bc.cellDir4[Cell_South] + bc.cellDir4[Cell_East]
 }
 
 func (bc *BoardCoordinate) SetBoardSize(boardSize int) {
