@@ -90,7 +90,7 @@ func PrintBoard(kernel *e.Kernel, movesNum int) {
 		b.WriteString(labelOfRows[y+1])                                                                                                           // number
 		b.WriteString(leftVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+1)*kernel.BoardCoordinate.GetMemoryBoardWidth()))]) // |
 		for x := 0; x < boardSize; x++ {
-			b.WriteString(stoneLabels[kernel.ColorAtXy(x, y)])
+			b.WriteString(stoneLabels[kernel.GetStoneAtXy(x, y)])
 		}
 		b.WriteString(rightVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+2)*kernel.BoardCoordinate.GetMemoryBoardWidth()-1))]) // " |"
 		b.WriteString("\n")

@@ -87,12 +87,6 @@ func (position *Position) CheckAt(z Point) int {
 	return position.checkBoard[z]
 }
 
-// ColorAtXy - 指定した交点の石の色
-func (k *Kernel) ColorAtXy(x int, y int) Stone {
-	var point = Point((y+1)*k.BoardCoordinate.GetMemoryBoardWidth() + x + 1)
-	return k.Position.board.GetStoneAt(point)
-}
-
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
 func (k *Kernel) GetEmptyZ() Point {
 	var x, y int
