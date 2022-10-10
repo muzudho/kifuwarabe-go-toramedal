@@ -25,3 +25,8 @@ func (b *Board) SetCells(cells []Stone) {
 	// Go言語での配列の代入は値渡しなのでこれでOK。C言語のようなポインター渡しではない
 	b.cells = cells
 }
+
+// IsEmpty - 指定の交点は空点か？
+func (b *Board) IsSpaceAt(point Point) bool {
+	return b.GetStoneAt(point) == Stone_Space
+}

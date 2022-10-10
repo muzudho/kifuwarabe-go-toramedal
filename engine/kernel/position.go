@@ -93,11 +93,6 @@ func (k *Kernel) ColorAtXy(x int, y int) Stone {
 	return k.Position.board.GetStoneAt(point)
 }
 
-// IsEmpty - 指定の交点は空点か？
-func (position *Position) IsEmpty(z Point) bool {
-	return position.board.GetStoneAt(z) == Stone_Space
-}
-
 // SetColor - 盤データ。
 func (position *Position) SetColor(z Point, color Stone) {
 	// TODO 消す
@@ -117,7 +112,7 @@ func (k *Kernel) GetEmptyZ() Point {
 		x = rand.Intn(9)
 		y = rand.Intn(9)
 		z = k.BoardCoordinate.GetPointFromXy(x, y)
-		if k.Position.IsEmpty(z) { // 空点
+		if k.Position.GetBoard().IsSpaceAt(z) { // 空点
 			break
 		}
 	}
@@ -150,7 +145,7 @@ func (position *Position) countLibertySub(z Point, color Stone, libertyArea *int
 		if position.checkBoard[adjZ] != 0 {
 			continue
 		}
-		if position.IsEmpty(adjZ) { // 空点
+		if position.GetBoard().IsSpaceAt(adjZ) { // 空点
 			position.checkBoard[adjZ] = 1
 			*libertyArea++
 		} else if position.board.GetStoneAt(adjZ) == color {

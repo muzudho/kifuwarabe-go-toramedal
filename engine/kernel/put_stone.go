@@ -88,7 +88,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 		//         #
 		return 3
 	}
-	if !position.IsEmpty(z) { // 空点以外には置けません
+	if !position.GetBoard().IsSpaceAt(z) { // 空点以外には置けません
 		return 4
 	}
 
@@ -102,7 +102,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 
 		if adjColor == oppColor && // 隣接する連が相手の石で（壁はここで除外されます）
 			lib == 1 && // その呼吸点は１つで、そこに今石を置いた
-			!position.IsEmpty(adjZ) { // 石はまだあるなら（上と右の石がくっついている、といったことを除外）
+			!position.GetBoard().IsSpaceAt(adjZ) { // 石はまだあるなら（上と右の石がくっついている、といったことを除外）
 
 			position.TakeStone(adjZ, oppColor)
 

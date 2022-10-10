@@ -33,7 +33,7 @@ func Playout(
 		// TODO 空点を差分更新できないか？ 毎回スキャンは重くないか？
 		// 空点を記憶します
 		var onPoint = func(z e.Point) {
-			if kernel.Position.IsEmpty(z) { // 空点なら
+			if kernel.Position.GetBoard().IsSpaceAt(z) { // 空点なら
 				empty[emptyNum] = z
 				emptyNum++
 			}

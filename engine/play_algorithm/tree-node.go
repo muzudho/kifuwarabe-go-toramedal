@@ -52,7 +52,7 @@ func CreateNode(position *e.Position) int {
 	pN.ChildGameSum = 0
 
 	var onPoint = func(z e.Point) {
-		if position.IsEmpty(z) { // 空点なら
+		if position.GetBoard().IsSpaceAt(z) { // 空点なら
 			addChild(pN, z)
 		}
 	}
