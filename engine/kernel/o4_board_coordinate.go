@@ -111,24 +111,7 @@ func (bc *BoardCoordinate) GetGtpMoveFromPoint(point Point) string {
 	return fmt.Sprintf("%c%d", alphabet_x, y)
 }
 
-// PackForeachPointWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
-func (bc *BoardCoordinate) PackForeachPointWithoutWall() func(func(Point)) {
-
-	var boardSize = bc.GetBoardWidth()
-	var boardIterator = func(onPoint func(Point)) {
-
-		// x,y は壁無しの盤での0から始まる座標、 z は壁有りの盤での0から始まる座標
-		for y := 0; y < boardSize; y++ {
-			for x := 0; x < boardSize; x++ {
-				var point = bc.GetPointFromXy(x, y)
-				onPoint(point)
-			}
-		}
-	}
-
-	return boardIterator
-}
-
+// ForeachPointWithoutWall -  盤の（壁を除く）全ての交点に順にアクセスします
 func (bc *BoardCoordinate) ForeachPointWithoutWall(setPoint func(Point)) {
 	var boardSize = bc.GetBoardWidth()
 

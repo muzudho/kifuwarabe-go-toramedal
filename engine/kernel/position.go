@@ -14,8 +14,6 @@ type Position struct {
 	MovesNum int
 	// Record - 棋譜
 	Record []*RecordItem
-	// 二重ループ
-	foreachPointWithoutWall func(func(Point))
 	// UCT計算アルゴリズム
 	uctAlgorithm *UctAlgorithm
 }
@@ -87,7 +85,6 @@ func (k *Kernel) InitPosition() {
 
 	k.Position.checkBoard = NewCheckBoard(memoryBoardArea)
 
-	k.Position.foreachPointWithoutWall = k.BoardCoordinate.PackForeachPointWithoutWall()
 	Cell_Dir4 = [4]Point{1, Point(-k.BoardCoordinate.GetMemoryBoardWidth()), -1, Point(k.BoardCoordinate.GetMemoryBoardWidth())}
 
 	// 壁枠を設定
