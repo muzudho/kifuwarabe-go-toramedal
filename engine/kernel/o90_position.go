@@ -3,7 +3,7 @@ package kernel
 // Position - 盤
 type Position struct {
 	// 盤
-	board *Board
+	board Board
 	// チェック盤。呼吸点を数えるのに使う
 	checkBoard *CheckBoard
 	// KoZ - コウの交点。Idx（配列のインデックス）表示。 0 ならコウは無し？
@@ -19,16 +19,16 @@ type Position struct {
 func NewPosition(gameRule *GameRule, boardSize int) *Position {
 	var p = new(Position)
 
-	p.board = NewBoard(gameRule, boardSize)
+	p.board = *NewBoard(gameRule, boardSize)
 	p.checkBoard = NewCheckBoard((boardSize + 2) ^ 2)
-	p.uctAlgorithm = NewUctAlgorithm(p.board)
+	p.uctAlgorithm = NewUctAlgorithm(&p.board)
 
 	return p
 }
 
 // GetBoard - 盤取得
 func (p *Position) GetBoard() *Board {
-	return p.board
+	return &p.board
 }
 
 // GetCheckBoard - チェック盤取得

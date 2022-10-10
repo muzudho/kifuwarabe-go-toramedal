@@ -2,9 +2,9 @@ package kernel
 
 type Board struct {
 	// ゲームルール
-	gameRule *GameRule
+	gameRule GameRule
 	// 盤座標
-	coordinate *BoardCoordinate
+	coordinate BoardCoordinate
 
 	// 盤
 	cells []Stone
@@ -13,20 +13,20 @@ type Board struct {
 func NewBoard(gameRule *GameRule, boardSize int) *Board {
 	var b = new(Board)
 
-	b.gameRule = gameRule
-	b.coordinate = NewBoardCoordinate(boardSize)
+	b.gameRule = *gameRule
+	b.coordinate = *NewBoardCoordinate(boardSize)
 
 	return b
 }
 
 // GetGameRule - ゲームルール取得
 func (b *Board) GetGameRule() *GameRule {
-	return b.gameRule
+	return &b.gameRule
 }
 
 // GetCoordinate - 盤座標取得
 func (b *Board) GetCoordinate() *BoardCoordinate {
-	return b.coordinate
+	return &b.coordinate
 }
 
 // GetSlice - 配列のスライスを取得
