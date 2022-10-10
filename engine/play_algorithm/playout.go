@@ -38,7 +38,7 @@ func Playout(
 				emptyNum++
 			}
 		}
-		kernel.Position.GetBoard().GetBoardCoordinate().ForeachPointWithoutWall(setPoint)
+		kernel.Position.GetBoard().GetCoordinate().ForeachPointWithoutWall(setPoint)
 
 		var r = 0
 		var dislikeZ = e.Cell_Pass

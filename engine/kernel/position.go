@@ -79,11 +79,8 @@ func (k *Kernel) InitPosition() {
 
 	Cell_Dir4 = [4]Point{1, Point(-k.BoardCoordinate.GetMemoryBoardWidth()), -1, Point(k.BoardCoordinate.GetMemoryBoardWidth())}
 
-	// 壁枠を設定
-	k.Position.board.DrawWall(memoryBoardArea)
-
-	// 盤上の石を全部消します
-	k.Position.board.EraseBoard(k.Position.GetBoard().GetBoardCoordinate())
+	// 空っぽの盤にします
+	k.Position.GetBoard().DrawEmptyBoard()
 
 	k.Position.MovesNum = 0
 	k.Position.KoZ = 0 // コウの指定がないので消します
