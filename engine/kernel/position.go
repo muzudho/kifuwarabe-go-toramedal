@@ -7,6 +7,8 @@ import (
 // Position - 盤
 type Position struct {
 	// 盤
+	board *Board
+	// 盤
 	cells []Stone
 	// 呼吸点を数えるための一時盤
 	checkBoard []int
@@ -20,6 +22,10 @@ type Position struct {
 	iteratorWithoutWall func(func(Point))
 	// UCT計算中の子の数
 	uctChildrenSize int
+}
+
+func (p *Position) GetBoard() *Board {
+	return p.board
 }
 
 // TemporaryPosition - 盤をコピーするときの一時メモリーとして使います
