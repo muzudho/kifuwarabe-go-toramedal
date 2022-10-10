@@ -79,7 +79,7 @@ func (k *Kernel) InitPosition() {
 
 	k.Position.checkBoard = NewCheckBoard(memoryBoardArea)
 
-	k.Position.foreachPointWithoutWall = k.PackForeachPointWithoutWall()
+	k.Position.foreachPointWithoutWall = k.BoardCoordinate.PackForeachPointWithoutWall()
 	Cell_Dir4 = [4]Point{1, Point(-k.BoardCoordinate.GetMemoryBoardWidth()), -1, Point(k.BoardCoordinate.GetMemoryBoardWidth())}
 
 	// 壁枠を設定
@@ -95,22 +95,4 @@ func (k *Kernel) InitPosition() {
 // IterateWithoutWall - 盤イテレーター
 func (position *Position) IterateWithoutWall(onPoint func(Point)) {
 	position.foreachPointWithoutWall(onPoint)
-}
-
-// PackForeachPointWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
-func (k *Kernel) PackForeachPointWithoutWall() func(func(Point)) {
-
-	var boardSize = k.BoardCoordinate.GetBoardWidth()
-	var boardIterator = func(onPoint func(Point)) {
-
-		// x,y は壁無しの盤での0から始まる座標、 z は壁有りの盤での0から始まる座標
-		for y := 0; y < boardSize; y++ {
-			for x := 0; x < boardSize; x++ {
-				var point = k.BoardCoordinate.GetPointFromXy(x, y)
-				onPoint(point)
-			}
-		}
-	}
-
-	return boardIterator
 }
