@@ -31,7 +31,7 @@ func GetBestZByUct(
 	var uctLoopCount = UctLoopCount
 	for i := 0; i < uctLoopCount; i++ {
 		// 一時記憶
-		var copiedPosition = kernel.CopyPosition()
+		var copiedPosition = kernel.NewCopyPosition()
 
 		SearchUct(kernel, color, next)
 

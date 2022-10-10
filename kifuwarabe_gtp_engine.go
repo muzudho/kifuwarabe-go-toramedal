@@ -41,7 +41,7 @@ func RunGtpEngine(kernel *e.Kernel) {
 					panic(err)
 				}
 
-				kernel.BoardCoordinate.SetBoardSize(boardSize)
+				kernel.Position.GetBoard().GetCoordinate().SetBoardSize(boardSize)
 
 				pl.InitKernel(kernel)
 
@@ -102,7 +102,7 @@ func RunGtpEngine(kernel *e.Kernel) {
 				color = 1
 			}
 			var z = PlayComputerMoveLesson09a(kernel, color)
-			code.Gtp.Print("= %s\n\n", kernel.BoardCoordinate.GetGtpMoveFromPoint(z))
+			code.Gtp.Print("= %s\n\n", kernel.Position.GetBoard().GetCoordinate().GetGtpMoveFromPoint(z))
 
 		case "play":
 			// play black A3
@@ -123,7 +123,7 @@ func RunGtpEngine(kernel *e.Kernel) {
 					color = 1
 				}
 
-				var z = kernel.BoardCoordinate.GetPointFromGtpMove(tokens[2])
+				var z = kernel.Position.GetBoard().GetCoordinate().GetPointFromGtpMove(tokens[2])
 				var recItem = new(e.RecordItem)
 				recItem.Z = z
 				recItem.Time = 0
@@ -162,7 +162,7 @@ func PlayComputerMoveLesson09a(
 
 	var sec = time.Since(st).Seconds()
 	code.Console.Info("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(pl.AllPlayouts)/sec, kernel.BoardCoordinate.GetZ4FromPoint(z), winRate, kernel.Position.MovesNum, color, pl.AllPlayouts)
+		sec, float64(pl.AllPlayouts)/sec, kernel.Position.GetBoard().GetCoordinate().GetZ4FromPoint(z), winRate, kernel.Position.MovesNum, color, pl.AllPlayouts)
 
 	var recItem = new(e.RecordItem)
 	recItem.Z = z

@@ -42,7 +42,7 @@ func main() {
 
 	var kernel = e.NewKernel()
 
-	kernel.BoardCoordinate.SetBoardSize(config.BoardSize())
+	kernel.Position.GetBoard().GetCoordinate().SetBoardSize(config.BoardSize())
 
 	pl.InitKernel(kernel)
 
@@ -62,7 +62,7 @@ func OnFatal(errorMessage string) {
 func createPrintingOfCalc(kernel *e.Kernel) *func(*e.Position, int, e.Point, float64, int) {
 	// UCT計算中の表示
 	var fn = func(position *e.Position, i int, z e.Point, rate float64, games int) {
-		code.Console.Info("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, kernel.BoardCoordinate.GetGtpMoveFromPoint(z), rate, games)
+		code.Console.Info("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, kernel.Position.GetBoard().GetCoordinate().GetGtpMoveFromPoint(z), rate, games)
 	}
 
 	return &fn
@@ -72,8 +72,7 @@ func createPrintingOfCalcFin(kernel *e.Kernel) *func(*e.Position, e.Point, float
 	// UCT計算後の表示
 	var fn = func(position *e.Position, bestZ e.Point, rate float64, max int, allPlayouts int, nodeNum int) {
 		code.Console.Info("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
-			kernel.BoardCoordinate.GetGtpMoveFromPoint(bestZ), rate, max, allPlayouts, nodeNum)
-
+			kernel.Position.GetBoard().GetCoordinate().GetGtpMoveFromPoint(bestZ), rate, max, allPlayouts, nodeNum)
 	}
 
 	return &fn

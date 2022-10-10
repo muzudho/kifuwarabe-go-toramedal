@@ -43,23 +43,6 @@ func (p *Position) GetUctAlgorithm() *UctAlgorithm {
 	return p.uctAlgorithm
 }
 
-// TemporaryPosition - 盤をコピーするときの一時メモリーとして使います
-type TemporaryPosition struct {
-	// 盤
-	Board []Stone
-	// KoZ - コウの交点。Idx（配列のインデックス）表示。 0 ならコウは無し？
-	KoZ Point
-}
-
-// CopyPosition - 盤データのコピー。
-func (k *Kernel) CopyPosition() *TemporaryPosition {
-	var temp = new(TemporaryPosition)
-	temp.Board = make([]Stone, k.BoardCoordinate.GetMemoryBoardArea())
-	copy(temp.Board[:], k.Position.board.GetSlice())
-	temp.KoZ = k.Position.KoZ
-	return temp
-}
-
 // ImportPosition - 盤データのコピー。
 func (position *Position) ImportPosition(temp *TemporaryPosition) {
 	copy(position.board.GetSlice(), temp.Board[:])
@@ -72,14 +55,14 @@ func (k *Kernel) InitPosition() {
 	k.Position.board.SetupEmptyBoard()
 
 	// チェック盤の作り直し
-	var memoryBoardArea = k.BoardCoordinate.GetMemoryBoardArea()
+	var memoryBoardArea = k.Position.board.coordinate.GetMemoryBoardArea()
 	k.Position.checkBoard = NewCheckBoard(memoryBoardArea)
 
 	// 棋譜の作り直し
 	k.Position.Record = make([]*RecordItem, MaxPositionNumber)
 
 	// UCTアルゴリズムの初期設定
-	k.Position.uctAlgorithm.uctChildrenSize = k.BoardCoordinate.GetBoardArea() + 1
+	k.Position.uctAlgorithm.uctChildrenSize = k.Position.board.coordinate.GetBoardArea() + 1
 
 	k.Position.MovesNum = 0
 	k.Position.KoZ = 0 // コウの指定がないので消します

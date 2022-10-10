@@ -69,7 +69,7 @@ func PrintBoard(kernel *e.Kernel, movesNum int) {
 	var b = &strings.Builder{}
 	b.Grow(sz8k)
 
-	var boardSize = kernel.BoardCoordinate.GetBoardWidth()
+	var boardSize = kernel.Position.GetBoard().GetCoordinate().GetBoardWidth()
 
 	// Header (numbers)
 	b.WriteString("\n   ")
@@ -82,28 +82,28 @@ func PrintBoard(kernel *e.Kernel, movesNum int) {
 	for x := 0; x < boardSize; x++ {
 		b.WriteString(horizontalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.BoardCoordinate.GetMemoryBoardWidth()-1))]) // -+
+	b.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardWidth()-1))]) // -+
 	b.WriteString("\n")
 
 	// Body
 	for y := 0; y < boardSize; y++ {
-		b.WriteString(labelOfRows[y+1])                                                                                                           // number
-		b.WriteString(leftVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+1)*kernel.BoardCoordinate.GetMemoryBoardWidth()))]) // |
+		b.WriteString(labelOfRows[y+1])                                                                                                                               // number
+		b.WriteString(leftVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+1)*kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardWidth()))]) // |
 		for x := 0; x < boardSize; x++ {
 			b.WriteString(stoneLabels[kernel.GetStoneAtXy(x, y)])
 		}
-		b.WriteString(rightVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+2)*kernel.BoardCoordinate.GetMemoryBoardWidth()-1))]) // " |"
+		b.WriteString(rightVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+2)*kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardWidth()-1))]) // " |"
 		b.WriteString("\n")
 	}
 
 	// Footer
 	b.WriteString("  ") // number space
-	var a = kernel.BoardCoordinate.GetMemoryBoardWidth() * (kernel.BoardCoordinate.GetMemoryBoardWidth() - 1)
+	var a = kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardWidth() * (kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardWidth() - 1)
 	b.WriteString(leftCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(a))]) // +
 	for x := 0; x < boardSize; x++ {
 		b.WriteString(horizontalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(a+x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.BoardCoordinate.GetMemoryBoardArea()-1))]) // -+
+	b.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardArea()-1))]) // -+
 	b.WriteString("\n")
 
 	// Info
@@ -111,7 +111,7 @@ func PrintBoard(kernel *e.Kernel, movesNum int) {
 	if kernel.Position.KoZ == e.Cell_Pass {
 		b.WriteString("_")
 	} else {
-		b.WriteString(kernel.BoardCoordinate.GetGtpMoveFromPoint(kernel.Position.KoZ))
+		b.WriteString(kernel.Position.GetBoard().GetCoordinate().GetGtpMoveFromPoint(kernel.Position.KoZ))
 	}
 	if movesNum != -1 {
 		b.WriteString(",movesNum=")
