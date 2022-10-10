@@ -7,15 +7,6 @@ type UctAlgorithm struct {
 	uctChildrenSize int
 }
 
-// NewUctAlgorithm - 新規作成
-func NewUctAlgorithm(board *Board) *UctAlgorithm {
-	var u = new(UctAlgorithm)
-
-	u.pBoard = board
-
-	return u
-}
-
 // GetPtrBoard - 盤へのポインター取得
 func (u *UctAlgorithm) GetPtrBoard() *Board {
 	return u.pBoard

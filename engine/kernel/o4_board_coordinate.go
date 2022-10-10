@@ -24,19 +24,6 @@ type BoardCoordinate struct {
 	cellDir4 [4]Point
 }
 
-func NewBoardCoordinate(boardSize int) *BoardCoordinate {
-	var bc = new(BoardCoordinate)
-
-	// 枠の分、２つ増える
-	bc.memoryWidth = boardSize + 2
-
-	var memoryBoardWidth = boardSize + 2
-	// ４方向
-	bc.cellDir4 = [4]Point{1, Point(-memoryBoardWidth), -1, Point(memoryBoardWidth)}
-
-	return bc
-}
-
 // GetCellDir4 - ４方向（東、北、西、南）の番地。2015年講習会サンプル、GoGo とは順序が違います
 func (bc *BoardCoordinate) GetCellDir4() [4]Point {
 	return bc.cellDir4

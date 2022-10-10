@@ -21,7 +21,7 @@ func NewPosition(gameRule *GameRule, boardSize int) *Position {
 
 	p.board = *NewBoard(gameRule, boardSize)
 	p.checkBoard = *NewCheckBoard((boardSize + 2) ^ 2)
-	p.uctAlgorithm = *NewUctAlgorithm(&p.board)
+	p.uctAlgorithm = UctAlgorithm{&p.board, 0}
 
 	return p
 }
