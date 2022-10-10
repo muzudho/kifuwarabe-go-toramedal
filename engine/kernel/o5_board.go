@@ -1,14 +1,24 @@
 package kernel
 
 type Board struct {
+	// 盤座標
+	boardCoordinate *BoardCoordinate
+
 	// 盤
 	cells []Stone
 }
 
-func NewBoard() *Board {
+func NewBoard(boardSize int) *Board {
 	var b = new(Board)
 
+	b.boardCoordinate = NewBoardCoordinate(boardSize)
+
 	return b
+}
+
+// GetBoardCoordinate - 盤座標取得
+func (b *Board) GetBoardCoordinate() *BoardCoordinate {
+	return b.boardCoordinate
 }
 
 // GetSlice - 配列のスライスを取得

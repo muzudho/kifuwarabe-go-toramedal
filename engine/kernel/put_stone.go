@@ -39,7 +39,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 		return 0
 	}
 
-	var ls = NewLibertySearchAlgorithm(position.boardCoordinate, position.board, position.checkBoard)
+	var ls = NewLibertySearchAlgorithm(position.GetBoard().GetBoardCoordinate(), position.board, position.checkBoard)
 
 	// 呼吸点を計算します
 	for dir := 0; dir < 4; dir++ { // ４方向
