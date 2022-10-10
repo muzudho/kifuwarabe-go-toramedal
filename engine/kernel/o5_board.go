@@ -44,11 +44,13 @@ func (b *Board) DrawWall(memoryBoardArea int) {
 	}
 }
 
-func (b *Board) EraseBoard(foreachPointWithoutWall func(func(Point))) {
-	var onPoint = func(z Point) {
-		b.SetStoneAt(z, 0)
+// EraseBoard - （壁枠を除く）盤上をすべて空点にします
+func (b *Board) EraseBoard(boardCoordinate *BoardCoordinate) {
+	var setPoint = func(point Point) {
+		b.SetStoneAt(point, Stone_Space)
 	}
-	foreachPointWithoutWall(onPoint)
+
+	boardCoordinate.ForeachPointWithoutWall(setPoint)
 }
 
 // FillRen - 石を打ち上げ（取り上げ、取り除き）ます。

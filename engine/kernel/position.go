@@ -94,13 +94,8 @@ func (k *Kernel) InitPosition() {
 	k.Position.board.DrawWall(memoryBoardArea)
 
 	// 盤上の石を全部消します
-	k.Position.board.EraseBoard(k.Position.foreachPointWithoutWall)
+	k.Position.board.EraseBoard(k.Position.boardCoordinate)
 
 	k.Position.MovesNum = 0
 	k.Position.KoZ = 0 // コウの指定がないので消します
-}
-
-// IterateWithoutWall - 盤イテレーター
-func (position *Position) IterateWithoutWall(onPoint func(Point)) {
-	position.foreachPointWithoutWall(onPoint)
 }

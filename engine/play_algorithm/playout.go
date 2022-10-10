@@ -32,13 +32,13 @@ func Playout(
 
 		// TODO 空点を差分更新できないか？ 毎回スキャンは重くないか？
 		// 空点を記憶します
-		var onPoint = func(z e.Point) {
+		var setPoint = func(z e.Point) {
 			if kernel.Position.GetBoard().IsSpaceAt(z) { // 空点なら
 				empty[emptyNum] = z
 				emptyNum++
 			}
 		}
-		kernel.Position.IterateWithoutWall(onPoint)
+		kernel.Position.GetBoardCoordinate().ForeachPointWithoutWall(setPoint)
 
 		var r = 0
 		var dislikeZ = e.Cell_Pass

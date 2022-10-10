@@ -51,12 +51,12 @@ func CreateNode(position *e.Position) int {
 	pN.Children = make([]Child, position.GetUctAlgorithm().UctChildrenSize())
 	pN.ChildGameSum = 0
 
-	var onPoint = func(z e.Point) {
+	var setPoint = func(z e.Point) {
 		if position.GetUctAlgorithm().GetBoard().IsSpaceAt(z) { // 空点なら
 			addChild(pN, z)
 		}
 	}
-	position.IterateWithoutWall(onPoint)
+	position.GetBoardCoordinate().ForeachPointWithoutWall(setPoint)
 
 	addChild(pN, 0)
 	NodeNum++
