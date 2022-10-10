@@ -39,6 +39,8 @@ func PutStone(position *Position, z Point, color Stone) int {
 		return 0
 	}
 
+	var ls = NewLibertySearchAlgorithm(position.board, position.checkBoard, position.foreachPointWithoutWall)
+
 	// 呼吸点を計算します
 	for dir := 0; dir < 4; dir++ { // ４方向
 		around[dir] = NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
@@ -53,7 +55,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 			wall++
 			continue
 		}
-		position.CountLiberty(adjZ, &libertyArea, &renArea)
+		ls.CountLiberty(adjZ, &libertyArea, &renArea)
 		around[dir].LibertyArea = libertyArea         // 呼吸点の数
 		around[dir].StoneArea = renArea               // 連の意地の数
 		around[dir].Color = adjColor                  // 石の色
@@ -114,7 +116,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 	}
 
 	position.GetBoard().SetStoneAt(z, color)
-	position.CountLiberty(z, &libertyArea, &renArea)
+	ls.CountLiberty(z, &libertyArea, &renArea)
 
 	return 0
 }

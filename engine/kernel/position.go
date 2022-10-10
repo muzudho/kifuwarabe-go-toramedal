@@ -109,47 +109,6 @@ func (k *Kernel) GetEmptyZ() Point {
 	return z
 }
 
-// CountLiberty - 呼吸点を数えます。
-// * `libertyArea` - 呼吸点の数
-// * `renArea` - 連の石の数
-func (position *Position) CountLiberty(z Point, libertyArea *int, renArea *int) {
-	*libertyArea = 0
-	*renArea = 0
-
-	// チェックボードの初期化
-	var onPoint = func(z Point) {
-		position.checkBoard.SetMarkAt(z, Mark_Empty)
-	}
-	position.foreachPointWithoutWall(onPoint)
-
-	position.countLibertySub(z, position.board.GetStoneAt(z), libertyArea, renArea)
-}
-
-// * `libertyArea` - 呼吸点の数
-// * `renArea` - 連の石の数
-func (p *Position) countLibertySub(z Point, color Stone, libertyArea *int, renArea *int) {
-
-	p.checkBoard.SetMarkAt(z, Mark_Checked)
-
-	*renArea++
-	for i := 0; i < 4; i++ {
-		var adjZ = z + Cell_Dir4[i]
-
-		if !p.checkBoard.IsEmptyAt(adjZ) {
-			continue
-		}
-
-		if p.GetBoard().IsSpaceAt(adjZ) { // 空点
-
-			p.checkBoard.SetMarkAt(adjZ, Mark_Checked)
-
-			*libertyArea++
-		} else if p.board.GetStoneAt(adjZ) == color {
-			p.countLibertySub(adjZ, color, libertyArea, renArea) // 再帰
-		}
-	}
-}
-
 // TakeStone - 石を打ち上げ（取り上げ、取り除き）ます。
 func (position *Position) TakeStone(z Point, color Stone) {
 	position.board.SetStoneAt(z, Stone_Space) // 石を消します
