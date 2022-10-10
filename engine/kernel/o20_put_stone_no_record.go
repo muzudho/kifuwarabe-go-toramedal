@@ -71,7 +71,8 @@ func PutStone(position *Position, z Point, color Stone) int {
 		//         #
 		return 3
 	}
-	if !position.GetBoard().IsSpaceAt(z) { // 空点以外には置けません
+
+	if position.GetBoard().IsMasonry(z) { // 石の上に石を置こうとしたか
 		return 4
 	}
 
