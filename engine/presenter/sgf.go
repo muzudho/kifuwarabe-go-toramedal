@@ -11,7 +11,7 @@ func PrintSgf(kernel *e.Kernel, positionNumber e.PositionNumberInt, record []*e.
 
 	code.Console.Print("(;GM[1]SZ[%d]KM[%.1f]PB[]PW[]\n", boardSize, kernel.Position.GetBoard().GetGameRule().GetKomi())
 	for i := e.PositionNumberInt(0); i < positionNumber; i++ {
-		var z = record[i].GetZ()
+		var z = record[i].GetPlacePlay()
 		var y = int(z) / kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardWidth()
 		var x = int(z) - y*kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardWidth()
 		var sStone = [2]string{"B", "W"}
