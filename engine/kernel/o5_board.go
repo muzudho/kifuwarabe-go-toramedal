@@ -30,3 +30,10 @@ func (b *Board) SetCells(cells []Stone) {
 func (b *Board) IsSpaceAt(point Point) bool {
 	return b.GetStoneAt(point) == Stone_Space
 }
+
+// DrawWall - 壁枠を設定します
+func (b *Board) DrawWall(memoryBoardArea int) {
+	for z := Point(0); z < Point(memoryBoardArea); z++ {
+		b.SetStoneAt(z, Stone_Wall)
+	}
+}

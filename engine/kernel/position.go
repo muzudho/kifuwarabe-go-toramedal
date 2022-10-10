@@ -75,10 +75,8 @@ func (k *Kernel) InitPosition() {
 	k.Position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(k)
 	Cell_Dir4 = [4]Point{1, Point(-k.BoardCoordinate.GetMemoryBoardWidth()), -1, Point(k.BoardCoordinate.GetMemoryBoardWidth())}
 
-	// 枠線
-	for z := Point(0); z < Point(memoryBoardArea); z++ {
-		k.Position.GetBoard().SetStoneAt(z, Stone_Wall)
-	}
+	// 壁枠を設定
+	k.Position.board.DrawWall(memoryBoardArea)
 
 	// 盤上
 	var onPoint = func(z Point) {
