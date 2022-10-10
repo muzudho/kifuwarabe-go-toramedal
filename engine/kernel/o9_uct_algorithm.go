@@ -1,8 +1,8 @@
 package kernel
 
 type UctAlgorithm struct {
-	// 盤
-	board *Board
+	// 盤への参照
+	pBoard *Board
 	// UCT計算中の子の数
 	uctChildrenSize int
 }
@@ -11,14 +11,14 @@ type UctAlgorithm struct {
 func NewUctAlgorithm(board *Board) *UctAlgorithm {
 	var u = new(UctAlgorithm)
 
-	u.board = board
+	u.pBoard = board
 
 	return u
 }
 
-// GetBoard - 盤取得
-func (u *UctAlgorithm) GetBoard() *Board {
-	return u.board
+// GetPtrBoard - 盤へのポインター取得
+func (u *UctAlgorithm) GetPtrBoard() *Board {
+	return u.pBoard
 }
 
 // UctChildrenSize - UCTの最大手数
