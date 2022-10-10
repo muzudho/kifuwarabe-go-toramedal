@@ -1,9 +1,5 @@
 package kernel
 
-import (
-	"math/rand"
-)
-
 // Position - 盤
 type Position struct {
 	// 盤
@@ -91,22 +87,6 @@ func (k *Kernel) InitPosition() {
 
 	k.Position.MovesNum = 0
 	k.Position.KoZ = 0 // コウの指定がないので消します
-}
-
-// GetEmptyZ - 空点の z （配列のインデックス）を返します。
-func (k *Kernel) GetEmptyZ() Point {
-	var x, y int
-	var z Point
-	for {
-		// ランダムに交点を選んで、空点を見つけるまで繰り返します。
-		x = rand.Intn(9)
-		y = rand.Intn(9)
-		z = k.BoardCoordinate.GetPointFromXy(x, y)
-		if k.Position.GetBoard().IsSpaceAt(z) { // 空点
-			break
-		}
-	}
-	return z
 }
 
 // TakeStone - 石を打ち上げ（取り上げ、取り除き）ます。
