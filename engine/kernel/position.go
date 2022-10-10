@@ -79,11 +79,8 @@ func (k *Kernel) InitPosition() {
 	// 壁枠を設定
 	k.Position.board.DrawWall(memoryBoardArea)
 
-	// 盤上
-	var onPoint = func(z Point) {
-		k.Position.GetBoard().SetStoneAt(z, 0)
-	}
-	k.Position.foreachPointWithoutWall(onPoint)
+	// 盤上の石を全部消します
+	k.Position.board.EraseBoard(k.Position.foreachPointWithoutWall)
 
 	k.Position.MovesNum = 0
 	k.Position.KoZ = 0 // コウの指定がないので消します
