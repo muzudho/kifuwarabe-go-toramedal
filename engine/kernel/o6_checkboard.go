@@ -4,7 +4,7 @@ package kernel
 type Mark int
 
 const (
-	Mark_Empty Mark = 0
+	Mark_Empty Mark = iota
 	Mark_Checked
 )
 

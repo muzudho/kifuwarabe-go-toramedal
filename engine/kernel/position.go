@@ -127,25 +127,25 @@ func (position *Position) CountLiberty(z Point, libertyArea *int, renArea *int) 
 
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (position *Position) countLibertySub(z Point, color Stone, libertyArea *int, renArea *int) {
+func (p *Position) countLibertySub(z Point, color Stone, libertyArea *int, renArea *int) {
 
-	position.checkBoard.SetMarkAt(z, Mark_Checked)
+	p.checkBoard.SetMarkAt(z, Mark_Checked)
 
 	*renArea++
 	for i := 0; i < 4; i++ {
 		var adjZ = z + Cell_Dir4[i]
 
-		if !position.checkBoard.IsEmptyAt(adjZ) {
+		if !p.checkBoard.IsEmptyAt(adjZ) {
 			continue
 		}
 
-		if position.GetBoard().IsSpaceAt(adjZ) { // 空点
+		if p.GetBoard().IsSpaceAt(adjZ) { // 空点
 
-			position.checkBoard.SetMarkAt(adjZ, Mark_Checked)
+			p.checkBoard.SetMarkAt(adjZ, Mark_Checked)
 
 			*libertyArea++
-		} else if position.board.GetStoneAt(adjZ) == color {
-			position.countLibertySub(adjZ, color, libertyArea, renArea) // 再帰
+		} else if p.board.GetStoneAt(adjZ) == color {
+			p.countLibertySub(adjZ, color, libertyArea, renArea) // 再帰
 		}
 	}
 }
