@@ -43,3 +43,16 @@ func (b *Board) DrawWall(memoryBoardArea int) {
 		b.SetStoneAt(z, Stone_Wall)
 	}
 }
+
+// FillRen - 石を打ち上げ（取り上げ、取り除き）ます。
+func (b *Board) FillRen(z Point, color Stone) {
+	b.SetStoneAt(z, Stone_Space) // 石を消します
+
+	for dir := 0; dir < 4; dir++ {
+		var adjZ = z + Cell_Dir4[dir]
+
+		if b.GetStoneAt(adjZ) == color { // 再帰します
+			b.FillRen(adjZ, color)
+		}
+	}
+}

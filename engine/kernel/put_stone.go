@@ -106,7 +106,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 			lib == 1 && // その呼吸点は１つで、そこに今石を置いた
 			!position.GetBoard().IsSpaceAt(adjZ) { // 石はまだあるなら（上と右の石がくっついている、といったことを除外）
 
-			position.TakeStone(adjZ, oppColor)
+			position.GetBoard().FillRen(adjZ, oppColor)
 
 			// もし取った石の数が１個なら、その石のある隣接した交点はコウ。また、図形上、コウは１個しか出現しません
 			if around[dir].StoneArea == 1 {

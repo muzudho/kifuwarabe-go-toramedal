@@ -89,19 +89,6 @@ func (k *Kernel) InitPosition() {
 	k.Position.KoZ = 0 // コウの指定がないので消します
 }
 
-// TakeStone - 石を打ち上げ（取り上げ、取り除き）ます。
-func (position *Position) TakeStone(z Point, color Stone) {
-	position.board.SetStoneAt(z, Stone_Space) // 石を消します
-
-	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + Cell_Dir4[dir]
-
-		if position.board.GetStoneAt(adjZ) == color { // 再帰します
-			position.TakeStone(adjZ, color)
-		}
-	}
-}
-
 // IterateWithoutWall - 盤イテレーター
 func (position *Position) IterateWithoutWall(onPoint func(Point)) {
 	position.foreachPointWithoutWall(onPoint)
