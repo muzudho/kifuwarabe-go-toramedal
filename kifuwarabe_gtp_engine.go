@@ -41,8 +41,7 @@ func RunGtpEngine(kernel *e.Kernel) {
 					panic(err)
 				}
 
-				kernel.Position.GetBoard().GetCoordinate().SetBoardSize(boardSize)
-
+				kernel.ResizeBoard(boardSize)
 				pl.InitKernel(kernel)
 
 				code.Gtp.Print("= \n\n")

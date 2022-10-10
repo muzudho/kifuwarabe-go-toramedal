@@ -16,3 +16,9 @@ func NewKernel(gameRule *GameRule, boardSize int) *Kernel {
 
 	return k
 }
+
+// ResizeBoard - 盤サイズの変更
+// - 別途、盤面の初期化を行ってください
+func (k *Kernel) ResizeBoard(boardSize int) {
+	k.Position = NewPosition(&k.Position.board.gameRule, boardSize)
+}

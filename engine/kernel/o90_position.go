@@ -19,8 +19,10 @@ type Position struct {
 func NewPosition(gameRule *GameRule, boardSize int) *Position {
 	var p = new(Position)
 
+	var memoryBoardSize = boardSize + 2
+
 	p.board = *NewBoard(gameRule, boardSize)
-	p.checkBoard = *NewCheckBoard((boardSize + 2) ^ 2)
+	p.checkBoard = *NewCheckBoard(memoryBoardSize * memoryBoardSize)
 	p.uctAlgorithm = UctAlgorithm{&p.board, 0}
 
 	return p
@@ -44,7 +46,7 @@ func (p *Position) GetPtrUctAlgorithm() *UctAlgorithm {
 // InitPosition - 局面の初期化。
 func (k *Kernel) InitPosition() {
 	// 空っぽの盤面に設定
-	k.Position.board.SetupEmptyBoard()
+	k.Position.board.DrawEmptyBoard()
 
 	// チェック盤の作り直し
 	var memoryBoardArea = k.Position.board.coordinate.GetMemoryBoardArea()

@@ -6,13 +6,16 @@ type Board struct {
 	// 盤座標
 	coordinate BoardCoordinate
 
-	// 盤
+	// 長さが可変な盤
 	cells []Stone
 }
 
+// NewBoard - 新規作成。
+// - ボードサイズを変更したいなら、新規作成し直してください
 func NewBoard(gameRule *GameRule, boardSize int) *Board {
 	var b = new(Board)
 
+	// 設定ファイルから読込むので動的設定
 	b.gameRule = *gameRule
 
 	// 枠の分、２つ増える
@@ -22,6 +25,9 @@ func NewBoard(gameRule *GameRule, boardSize int) *Board {
 		memoryBoardWidth,
 		// ４方向
 		[4]Point{1, Point(-memoryBoardWidth), -1, Point(memoryBoardWidth)}}
+
+	// 動的に長さの変わる配列を生成
+	b.cells = make([]Stone, memoryBoardWidth*memoryBoardWidth)
 
 	return b
 }
@@ -51,17 +57,8 @@ func (b *Board) SetStoneAt(point Point, stone Stone) {
 	b.cells[point] = stone
 }
 
-// SetupEmptyBoard - 空っぽの盤面に設定
-func (b *Board) SetupEmptyBoard() {
-	// 盤のサイズが変わっているケースに対応するため、配列の作り直し
-	var memoryBoardArea = b.coordinate.GetMemoryBoardArea()
-	b.SetCells(make([]Stone, memoryBoardArea))
-
-	// 空っぽの盤にします
-	b.DrawEmptyBoard()
-}
-
 // SetCells - 盤面の設定
+// - ボードサイズは変更しません
 func (b *Board) SetCells(cells []Stone) {
 	// Go言語での配列の代入は値渡しなのでこれでOK。C言語のようなポインター渡しではない
 	b.cells = cells
