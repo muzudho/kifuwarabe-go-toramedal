@@ -5,6 +5,16 @@ import (
 	"strings"
 )
 
+type Cell_Direction int
+
+// Cell_Dir4 配列のインデックスに対応
+const (
+	Cell_East Cell_Direction = iota
+	Cell_North
+	Cell_West
+	Cell_South
+)
+
 // BoardCoordinate - 盤座標
 type BoardCoordinate struct {
 	// 枠付きの盤の一辺の交点の要素数
