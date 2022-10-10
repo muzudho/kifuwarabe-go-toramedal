@@ -154,7 +154,7 @@ func PlayComputerMoveLesson09a(
 		createPrintingOfCalcFin(kernel))
 
 	if 1 < kernel.Position.Number && // 初手ではないとして
-		kernel.Record[kernel.Position.Number-1].GetPlacePlay() == 0 && // １つ前の手がパスで
+		kernel.Record.Items[kernel.Position.Number-1].GetPlacePlay() == 0 && // １つ前の手がパスで
 		0.95 <= math.Abs(winRate) { // 95%以上の確率で勝ちか負けなら
 		// こちらもパスします
 		return 0

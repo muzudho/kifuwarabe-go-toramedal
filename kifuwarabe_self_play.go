@@ -27,7 +27,7 @@ func SelfPlay(kernel *e.Kernel) {
 		p.PrintBoard(kernel, kernel.Position.Number)
 
 		// パスで２手目以降で棋譜の１つ前（相手）もパスなら終了します。
-		if z == e.Cell_Pass && 1 < kernel.Position.Number && kernel.Record[kernel.Position.Number-2].GetPlacePlay() == e.Cell_Pass {
+		if z == e.Cell_Pass && 1 < kernel.Position.Number && kernel.Record.Items[kernel.Position.Number-2].GetPlacePlay() == e.Cell_Pass {
 			break
 		}
 
