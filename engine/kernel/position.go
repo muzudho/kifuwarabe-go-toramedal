@@ -14,8 +14,8 @@ type Position struct {
 	Record []*RecordItem
 	// 二重ループ
 	foreachPointWithoutWall func(func(Point))
-	// UCT計算中の子の数
-	uctChildrenSize int
+	// UCT計算アルゴリズム
+	uctAlgorithm *UctAlgorithm
 }
 
 // NewPosition - 空っぽの局面を生成します
@@ -25,6 +25,7 @@ func NewPosition(boardSize int) *Position {
 
 	p.board = NewBoard()
 	p.checkBoard = NewCheckBoard((boardSize + 2) ^ 2)
+	p.uctAlgorithm = NewUctAlgorithm()
 
 	return p
 }
@@ -65,7 +66,7 @@ func (position *Position) ImportPosition(temp *TemporaryPosition) {
 // InitPosition - 局面の初期化。
 func (k *Kernel) InitPosition() {
 	k.Position.Record = make([]*RecordItem, MaxPositionNumber)
-	k.Position.uctChildrenSize = k.BoardCoordinate.GetBoardArea() + 1
+	k.Position.uctAlgorithm.uctChildrenSize = k.BoardCoordinate.GetBoardArea() + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し
 	var memoryBoardArea = k.BoardCoordinate.GetMemoryBoardArea()
@@ -93,7 +94,7 @@ func (position *Position) IterateWithoutWall(onPoint func(Point)) {
 
 // UctChildrenSize - UCTの最大手数
 func (position *Position) UctChildrenSize() int {
-	return position.uctChildrenSize
+	return position.uctAlgorithm.uctChildrenSize
 }
 
 // PackForeachPointWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
