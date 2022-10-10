@@ -18,10 +18,10 @@ type Position struct {
 
 // NewPosition - 空っぽの局面を生成します
 // あとで InitPosition() を呼び出してください
-func NewPosition(boardSize int) *Position {
+func NewPosition(gameRule *GameRule, boardSize int) *Position {
 	var p = new(Position)
 
-	p.board = NewBoard(boardSize)
+	p.board = NewBoard(gameRule, boardSize)
 	p.checkBoard = NewCheckBoard((boardSize + 2) ^ 2)
 	p.uctAlgorithm = NewUctAlgorithm(p.board)
 
@@ -53,7 +53,7 @@ func (k *Kernel) InitPosition() {
 	k.Position.checkBoard = NewCheckBoard(memoryBoardArea)
 
 	// 棋譜の作り直し
-	k.Position.Record = make([]*RecordItem, MaxPositionNumber)
+	k.Position.Record = make([]*RecordItem, k.Position.board.gameRule.GetMaxPositionNumber())
 
 	// UCTアルゴリズムの初期設定
 	k.Position.uctAlgorithm.uctChildrenSize = k.Position.board.coordinate.GetBoardArea() + 1

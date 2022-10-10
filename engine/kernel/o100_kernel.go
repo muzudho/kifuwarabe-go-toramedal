@@ -5,11 +5,11 @@ type Kernel struct {
 	Position *Position
 }
 
-func NewKernel() *Kernel {
+// NewKernel - 新規
+func NewKernel(gameRule *GameRule, boardSize int) *Kernel {
 	var k = new(Kernel)
 
-	// 19路盤で新規作成
-	k.Position = NewPosition(19)
+	k.Position = NewPosition(gameRule, boardSize)
 
 	return k
 }

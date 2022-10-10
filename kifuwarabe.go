@@ -37,10 +37,11 @@ func main() {
 
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
 	var config = cnf.LoadGameConf("input/game_conf.toml", OnFatal)
-	e.Komi = e.KomiFloat(config.Komi())
-	e.MaxPositionNumber = e.PositionNumberInt(config.MaxPositionNumber())
 
-	var kernel = e.NewKernel()
+	var gameRule = e.NewGameRule(e.KomiFloat(config.Komi()), e.PositionNumberInt(config.MaxPositionNumber()))
+
+	// とりあえず 19路盤で初期設定
+	var kernel = e.NewKernel(gameRule, 19)
 
 	kernel.Position.GetBoard().GetCoordinate().SetBoardSize(config.BoardSize())
 

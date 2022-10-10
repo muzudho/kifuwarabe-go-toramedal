@@ -80,8 +80,8 @@ func RunGtpEngine(kernel *e.Kernel) {
 					panic(err)
 				}
 
-				e.Komi = e.KomiFloat(komi)
-				code.Gtp.Print("= %d\n\n", e.Komi)
+				kernel.Position.GetBoard().GetGameRule().SetKomi(e.KomiFloat(komi))
+				code.Gtp.Print("= %d\n\n", kernel.Position.GetBoard().GetGameRule().GetKomi())
 			} else {
 				code.Gtp.Print("? unknown_command %s\n\n", command)
 			}
