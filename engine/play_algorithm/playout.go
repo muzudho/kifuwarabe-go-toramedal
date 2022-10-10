@@ -73,7 +73,7 @@ func Playout(
 
 		// テストのときは棋譜を残します
 		if FlagTestPlayout != 0 {
-			kernel.Position.Record[kernel.Position.MovesNum].SetZ(z)
+			kernel.Record[kernel.Position.MovesNum].SetZ(z)
 			kernel.Position.MovesNum++
 		}
 

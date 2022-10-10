@@ -3,6 +3,8 @@ package kernel
 type Kernel struct {
 	// 局面
 	Position *Position
+	// Record - 棋譜
+	Record []*RecordItem
 }
 
 // NewKernel - 新規

@@ -10,8 +10,6 @@ type Position struct {
 	KoZ Point
 	// MovesNum - 手数
 	MovesNum int
-	// Record - 棋譜
-	Record []*RecordItem
 	// UCT計算アルゴリズム
 	uctAlgorithm *UctAlgorithm
 }
@@ -53,7 +51,7 @@ func (k *Kernel) InitPosition() {
 	k.Position.checkBoard = NewCheckBoard(memoryBoardArea)
 
 	// 棋譜の作り直し
-	k.Position.Record = make([]*RecordItem, k.Position.board.gameRule.GetMaxPositionNumber())
+	k.Record = make([]*RecordItem, k.Position.board.gameRule.GetMaxPositionNumber())
 
 	// UCTアルゴリズムの初期設定
 	k.Position.uctAlgorithm.uctChildrenSize = k.Position.board.coordinate.GetBoardArea() + 1

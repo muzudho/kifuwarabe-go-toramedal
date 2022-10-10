@@ -127,7 +127,7 @@ func RunGtpEngine(kernel *e.Kernel) {
 				var recItem = new(e.RecordItem)
 				recItem.Z = z
 				recItem.Time = 0
-				e.PutStoneOnRecord(kernel.Position, z, color, recItem)
+				e.PutStoneOnRecord(kernel, z, color, recItem)
 				p.PrintBoard(kernel, kernel.Position.MovesNum)
 
 				code.Gtp.Print("= \n\n")
@@ -154,7 +154,7 @@ func PlayComputerMoveLesson09a(
 		createPrintingOfCalcFin(kernel))
 
 	if 1 < kernel.Position.MovesNum && // 初手ではないとして
-		kernel.Position.Record[kernel.Position.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで
+		kernel.Record[kernel.Position.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで
 		0.95 <= math.Abs(winRate) { // 95%以上の確率で勝ちか負けなら
 		// こちらもパスします
 		return 0
@@ -167,7 +167,7 @@ func PlayComputerMoveLesson09a(
 	var recItem = new(e.RecordItem)
 	recItem.Z = z
 	recItem.Time = sec
-	e.PutStoneOnRecord(kernel.Position, z, color, recItem)
+	e.PutStoneOnRecord(kernel, z, color, recItem)
 	p.PrintBoard(kernel, kernel.Position.MovesNum)
 
 	return z
