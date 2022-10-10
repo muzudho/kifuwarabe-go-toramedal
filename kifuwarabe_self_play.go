@@ -31,10 +31,10 @@ func SelfPlay(kernel *e.Kernel) {
 			break
 		}
 
-		// 自己対局は400手で終了します。
-		if 400 < kernel.Position.Number {
+		// 手数上限に至ったら抜ける
+		if kernel.Position.GetBoard().GetGameRule().GetMaxPositionNumber() <= kernel.Position.Number {
 			break
-		} // too long
+		}
 
 		color = e.FlipColor(color)
 	}
