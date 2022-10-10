@@ -128,3 +128,15 @@ func (bc *BoardCoordinate) PackForeachPointWithoutWall() func(func(Point)) {
 
 	return boardIterator
 }
+
+func (bc *BoardCoordinate) ForeachPointWithoutWall(setPoint func(Point)) {
+	var boardSize = bc.GetBoardWidth()
+
+	// x,y は壁無しの盤での0から始まる座標、 z は壁有りの盤での0から始まる座標
+	for y := 0; y < boardSize; y++ {
+		for x := 0; x < boardSize; x++ {
+			var point = bc.GetPointFromXy(x, y)
+			setPoint(point)
+		}
+	}
+}

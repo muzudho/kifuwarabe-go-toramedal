@@ -2,17 +2,17 @@ package kernel
 
 // LibertySearchAlgorithm - 呼吸点探索アルゴリズム
 type LibertySearchAlgorithm struct {
-	board                   *Board
-	checkBoard              *CheckBoard
-	foreachPointWithoutWall func(func(Point))
+	boardCoordinate *BoardCoordinate
+	board           *Board
+	checkBoard      *CheckBoard
 }
 
-func NewLibertySearchAlgorithm(board *Board, checkBoard *CheckBoard, foreachPointWithoutWall func(func(Point))) *LibertySearchAlgorithm {
+func NewLibertySearchAlgorithm(boardCoordinate *BoardCoordinate, board *Board, checkBoard *CheckBoard) *LibertySearchAlgorithm {
 	var ls = new(LibertySearchAlgorithm)
 
+	ls.boardCoordinate = boardCoordinate
 	ls.board = board
 	ls.checkBoard = checkBoard
-	ls.foreachPointWithoutWall = foreachPointWithoutWall
 
 	return ls
 }
@@ -25,10 +25,10 @@ func (ls *LibertySearchAlgorithm) CountLiberty(z Point, libertyArea *int, renAre
 	*renArea = 0
 
 	// チェックボードの初期化
-	var onPoint = func(z Point) {
+	var setPoint = func(z Point) {
 		ls.checkBoard.SetMarkAt(z, Mark_Empty)
 	}
-	ls.foreachPointWithoutWall(onPoint)
+	ls.boardCoordinate.ForeachPointWithoutWall(setPoint)
 
 	ls.countLibertySub(z, ls.board.GetStoneAt(z), libertyArea, renArea)
 }

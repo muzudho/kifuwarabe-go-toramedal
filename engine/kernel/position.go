@@ -2,6 +2,8 @@ package kernel
 
 // Position - 盤
 type Position struct {
+	// 盤座標
+	boardCoordinate *BoardCoordinate
 	// 盤
 	board *Board
 	// チェック盤。呼吸点を数えるのに使う
@@ -23,11 +25,17 @@ type Position struct {
 func NewPosition(boardSize int) *Position {
 	var p = new(Position)
 
+	p.boardCoordinate = NewBoardCoordinate(boardSize)
 	p.board = NewBoard()
 	p.checkBoard = NewCheckBoard((boardSize + 2) ^ 2)
 	p.uctAlgorithm = NewUctAlgorithm(p.board)
 
 	return p
+}
+
+// GetBoardCoordinate - 盤座標取得
+func (p *Position) GetBoardCoordinate() *BoardCoordinate {
+	return p.boardCoordinate
 }
 
 // GetBoard - 盤取得
