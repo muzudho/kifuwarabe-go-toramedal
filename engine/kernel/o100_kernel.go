@@ -12,7 +12,7 @@ func NewKernel(gameRule *GameRule, boardSize int) *Kernel {
 	var k = new(Kernel)
 
 	k.Position = NewPosition(gameRule, boardSize)
-	k.Record = *NewRecord()
+	k.Record = *NewRecord(gameRule.GetMaxPositionNumber())
 
 	return k
 }

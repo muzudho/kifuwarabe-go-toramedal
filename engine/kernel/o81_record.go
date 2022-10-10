@@ -2,17 +2,43 @@ package kernel
 
 // Record - 棋譜
 type Record struct {
-	// Items - 棋譜項目の配列
-	Items []RecordItem
+	// 棋譜項目の配列
+	items []RecordItem
 }
 
 // NewRecord - 新規作成
-func NewRecord() *Record {
+func NewRecord(maxPositionNumber PositionNumberInt) *Record {
 	var r = new(Record)
+
+	// 動的に長さがきまる配列を生成、その内容をインスタンスで埋めます
+	r.items = make([]RecordItem, maxPositionNumber)
+	for i := PositionNumberInt(0); i < maxPositionNumber; i++ {
+		r.items[i] = RecordItem{}
+	}
+
 	return r
 }
 
-// GetItems - 棋譜項目の配列
-func (r *Record) GetItems() []RecordItem {
-	return r.Items
+func (r *Record) SetItemAt(posNum PositionNumberInt, item *RecordItem) {
+	r.items[posNum] = *item
+}
+
+// GetPlacePlayAt - 指定局面の着手点を取得
+func (r *Record) GetPlacePlayAt(posNum PositionNumberInt) Point {
+	return r.items[posNum].placePlay
+}
+
+// SetPlacePlayAt - 指定局面の着手点を設定
+func (r *Record) SetPlacePlayAt(posNum PositionNumberInt, placePlay Point) {
+	r.items[posNum].placePlay = placePlay
+}
+
+// GetTimeAt - 指定局面の消費時間を取得
+func (r *Record) GetTimeAt(posNum PositionNumberInt) float64 {
+	return r.items[posNum].Time
+}
+
+// SetTimeAt - 指定局面の消費時間を設定
+func (r *Record) SetTimeAt(posNum PositionNumberInt, time float64) {
+	r.items[posNum].Time = time
 }
