@@ -43,12 +43,6 @@ func (p *Position) GetUctAlgorithm() *UctAlgorithm {
 	return p.uctAlgorithm
 }
 
-// ImportPosition - 盤データのコピー。
-func (position *Position) ImportPosition(temp *TemporaryPosition) {
-	copy(position.board.GetSlice(), temp.Board[:])
-	position.KoZ = temp.KoZ
-}
-
 // InitPosition - 局面の初期化。
 func (k *Kernel) InitPosition() {
 	// 空っぽの盤面に設定
