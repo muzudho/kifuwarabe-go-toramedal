@@ -68,17 +68,18 @@ func (position *Position) ImportPosition(temp *TemporaryPosition) {
 
 // InitPosition - 局面の初期化。
 func (k *Kernel) InitPosition() {
-	k.Position.Record = make([]*RecordItem, MaxPositionNumber)
-	k.Position.uctAlgorithm.uctChildrenSize = k.BoardCoordinate.GetBoardArea() + 1
+	// 空っぽの盤面に設定
+	k.Position.board.SetupEmptyBoard()
 
-	// サイズが変わっているケースに対応するため、配列の作り直し
+	// チェック盤の作り直し
 	var memoryBoardArea = k.BoardCoordinate.GetMemoryBoardArea()
-	k.Position.board.SetCells(make([]Stone, memoryBoardArea))
-
 	k.Position.checkBoard = NewCheckBoard(memoryBoardArea)
 
-	// 空っぽの盤にします
-	k.Position.GetBoard().DrawEmptyBoard()
+	// 棋譜の作り直し
+	k.Position.Record = make([]*RecordItem, MaxPositionNumber)
+
+	// UCTアルゴリズムの初期設定
+	k.Position.uctAlgorithm.uctChildrenSize = k.BoardCoordinate.GetBoardArea() + 1
 
 	k.Position.MovesNum = 0
 	k.Position.KoZ = 0 // コウの指定がないので消します

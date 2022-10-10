@@ -36,6 +36,16 @@ func (b *Board) SetStoneAt(point Point, stone Stone) {
 	b.cells[point] = stone
 }
 
+// SetupEmptyBoard - 空っぽの盤面に設定
+func (b *Board) SetupEmptyBoard() {
+	// 盤のサイズが変わっているケースに対応するため、配列の作り直し
+	var memoryBoardArea = b.coordinate.GetMemoryBoardArea()
+	b.SetCells(make([]Stone, memoryBoardArea))
+
+	// 空っぽの盤にします
+	b.DrawEmptyBoard()
+}
+
 // SetCells - 盤面の設定
 func (b *Board) SetCells(cells []Stone) {
 	// Go言語での配列の代入は値渡しなのでこれでOK。C言語のようなポインター渡しではない
