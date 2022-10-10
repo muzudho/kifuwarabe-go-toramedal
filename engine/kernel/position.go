@@ -82,18 +82,6 @@ func (k *Kernel) InitPosition() {
 	k.Position.KoZ = 0 // コウの指定がないので消します
 }
 
-// SetBoard - 盤面を設定します
-func (position *Position) SetBoard(cells []Stone) {
-	// TODO 消す
-	// fmt.Print("[[")
-	// for z := 0; z < kernel.BoardCoordinateGetMemoryBoardArea(); z++ {
-	// 	fmt.Printf("%d,", cells[z])
-	// 	position.SetColor(Point(z), cells[z])
-	// }
-	// fmt.Print("]]")
-	position.board.SetCells(cells)
-}
-
 // ColorAt - 指定した交点の石の色
 func (position *Position) ColorAt(z Point) Stone {
 	return position.board.GetStoneAt(z)
