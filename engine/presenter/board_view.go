@@ -33,7 +33,7 @@ var sz8k = 8 * 1024
 // 18| . . . . . . . . . . . . . . . . . . . |
 // 19| . . . . . . . . . . . . . . . . . . . |
 //   +---------------------------------------+
-//  KoZ=0,positionNumber=999
+//  Ko=0,positionNumber=999
 //
 // ASCII文字を使います（全角、半角の狂いがないため）
 // 黒石は x 、 白石は o （ダークモードでもライトモードでも識別できるため）
@@ -107,11 +107,11 @@ func PrintBoard(kernel *e.Kernel, positionNumber e.PositionNumberInt) {
 	b.WriteString("\n")
 
 	// Info
-	b.WriteString("  KoZ=")
-	if kernel.Position.KoZ == e.Cell_Pass {
+	b.WriteString("  Ko=")
+	if kernel.GetPlaceKoOfCurrentPosition() == e.Cell_Pass {
 		b.WriteString("_")
 	} else {
-		b.WriteString(kernel.Position.GetBoard().GetCoordinate().GetGtpMoveFromPoint(kernel.Position.KoZ))
+		b.WriteString(kernel.Position.GetBoard().GetCoordinate().GetGtpMoveFromPoint(kernel.GetPlaceKoOfCurrentPosition()))
 	}
 	if positionNumber != -1 {
 		b.WriteString(",positionNumber=")

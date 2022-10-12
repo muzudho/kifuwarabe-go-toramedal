@@ -22,3 +22,13 @@ func NewKernel(gameRule *GameRule, boardSize int) *Kernel {
 func (k *Kernel) ResizeBoard(boardSize int) {
 	k.Position = NewPosition(&k.Position.board.gameRule, boardSize)
 }
+
+// SetPlaceKo - 現局面のコウの番地を設定
+func (k *Kernel) SetPlaceKoOfCurrentPosition(placeKo Point) {
+	k.Position.KoZ = placeKo
+}
+
+// SetPlaceKo - 現局面のコウの番地を設定
+func (k *Kernel) GetPlaceKoOfCurrentPosition() Point {
+	return k.Position.KoZ
+}

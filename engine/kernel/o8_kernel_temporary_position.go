@@ -13,7 +13,7 @@ func (k *Kernel) NewCopyPosition() *TemporaryPosition {
 	var temp = new(TemporaryPosition)
 	temp.Board = make([]Stone, k.Position.board.coordinate.GetMemoryBoardArea())
 	copy(temp.Board[:], k.Position.board.GetSlice())
-	temp.KoZ = k.Position.KoZ
+	temp.KoZ = k.GetPlaceKoOfCurrentPosition()
 	return temp
 }
 
