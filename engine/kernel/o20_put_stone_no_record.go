@@ -59,7 +59,7 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 		//   o
 		return 1
 	}
-	if k.Position.IsPutStoneOnKo(z) { // コウに石を置こうとしたか？
+	if k.IsPutStoneOnKo(z) { // コウに石を置こうとしたか？
 		return 2
 	}
 	if wall+myBreathFriend == 4 {
