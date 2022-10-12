@@ -5,7 +5,7 @@ package kernel
 //
 // # Returns
 // エラーコード
-func PutStone(position *Position, z Point, color Stone) int {
+func PutStone(k *Kernel, z Point, color Stone) int {
 	var around = [4]*Ren{}          // 隣接する４つの交点
 	var libertyArea int             // 呼吸点の数
 	var renArea int                 // 連の石の数
@@ -16,19 +16,19 @@ func PutStone(position *Position, z Point, color Stone) int {
 	var captureSum = 0              // アゲハマの数
 
 	if z == Cell_Pass { // 投了なら、コウを消して関数を正常終了
-		position.KoZ = 0
+		k.SetPlaceKoOfCurrentPosition(Cell_Pass)
 		return 0
 	}
 
-	var ls = NewLibertySearchAlgorithm(position.GetBoard().GetCoordinate(), &position.board, &position.checkBoard)
+	var ls = NewLibertySearchAlgorithm(k.Position.GetBoard().GetCoordinate(), &k.Position.board, &k.Position.checkBoard)
 
 	// 呼吸点を計算します
 	for dir := 0; dir < 4; dir++ { // ４方向
 		around[dir] = NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
-		var adjZ = z + position.GetBoard().GetCoordinate().GetCellDir4()[dir] // 隣の交点
-		var adjColor = position.GetBoard().GetStoneAt(adjZ)                   // 隣(adjacent)の交点の石の色
-		if adjColor == Stone_Space {                                          // 空点
+		var adjZ = z + k.Position.GetBoard().GetCoordinate().GetCellDir4()[dir] // 隣の交点
+		var adjColor = k.Position.GetBoard().GetStoneAt(adjZ)                   // 隣(adjacent)の交点の石の色
+		if adjColor == Stone_Space {                                            // 空点
 			space++
 			continue
 		}
@@ -59,7 +59,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 		//   o
 		return 1
 	}
-	if position.IsPutStoneOnKo(z) { // コウに石を置こうとしたか？
+	if k.Position.IsPutStoneOnKo(z) { // コウに石を置こうとしたか？
 		return 2
 	}
 	if wall+myBreathFriend == 4 {
@@ -72,32 +72,32 @@ func PutStone(position *Position, z Point, color Stone) int {
 		return 3
 	}
 
-	if position.GetBoard().IsMasonry(z) { // 石の上に石を置こうとしたか
+	if k.Position.GetBoard().IsMasonry(z) { // 石の上に石を置こうとしたか
 		return 4
 	}
 
-	position.KoZ = 0 // コウを消します
+	k.SetPlaceKoOfCurrentPosition(0) // コウを消します
 
 	// 石を取り上げます
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + position.GetBoard().GetCoordinate().cellDir4[dir] // 隣接する交点
-		var lib = around[dir].LibertyArea                                // 隣接する連の呼吸点の数
-		var adjColor = around[dir].Color                                 // 隣接する連の石の色
+		var adjZ = z + k.Position.GetBoard().GetCoordinate().cellDir4[dir] // 隣接する交点
+		var lib = around[dir].LibertyArea                                  // 隣接する連の呼吸点の数
+		var adjColor = around[dir].Color                                   // 隣接する連の石の色
 
 		if adjColor == oppColor && // 隣接する連が相手の石で（壁はここで除外されます）
 			lib == 1 && // その呼吸点は１つで、そこに今石を置いた
-			!position.GetBoard().IsSpaceAt(adjZ) { // 石はまだあるなら（上と右の石がくっついている、といったことを除外）
+			!k.Position.GetBoard().IsSpaceAt(adjZ) { // 石はまだあるなら（上と右の石がくっついている、といったことを除外）
 
-			position.GetBoard().FillRen(adjZ, oppColor)
+			k.Position.GetBoard().FillRen(adjZ, oppColor)
 
 			// もし取った石の数が１個なら、その石のある隣接した交点はコウ。また、図形上、コウは１個しか出現しません
 			if around[dir].StoneArea == 1 {
-				position.KoZ = adjZ
+				k.SetPlaceKoOfCurrentPosition(adjZ)
 			}
 		}
 	}
 
-	position.GetBoard().SetStoneAt(z, color)
+	k.Position.GetBoard().SetStoneAt(z, color)
 	ls.CountLiberty(z, &libertyArea, &renArea)
 
 	return 0

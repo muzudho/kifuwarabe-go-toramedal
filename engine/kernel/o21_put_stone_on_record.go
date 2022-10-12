@@ -8,7 +8,7 @@ import (
 
 // PutStoneOnRecord - SelfPlay, RunGtpEngine から呼び出されます
 func PutStoneOnRecord(kernel *Kernel, z Point, color Stone, recItem *RecordItem) {
-	var err = PutStone(kernel.Position, z, color)
+	var err = PutStone(kernel, z, color)
 	if err != 0 {
 		code.Console.Error("(PutStoneOnRecord) Err!\n")
 		os.Exit(0)
