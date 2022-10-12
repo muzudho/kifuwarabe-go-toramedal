@@ -24,9 +24,17 @@ func (k *Kernel) ResizeBoard(boardSize int) {
 }
 
 // SetPlaceKo - 現局面のコウの番地を設定
+//
+// - Tips 取った石が１個ならコウを疑う
 func (k *Kernel) SetPlaceKoOfCurrentPosition(placeKo Point) {
 	var posNum = k.Position.Number
 	k.Record.SetPlaceKoAt(posNum, placeKo)
+}
+
+// ClearPlaceKoOfCurrentPosition - 現局面のコウの番地を消去
+func (k *Kernel) ClearPlaceKoOfCurrentPosition() {
+	var posNum = k.Position.Number
+	k.Record.SetPlaceKoAt(posNum, Cell_Pass)
 }
 
 // SetPlaceKo - 現局面のコウの番地を設定

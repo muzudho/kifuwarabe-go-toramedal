@@ -16,7 +16,7 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 	var captureSum = 0              // アゲハマの数
 
 	if z == Cell_Pass { // 投了なら、コウを消して関数を正常終了
-		k.SetPlaceKoOfCurrentPosition(Cell_Pass)
+		k.ClearPlaceKoOfCurrentPosition()
 		return 0
 	}
 
@@ -76,7 +76,7 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 		return 4
 	}
 
-	k.SetPlaceKoOfCurrentPosition(0) // コウを消します
+	k.ClearPlaceKoOfCurrentPosition() // コウを消します
 
 	// 石を取り上げます
 	for dir := 0; dir < 4; dir++ {

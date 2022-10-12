@@ -57,5 +57,5 @@ func (k *Kernel) InitPosition() {
 	k.Position.uctAlgorithm.uctChildrenSize = k.Position.board.coordinate.GetBoardArea() + 1
 
 	k.Position.Number = 0
-	k.SetPlaceKoOfCurrentPosition(0) // コウの指定がないので消します
+	k.ClearPlaceKoOfCurrentPosition() // コウの指定がないので消します
 }
