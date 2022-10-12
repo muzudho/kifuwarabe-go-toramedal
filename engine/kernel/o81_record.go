@@ -4,8 +4,6 @@ package kernel
 type Record struct {
 	// 棋譜項目の配列
 	items []RecordItem
-	// コウの番地。無ければ Cell_Pass と同値
-	placeKo Point
 }
 
 // NewRecord - 新規作成
@@ -43,14 +41,4 @@ func (r *Record) GetTimeAt(posNum PositionNumberInt) float64 {
 // SetTimeAt - 指定局面の消費時間を設定
 func (r *Record) SetTimeAt(posNum PositionNumberInt, time float64) {
 	r.items[posNum].Time = time
-}
-
-// GetPlaceKo - コウの番地を取得
-func (r *Record) GetPlaceKo() Point {
-	return r.placeKo
-}
-
-// SetPlaceKo - コウの番地を設定
-func (r *Record) SetPlaceKo(placeKo Point) {
-	r.placeKo = placeKo
 }
