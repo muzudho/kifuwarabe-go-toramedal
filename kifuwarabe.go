@@ -41,7 +41,7 @@ func main() {
 	var gameRule = e.NewGameRule(e.KomiFloat(config.Komi()), e.PositionNumberInt(config.MaxPositionNumber()))
 
 	// とりあえず 19路盤で初期設定
-	var kernel = e.NewKernel(gameRule, config.BoardSize())
+	var kernel = e.NewKernel(*gameRule, config.BoardSize())
 
 	pl.InitKernel(kernel)
 

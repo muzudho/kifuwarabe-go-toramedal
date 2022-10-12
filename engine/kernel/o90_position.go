@@ -14,7 +14,7 @@ type Position struct {
 
 // NewPosition - 空っぽの局面を生成します
 // あとで InitPosition() を呼び出してください
-func NewPosition(gameRule *GameRule, boardSize int) *Position {
+func NewPosition(gameRule GameRule, boardSize int) *Position {
 	var p = new(Position)
 
 	var memoryBoardSize = boardSize + 2

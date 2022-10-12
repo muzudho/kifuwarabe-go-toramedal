@@ -12,11 +12,11 @@ type Board struct {
 
 // NewBoard - 新規作成。
 // - ボードサイズを変更したいなら、新規作成し直してください
-func NewBoard(gameRule *GameRule, boardSize int) *Board {
+func NewBoard(gameRule GameRule, boardSize int) *Board {
 	var b = new(Board)
 
 	// 設定ファイルから読込むので動的設定
-	b.gameRule = *gameRule
+	b.gameRule = gameRule
 
 	// 枠の分、２つ増える
 	var memoryBoardWidth = boardSize + 2
