@@ -127,7 +127,7 @@ func RunGtpEngine(kernel *e.Kernel) {
 				recItem.SetPlacePlay(z)
 				recItem.Time = 0
 				e.PutStoneOnRecord(kernel, z, color, recItem)
-				p.PrintBoard(kernel, kernel.Position.Number)
+				p.PrintBoard(kernel)
 
 				code.Gtp.Print("= \n\n")
 			}
@@ -167,7 +167,7 @@ func PlayComputerMoveLesson09a(
 	recItem.SetPlacePlay(z)
 	recItem.Time = sec
 	e.PutStoneOnRecord(kernel, z, color, recItem)
-	p.PrintBoard(kernel, kernel.Position.Number)
+	p.PrintBoard(kernel)
 
 	return z
 }

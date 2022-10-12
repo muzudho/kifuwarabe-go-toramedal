@@ -25,10 +25,12 @@ func (k *Kernel) ResizeBoard(boardSize int) {
 
 // SetPlaceKo - 現局面のコウの番地を設定
 func (k *Kernel) SetPlaceKoOfCurrentPosition(placeKo Point) {
-	k.Position.KoZ = placeKo
+	var posNum = k.Position.Number
+	k.Record.SetPlaceKoAt(posNum, placeKo)
 }
 
 // SetPlaceKo - 現局面のコウの番地を設定
 func (k *Kernel) GetPlaceKoOfCurrentPosition() Point {
-	return k.Position.KoZ
+	var posNum = k.Position.Number
+	return k.Record.GetPlaceKoAt(posNum)
 }

@@ -6,8 +6,6 @@ type Position struct {
 	board Board
 	// チェック盤。呼吸点を数えるのに使う
 	checkBoard CheckBoard
-	// KoZ - コウの交点。Idx（配列のインデックス）表示。 0 ならコウは無し？
-	KoZ Point
 	// Number - 手数
 	Number PositionNumberInt
 	// UCT計算アルゴリズム

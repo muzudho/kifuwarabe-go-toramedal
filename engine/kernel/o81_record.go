@@ -11,8 +11,11 @@ func NewRecord(maxPositionNumber PositionNumberInt) *Record {
 	var r = new(Record)
 
 	// 動的に長さがきまる配列を生成、その内容をインスタンスで埋めます
-	r.items = make([]RecordItem, maxPositionNumber)
-	for i := PositionNumberInt(0); i < maxPositionNumber; i++ {
+	// 例えば、0手目が初期局面として、 400 手目まであるとすると、要素数は401要る。だから 1 足す
+	var elementCount = maxPositionNumber + 1
+	r.items = make([]RecordItem, elementCount)
+
+	for i := PositionNumberInt(0); i < elementCount; i++ {
 		r.items[i] = RecordItem{}
 	}
 

@@ -24,7 +24,7 @@ func SelfPlay(kernel *e.Kernel) {
 
 		code.Console.Print("z=%s,color=%d", kernel.Position.GetBoard().GetCoordinate().GetGtpMoveFromPoint(z), color) // テスト
 		// p.PrintCheckBoard(position)                                        // テスト
-		p.PrintBoard(kernel, kernel.Position.Number)
+		p.PrintBoard(kernel)
 
 		// パスで２手目以降で棋譜の１つ前（相手）もパスなら終了します。
 		if z == e.Cell_Pass && 1 < kernel.Position.Number && kernel.Record.GetPlacePlayAt(kernel.Position.Number-2) == e.Cell_Pass {
