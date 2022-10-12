@@ -18,7 +18,7 @@ func (k *Kernel) NewCopyPosition() *TemporaryPosition {
 }
 
 // ImportPosition - 盤データのコピー。
-func (position *Position) ImportPosition(temp *TemporaryPosition) {
-	copy(position.board.GetSlice(), temp.Board[:])
-	position.KoZ = temp.KoZ
+func (k *Kernel) ImportPosition(temp *TemporaryPosition) {
+	copy(k.Position.board.GetSlice(), temp.Board[:])
+	k.SetPlaceKoOfCurrentPosition(temp.KoZ)
 }

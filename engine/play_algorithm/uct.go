@@ -36,7 +36,7 @@ func GetBestZByUct(
 		SearchUct(kernel, color, next)
 
 		// 復元
-		kernel.Position.ImportPosition(copiedPosition)
+		kernel.ImportPosition(copiedPosition)
 	}
 
 	// ベスト値検索フェーズ
