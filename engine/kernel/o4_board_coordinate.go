@@ -17,8 +17,10 @@ const (
 
 // BoardCoordinate - 盤座標
 type BoardCoordinate struct {
-	// 枠付きの盤の一辺の交点の要素数
+	// 枠付きの盤の水平一辺の交点の要素数
 	memoryWidth int
+	// 枠付きの盤の垂直一辺の交点の要素数
+	memoryHeight int
 
 	// ４方向（東、北、西、南）の番地。2015年講習会サンプル、GoGo とは順序が違います
 	cellDir4 [4]Point
@@ -72,6 +74,7 @@ func (bc *BoardCoordinate) GetSouthEastOf(point Point) Point {
 func (bc *BoardCoordinate) SetBoardSize(boardSize int) {
 	// 枠の分、２つ増える
 	bc.memoryWidth = boardSize + 2
+	bc.memoryHeight = boardSize + 2
 }
 
 func (bc *BoardCoordinate) GetBoardWidth() int {
@@ -79,19 +82,29 @@ func (bc *BoardCoordinate) GetBoardWidth() int {
 	return bc.memoryWidth - 2
 }
 
+func (bc *BoardCoordinate) GetBoardHeight() int {
+	// 枠の分、２つ減らす
+	return bc.memoryHeight - 2
+}
+
 // GetBoardArea - 壁無し盤の面積
 func (bc *BoardCoordinate) GetBoardArea() int {
 	return bc.GetBoardWidth() * bc.GetBoardWidth()
 }
 
-// GetMemoryBoardWidth - 枠付きの盤の一辺の交点数
+// GetMemoryBoardWidth - 枠付きの盤の水平一辺の交点数
 func (bc *BoardCoordinate) GetMemoryBoardWidth() int {
 	return bc.memoryWidth
 }
 
+// GetMemoryBoardWidth - 枠付きの盤の垂直一辺の交点数
+func (bc *BoardCoordinate) GetMemoryBoardHeight() int {
+	return bc.memoryHeight
+}
+
 // GetMemoryBoardArea - 壁付き盤の面積
 func (bc *BoardCoordinate) GetMemoryBoardArea() int {
-	return bc.GetMemoryBoardWidth() * bc.GetMemoryBoardWidth()
+	return bc.GetMemoryBoardWidth() * bc.GetMemoryBoardHeight()
 }
 
 // GetZ4FromPoint - z（配列のインデックス）を XXYY形式（3～4桁の数）の座標へ変換します。

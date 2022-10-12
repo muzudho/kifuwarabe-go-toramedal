@@ -20,9 +20,11 @@ func NewBoard(gameRule *GameRule, boardSize int) *Board {
 
 	// 枠の分、２つ増える
 	var memoryBoardWidth = boardSize + 2
+	var memoryBoardHeight = boardSize + 2
 
 	b.coordinate = BoardCoordinate{
 		memoryBoardWidth,
+		memoryBoardHeight,
 		// ４方向
 		[4]Point{1, Point(-memoryBoardWidth), -1, Point(memoryBoardWidth)}}
 
