@@ -4,7 +4,7 @@ package kernel
 type Record struct {
 	// 棋譜項目の配列
 	items []RecordItem
-	// コウの番地
+	// コウの番地。無ければ Cell_Pass と同値
 	placeKo Point
 }
 
