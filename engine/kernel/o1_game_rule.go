@@ -30,11 +30,6 @@ func (gr *GameRule) GetKomi() KomiFloat {
 	return gr.komi
 }
 
-// SetKomi - コミ設定
-func (gr *GameRule) SetKomi(komi KomiFloat) {
-	gr.komi = komi
-}
-
 // GetMaxPositionNumber - 上限手数
 func (gr *GameRule) GetMaxPositionNumber() PositionNumberInt {
 	return gr.maxPositionNumber

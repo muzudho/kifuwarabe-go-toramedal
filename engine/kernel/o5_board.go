@@ -39,6 +39,11 @@ func (b *Board) GetGameRule() *GameRule {
 	return &b.gameRule
 }
 
+// SetGameRule - ゲームルール設定
+func (b *Board) SetGameRule(gameRule *GameRule) {
+	b.gameRule = *gameRule
+}
+
 // GetCoordinate - 盤座標取得
 func (b *Board) GetCoordinate() *BoardCoordinate {
 	return &b.coordinate

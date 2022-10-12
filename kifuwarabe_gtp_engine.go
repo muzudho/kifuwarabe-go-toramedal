@@ -79,7 +79,8 @@ func RunGtpEngine(kernel *e.Kernel) {
 					panic(err)
 				}
 
-				kernel.Position.GetBoard().GetGameRule().SetKomi(e.KomiFloat(komi))
+				var pGameRule = e.NewGameRule(e.KomiFloat(komi), kernel.Position.GetBoard().GetGameRule().GetMaxPositionNumber())
+				kernel.Position.GetBoard().SetGameRule(pGameRule)
 				code.Gtp.Print("= %d\n\n", kernel.Position.GetBoard().GetGameRule().GetKomi())
 			} else {
 				code.Gtp.Print("? unknown_command %s\n\n", command)
