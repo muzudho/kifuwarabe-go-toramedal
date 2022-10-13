@@ -23,12 +23,12 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 	var ls = NewLibertySearchAlgorithm(k.Position.GetBoard().GetCoordinate(), &k.Position.board, &k.Position.checkBoard)
 
 	// 呼吸点を計算します
-	for dir := 0; dir < 4; dir++ { // ４方向
+	for dir := Cell_4Directions(0); dir < 4; dir++ { // ４方向
 		around[dir] = NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
-		var adjZ = z + k.Position.GetBoard().GetCoordinate().GetCell4Directions()[dir] // 隣の交点
-		var adjColor = k.Position.GetBoard().GetStoneAt(adjZ)                          // 隣(adjacent)の交点の石の色
-		if adjColor == Stone_Space {                                                   // 空点
+		var adjZ = z + k.Position.GetBoard().GetCoordinate().GetRelativePointOf(dir) // 隣の交点
+		var adjColor = k.Position.GetBoard().GetStoneAt(adjZ)                        // 隣(adjacent)の交点の石の色
+		if adjColor == Stone_Space {                                                 // 空点
 			space++
 			continue
 		}

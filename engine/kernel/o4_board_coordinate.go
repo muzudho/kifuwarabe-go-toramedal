@@ -64,9 +64,9 @@ func (bc *BoardCoordinate) GetBoardArea() int {
 	return bc.GetWidth() * bc.GetHeight()
 }
 
-// GetCell4Directions - ４方向（東、北、西、南）の番地。2015年講習会サンプル、GoGo とは順序が違います
-func (bc *BoardCoordinate) GetCell4Directions() [4]Point {
-	return bc.cell4Directions
+// GetRelativePointOf - ４方向（東、北、西、南）の先の番地
+func (bc *BoardCoordinate) GetRelativePointOf(dir4 Cell_4Directions) Point {
+	return bc.cell4Directions[dir4]
 }
 
 // GetEastOf - 東

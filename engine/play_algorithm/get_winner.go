@@ -28,8 +28,8 @@ func getWinner(position *e.Position, turnColor e.Stone) int {
 		if color2 == 0 {
 			mk[1] = 0
 			mk[2] = 0
-			for dir := 0; dir < 4; dir++ {
-				mk[position.GetBoard().GetStoneAt(z+position.GetBoard().GetCoordinate().GetCell4Directions()[dir])]++
+			for dir := e.Cell_4Directions(0); dir < 4; dir++ {
+				mk[position.GetBoard().GetStoneAt(z+position.GetBoard().GetCoordinate().GetRelativePointOf(dir))]++
 			}
 			if mk[1] != 0 && mk[2] == 0 {
 				blackArea++
