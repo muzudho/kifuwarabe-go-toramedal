@@ -106,7 +106,7 @@ func (b *Board) FillRen(z Point, color Stone) {
 	b.SetStoneAt(z, Stone_Space) // 石を消します
 
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + b.coordinate.cellDir4[dir]
+		var adjZ = z + b.coordinate.cell4Directions[dir]
 
 		if b.GetStoneAt(adjZ) == color { // 再帰します
 			b.FillRen(adjZ, color)

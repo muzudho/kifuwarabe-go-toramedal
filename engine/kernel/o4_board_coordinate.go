@@ -11,11 +11,11 @@ import (
 // 両側の枠の厚み。南北、または東西
 const bothSidesWallThickness = 2
 
-type Cell_Direction int
+type Cell_4Directions int
 
-// Cell_Dir4 配列のインデックスに対応
+// Cell_4Directions 配列のインデックスに対応
 const (
-	Cell_East Cell_Direction = iota
+	Cell_East Cell_4Directions = iota
 	Cell_North
 	Cell_West
 	Cell_South
@@ -29,7 +29,7 @@ type BoardCoordinate struct {
 	memoryHeight int
 
 	// ４方向（東、北、西、南）の番地。2015年講習会サンプル、GoGo とは順序が違います
-	cellDir4 [4]Point
+	cell4Directions [4]Point
 }
 
 // GetMemoryBoardWidth - 枠付きの盤の水平一辺の交点数
@@ -62,49 +62,49 @@ func (bc *BoardCoordinate) GetBoardArea() int {
 	return bc.GetBoardWidth() * bc.GetBoardWidth()
 }
 
-// GetCellDir4 - ４方向（東、北、西、南）の番地。2015年講習会サンプル、GoGo とは順序が違います
-func (bc *BoardCoordinate) GetCellDir4() [4]Point {
-	return bc.cellDir4
+// GetCell4Directions - ４方向（東、北、西、南）の番地。2015年講習会サンプル、GoGo とは順序が違います
+func (bc *BoardCoordinate) GetCell4Directions() [4]Point {
+	return bc.cell4Directions
 }
 
 // GetEastOf - 東
 func (bc *BoardCoordinate) GetEastOf(point Point) Point {
-	return point + bc.cellDir4[Cell_East]
+	return point + bc.cell4Directions[Cell_East]
 }
 
 // GetNorthEastOf - 北東
 func (bc *BoardCoordinate) GetNorthEastOf(point Point) Point {
-	return point + bc.cellDir4[Cell_North] + bc.cellDir4[Cell_East]
+	return point + bc.cell4Directions[Cell_North] + bc.cell4Directions[Cell_East]
 }
 
 // GetNorthOf - 北
 func (bc *BoardCoordinate) GetNorthOf(point Point) Point {
-	return point + bc.cellDir4[Cell_North]
+	return point + bc.cell4Directions[Cell_North]
 }
 
 // GetNorthWestOf - 北西
 func (bc *BoardCoordinate) GetNorthWestOf(point Point) Point {
-	return point + bc.cellDir4[Cell_North] + bc.cellDir4[Cell_West]
+	return point + bc.cell4Directions[Cell_North] + bc.cell4Directions[Cell_West]
 }
 
 // GetWestOf - 西
 func (bc *BoardCoordinate) GetWestOf(point Point) Point {
-	return point + bc.cellDir4[Cell_West]
+	return point + bc.cell4Directions[Cell_West]
 }
 
 // GetSouthWestOf - 南西
 func (bc *BoardCoordinate) GetSouthWestOf(point Point) Point {
-	return point + bc.cellDir4[Cell_South] + bc.cellDir4[Cell_West]
+	return point + bc.cell4Directions[Cell_South] + bc.cell4Directions[Cell_West]
 }
 
 // GetSouthOf - 南
 func (bc *BoardCoordinate) GetSouthOf(point Point) Point {
-	return point + bc.cellDir4[Cell_South]
+	return point + bc.cell4Directions[Cell_South]
 }
 
 // GetSouthEastOf - 南東
 func (bc *BoardCoordinate) GetSouthEastOf(point Point) Point {
-	return point + bc.cellDir4[Cell_South] + bc.cellDir4[Cell_East]
+	return point + bc.cell4Directions[Cell_South] + bc.cell4Directions[Cell_East]
 }
 
 func (bc *BoardCoordinate) SetBoardSize(boardSize int) {
@@ -140,25 +140,25 @@ func (bc *BoardCoordinate) GetPointFromXy(x int, y int) Point {
 }
 
 // GetPointFromGtpMove - GTPの座標符号を Point に変換します
-// * `gtp_z` - 最初の１文字はアルファベット、２文字目（あれば３文字目）は数字と想定。 例: q10
-func (bc *BoardCoordinate) GetPointFromGtpMove(gtp_z string) Point {
-	gtp_z = strings.ToUpper(gtp_z)
+// * `gtp_move` - 最初の１文字はアルファベット、２文字目（あれば３文字目）は数字と想定。 例: q10
+func (bc *BoardCoordinate) GetPointFromGtpMove(gtp_move string) Point {
+	gtp_move = strings.ToUpper(gtp_move)
 
-	if gtp_z == "PASS" {
+	if gtp_move == "PASS" {
 		return 0
 	}
 
 	// 筋
-	var x = gtp_z[0] - 'A' + 1
-	if gtp_z[0] >= 'I' {
+	var x = gtp_move[0] - 'A' + 1
+	if gtp_move[0] >= 'I' {
 		x--
 	}
 
 	// 段
-	var y = int(gtp_z[1] - '0')
-	if 2 < len(gtp_z) {
+	var y = int(gtp_move[1] - '0')
+	if 2 < len(gtp_move) {
 		y *= 10
-		y += int(gtp_z[2] - '0')
+		y += int(gtp_move[2] - '0')
 	}
 
 	// インデックス

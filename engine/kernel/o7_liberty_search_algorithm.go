@@ -41,7 +41,7 @@ func (ls *LibertySearchAlgorithm) countLibertySub(z Point, color Stone, libertyA
 
 	*renArea++
 	for i := 0; i < 4; i++ {
-		var adjZ = z + ls.board.coordinate.cellDir4[i]
+		var adjZ = z + ls.board.coordinate.cell4Directions[i]
 
 		if !ls.checkBoard.IsEmptyAt(adjZ) {
 			continue
