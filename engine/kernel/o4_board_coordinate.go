@@ -11,9 +11,10 @@ import (
 // 両側の枠の厚み。南北、または東西
 const bothSidesWallThickness = 2
 
+// Cell_4Directions - 東、北、西、南を指す配列のインデックスに対応
 type Cell_4Directions int
 
-// Cell_4Directions 配列のインデックスに対応
+// 東、北、西、南を指す配列のインデックスに対応
 const (
 	Cell_East Cell_4Directions = iota
 	Cell_North
@@ -32,19 +33,19 @@ type BoardCoordinate struct {
 	cell4Directions [4]Point
 }
 
-// GetMemoryBoardWidth - 枠付きの盤の水平一辺の交点数
-func (bc *BoardCoordinate) GetMemoryBoardWidth() int {
+// GetMemoryWidth - 枠付きの盤の水平一辺の交点数
+func (bc *BoardCoordinate) GetMemoryWidth() int {
 	return bc.memoryWidth
 }
 
-// GetMemoryBoardWidth - 枠付きの盤の垂直一辺の交点数
-func (bc *BoardCoordinate) GetMemoryBoardHeight() int {
+// GetMemoryHeight - 枠付きの盤の垂直一辺の交点数
+func (bc *BoardCoordinate) GetMemoryHeight() int {
 	return bc.memoryHeight
 }
 
-// GetMemoryBoardArea - 壁付き盤の面積
-func (bc *BoardCoordinate) GetMemoryBoardArea() int {
-	return bc.GetMemoryBoardWidth() * bc.GetMemoryBoardHeight()
+// GetMemoryArea - 壁付き盤の面積
+func (bc *BoardCoordinate) GetMemoryArea() int {
+	return bc.GetMemoryWidth() * bc.GetMemoryHeight()
 }
 
 func (bc *BoardCoordinate) GetBoardWidth() int {
@@ -118,8 +119,8 @@ func (bc *BoardCoordinate) GetZ4FromPoint(point Point) int {
 	if point == 0 {
 		return 0
 	}
-	var y = int(point) / bc.GetMemoryBoardWidth()
-	var x = int(point) - y*bc.GetMemoryBoardWidth()
+	var y = int(point) / bc.GetMemoryWidth()
+	var x = int(point) - y*bc.GetMemoryWidth()
 	return x*100 + y
 }
 
@@ -136,7 +137,7 @@ func (bc *BoardCoordinate) GetZ4FromPoint(point Point) int {
 //
 //	壁を含まない盤での段番号。 Example: 19路盤なら0～18
 func (bc *BoardCoordinate) GetPointFromXy(x int, y int) Point {
-	return Point((y+1)*bc.GetMemoryBoardWidth() + x + 1)
+	return Point((y+1)*bc.GetMemoryWidth() + x + 1)
 }
 
 // GetPointFromGtpMove - GTPの座標符号を Point に変換します
@@ -175,8 +176,8 @@ func (bc *BoardCoordinate) GetGtpMoveFromPoint(point Point) string {
 		// return "ILLEGAL" // GTP の仕様外です
 	}
 
-	var y = int(point) / bc.GetMemoryBoardWidth()
-	var x = int(point) % bc.GetMemoryBoardWidth()
+	var y = int(point) / bc.GetMemoryWidth()
+	var x = int(point) % bc.GetMemoryWidth()
 
 	// 筋が25（'Z'）より大きくなることは想定していません
 	var alphabet_x = 'A' + x - 1

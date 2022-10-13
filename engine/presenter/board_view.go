@@ -85,29 +85,29 @@ func PrintBoard(kernel *e.Kernel) {
 		for x := 0; x < boardSize; x++ {
 			sb.WriteString(horizontalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(x+1))]) // --
 		}
-		sb.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardWidth()-1))]) // -+
+		sb.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.Position.GetBoard().GetCoordinate().GetMemoryWidth()-1))]) // -+
 		sb.WriteString("\n")
 
 		// Body
 		for y := 0; y < boardSize; y++ {
-			sb.WriteString(labelOfRows[y+1])                                                                                                                               // number
-			sb.WriteString(leftVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+1)*kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardWidth()))]) // |
+			sb.WriteString(labelOfRows[y+1])                                                                                                                          // number
+			sb.WriteString(leftVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+1)*kernel.Position.GetBoard().GetCoordinate().GetMemoryWidth()))]) // |
 			for x := 0; x < boardSize; x++ {
 				sb.WriteString(stoneLabels[kernel.GetStoneAtXy(x, y)])
 			}
-			sb.WriteString(rightVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+2)*kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardWidth()-1))]) // " |"
+			sb.WriteString(rightVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+2)*kernel.Position.GetBoard().GetCoordinate().GetMemoryWidth()-1))]) // " |"
 			sb.WriteString("\n")
 		}
 
 		// Footer line
 		sb.WriteString("  ") // number space
-		var leftBottomCellNum = kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardWidth() * (kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardHeight() - 1)
+		var leftBottomCellNum = kernel.Position.GetBoard().GetCoordinate().GetMemoryWidth() * (kernel.Position.GetBoard().GetCoordinate().GetMemoryHeight() - 1)
 		// 枠付きの盤なので、左下隅には `+` 石がある
 		sb.WriteString(leftCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(leftBottomCellNum))]) // +
 		for x := 0; x < boardSize; x++ {
 			sb.WriteString(horizontalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(leftBottomCellNum+x+1))]) // --
 		}
-		sb.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.Position.GetBoard().GetCoordinate().GetMemoryBoardArea()-1))]) // -+
+		sb.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.Position.GetBoard().GetCoordinate().GetMemoryArea()-1))]) // -+
 		sb.WriteString("\n")
 
 		// Info

@@ -87,7 +87,7 @@ func (b *Board) DrawEmptyBoard() {
 
 // DrawWall - 壁枠を設定します
 func (b *Board) DrawWall() {
-	for z := Point(0); z < Point(b.coordinate.GetMemoryBoardArea()); z++ {
+	for z := Point(0); z < Point(b.coordinate.GetMemoryArea()); z++ {
 		b.SetStoneAt(z, Stone_Wall)
 	}
 }

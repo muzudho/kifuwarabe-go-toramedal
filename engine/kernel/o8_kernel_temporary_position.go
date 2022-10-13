@@ -11,7 +11,7 @@ type TemporaryPosition struct {
 // NewCopyPosition - 盤データのコピー。
 func (k *Kernel) NewCopyPosition() *TemporaryPosition {
 	var temp = new(TemporaryPosition)
-	temp.Board = make([]Stone, k.Position.board.coordinate.GetMemoryBoardArea())
+	temp.Board = make([]Stone, k.Position.board.coordinate.GetMemoryArea())
 	copy(temp.Board[:], k.Position.board.GetSlice())
 	temp.KoZ = k.GetPlaceKoOfCurrentPosition()
 	return temp

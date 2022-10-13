@@ -47,7 +47,7 @@ func (k *Kernel) InitPosition() {
 	k.Position.board.DrawEmptyBoard()
 
 	// チェック盤の作り直し
-	var memoryBoardArea = k.Position.board.coordinate.GetMemoryBoardArea()
+	var memoryBoardArea = k.Position.board.coordinate.GetMemoryArea()
 	k.Position.checkBoard = *NewCheckBoard(memoryBoardArea)
 
 	// 棋譜の作り直し
