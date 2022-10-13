@@ -78,21 +78,21 @@ func (b *Board) IsSpaceAt(point Point) bool {
 
 // DrawEmptyBoard - 空っぽの盤にします
 func (b *Board) DrawEmptyBoard() {
-	// 枠枠を設定
+	// 枠を設定
 	b.DrawWall()
 
 	// 盤上の石を全部消します
 	b.EraseBoard()
 }
 
-// DrawWall - 壁枠を設定します
+// DrawWall - 枠を設定します
 func (b *Board) DrawWall() {
 	for z := Point(0); z < Point(b.coordinate.GetMemoryArea()); z++ {
 		b.SetStoneAt(z, Stone_Wall)
 	}
 }
 
-// EraseBoard - （壁枠を除く）盤上をすべて空点にします
+// EraseBoard - （枠を除く）盤上をすべて空点にします
 func (b *Board) EraseBoard() {
 	var setPoint = func(point Point) {
 		b.SetStoneAt(point, Stone_Space)
