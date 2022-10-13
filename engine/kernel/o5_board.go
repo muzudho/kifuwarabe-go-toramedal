@@ -78,7 +78,7 @@ func (b *Board) IsSpaceAt(point Point) bool {
 
 // DrawEmptyBoard - 空っぽの盤にします
 func (b *Board) DrawEmptyBoard() {
-	// 壁枠を設定
+	// 枠枠を設定
 	b.DrawWall()
 
 	// 盤上の石を全部消します

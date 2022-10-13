@@ -1,7 +1,7 @@
 package kernel
 
 // PutStone - 石を置きます。
-// * `z` - 交点。壁有り盤の配列インデックス
+// * `z` - 交点。枠有り盤の配列インデックス
 //
 // # Returns
 // エラーコード
@@ -11,7 +11,7 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 	var renArea int                 // 連の石の数
 	var oppColor = FlipColor(color) //相手(opponent)の石の色
 	var space = 0                   // 隣接している空点への向きの数
-	var wall = 0                    // 隣接している壁への向きの数
+	var wall = 0                    // 隣接している枠への向きの数
 	var myBreathFriend = 0          // 呼吸できる自分の石と隣接している向きの数
 	var captureSum = 0              // アゲハマの数
 
@@ -32,7 +32,7 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 			space++
 			continue
 		}
-		if adjColor == Stone_Wall { // 壁
+		if adjColor == Stone_Wall { // 枠
 			wall++
 			continue
 		}
@@ -84,7 +84,7 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 		var lib = around[dir].LibertyArea                                         // 隣接する連の呼吸点の数
 		var adjColor = around[dir].Color                                          // 隣接する連の石の色
 
-		if adjColor == oppColor && // 隣接する連が相手の石で（壁はここで除外されます）
+		if adjColor == oppColor && // 隣接する連が相手の石で（枠はここで除外されます）
 			lib == 1 && // その呼吸点は１つで、そこに今石を置いた
 			!k.Position.GetBoard().IsSpaceAt(adjZ) { // 石はまだあるなら（上と右の石がくっついている、といったことを除外）
 

@@ -36,7 +36,7 @@ type Game struct {
 // 0: 空点
 // 1: 黒石
 // 2: 白石
-// 3: 壁
+// 3: 枠
 func (config *Config) GetBoardArray() []e.Stone {
 	// 最後のカンマを削除しないと、要素数が 1 多くなってしまいます
 	var s = strings.TrimRight(config.Game.BoardData, ",")

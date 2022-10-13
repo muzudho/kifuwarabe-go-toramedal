@@ -50,13 +50,13 @@ var labelOfRows = [20]string{" 0", " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8
 // " ." - 空点
 // " x" - 黒石
 // " o" - 白石
-// " #" - 壁（バグ目視確認用）
+// " #" - 枠（バグ目視確認用）
 var stoneLabels = [4]string{" .", " x", " o", " #"}
 
 // " ." - 空点（バグ目視確認用）
 // " x" - 黒石（バグ目視確認用）
 // " o" - 白石（バグ目視確認用）
-// "+-" - 壁
+// "+-" - 枠
 var leftCornerLabels = [4]string{".", "x", "o", "+"}
 var horizontalEdgeLabels = [4]string{" .", " x", " o", "--"}
 var rightCornerLabels = [4]string{" .", " x", " o", "-+"}

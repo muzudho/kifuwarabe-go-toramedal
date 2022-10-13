@@ -10,7 +10,7 @@ const (
 	Stone_Black
 	// Stone_White - 白石
 	Stone_White
-	// Stone_Wall - 壁
+	// Stone_Wall - 枠
 	Stone_Wall
 )
 

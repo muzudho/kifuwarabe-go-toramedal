@@ -1,6 +1,6 @@
 package kernel
 
-// Point - 交点の座標。壁を含む盤の左上を 0 とします
+// Point - 交点の座標。枠を含む盤の左上を 0 とします
 type Point int
 
 // Cell_Pass - パス
