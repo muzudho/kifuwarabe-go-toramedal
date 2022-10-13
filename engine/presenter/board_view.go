@@ -72,27 +72,28 @@ func PrintBoard(kernel *e.Kernel) {
 	if kernel.Position.GetBoard().GetGameRule().GetMaxPositionNumber() < kernel.Position.Number {
 		sb.WriteString(fmt.Sprintf("Out of bounds max position number %d.\r", kernel.Position.Number))
 	} else {
-		var boardSize = kernel.Position.GetBoard().GetCoordinate().GetBoardWidth()
+		var boardWidth = kernel.Position.GetBoard().GetCoordinate().GetWidth()
+		var boardHeight = kernel.Position.GetBoard().GetCoordinate().GetHeight()
 
 		// Header (numbers)
 		sb.WriteString("\n   ")
-		for x := 0; x < boardSize; x++ {
+		for x := 0; x < boardWidth; x++ {
 			sb.WriteString(labelOfColumns[x+1])
 		}
 		// Header (line)
 		sb.WriteString("\n  ")                                                     // number space
 		sb.WriteString(leftCornerLabels[kernel.Position.GetBoard().GetStoneAt(0)]) // +
-		for x := 0; x < boardSize; x++ {
+		for x := 0; x < boardWidth; x++ {
 			sb.WriteString(horizontalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(x+1))]) // --
 		}
 		sb.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.Position.GetBoard().GetCoordinate().GetMemoryWidth()-1))]) // -+
 		sb.WriteString("\n")
 
 		// Body
-		for y := 0; y < boardSize; y++ {
+		for y := 0; y < boardHeight; y++ {
 			sb.WriteString(labelOfRows[y+1])                                                                                                                          // number
 			sb.WriteString(leftVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+1)*kernel.Position.GetBoard().GetCoordinate().GetMemoryWidth()))]) // |
-			for x := 0; x < boardSize; x++ {
+			for x := 0; x < boardWidth; x++ {
 				sb.WriteString(stoneLabels[kernel.GetStoneAtXy(x, y)])
 			}
 			sb.WriteString(rightVerticalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point((y+2)*kernel.Position.GetBoard().GetCoordinate().GetMemoryWidth()-1))]) // " |"
@@ -104,7 +105,7 @@ func PrintBoard(kernel *e.Kernel) {
 		var leftBottomCellNum = kernel.Position.GetBoard().GetCoordinate().GetMemoryWidth() * (kernel.Position.GetBoard().GetCoordinate().GetMemoryHeight() - 1)
 		// 枠付きの盤なので、左下隅には `+` 石がある
 		sb.WriteString(leftCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(leftBottomCellNum))]) // +
-		for x := 0; x < boardSize; x++ {
+		for x := 0; x < boardWidth; x++ {
 			sb.WriteString(horizontalEdgeLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(leftBottomCellNum+x+1))]) // --
 		}
 		sb.WriteString(rightCornerLabels[kernel.Position.GetBoard().GetStoneAt(e.Point(kernel.Position.GetBoard().GetCoordinate().GetMemoryArea()-1))]) // -+

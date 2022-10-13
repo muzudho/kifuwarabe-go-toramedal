@@ -23,7 +23,7 @@ func GetRandomPigeonX(N int) int {
 }
 
 func AdjustParameters(kernel *e.Kernel) {
-	var boardSize = kernel.Position.GetBoard().GetCoordinate().GetBoardWidth()
+	var boardSize = kernel.Position.GetBoard().GetCoordinate().GetWidth()
 	if boardSize < 10 {
 		// 10路盤より小さいとき
 		PlayoutTrialCount = boardSize*boardSize + 200

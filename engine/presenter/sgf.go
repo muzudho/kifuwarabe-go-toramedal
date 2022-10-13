@@ -7,7 +7,8 @@ import (
 
 // PrintSgf - SGF形式の棋譜表示。
 func PrintSgf(kernel *e.Kernel, positionNumber e.PositionNumberInt, record *e.Record) {
-	var boardSize = kernel.Position.GetBoard().GetCoordinate().GetBoardWidth()
+	// Sgfフォーマットは、正方形という前提？
+	var boardSize = kernel.Position.GetBoard().GetCoordinate().GetWidth()
 
 	code.Console.Print("(;GM[1]SZ[%d]KM[%.1f]PB[]PW[]\n", boardSize, kernel.Position.GetBoard().GetGameRule().GetKomi())
 	for i := e.PositionNumberInt(0); i < positionNumber; i++ {

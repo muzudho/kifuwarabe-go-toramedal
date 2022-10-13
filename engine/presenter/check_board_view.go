@@ -17,24 +17,25 @@ func PrintCheckBoard(kernel *e.Kernel) {
 	var b = &strings.Builder{}
 	b.Grow(sz8k)
 
-	var boardSize = kernel.Position.GetBoard().GetCoordinate().GetBoardWidth()
+	var boardWidth = kernel.Position.GetBoard().GetCoordinate().GetWidth()
+	var boardHeight = kernel.Position.GetBoard().GetCoordinate().GetHeight()
 
 	// Header
 	b.WriteString("\n   ")
-	for x := 0; x < boardSize; x++ {
+	for x := 0; x < boardWidth; x++ {
 		b.WriteString(labelOfColumns[x+1])
 	}
 	b.WriteString("\n  +")
-	for x := 0; x < boardSize; x++ {
+	for x := 0; x < boardWidth; x++ {
 		b.WriteString("--")
 	}
 	b.WriteString("-+\n")
 
 	// Body
-	for y := 0; y < boardSize; y++ {
+	for y := 0; y < boardHeight; y++ {
 		b.WriteString(labelOfRows[y+1])
 		b.WriteString("|")
-		for x := 0; x < boardSize; x++ {
+		for x := 0; x < boardWidth; x++ {
 			var z = kernel.Position.GetBoard().GetCoordinate().GetPointFromXy(x, y)
 
 			var mark = kernel.Position.GetCheckBoard().GetMarkAt(z)
@@ -46,7 +47,7 @@ func PrintCheckBoard(kernel *e.Kernel) {
 
 	// Footer
 	b.WriteString("  +")
-	for x := 0; x < boardSize; x++ {
+	for x := 0; x < boardWidth; x++ {
 		b.WriteString("--")
 	}
 	b.WriteString("-+\n")

@@ -43,24 +43,25 @@ func (bc *BoardCoordinate) GetMemoryHeight() int {
 	return bc.memoryHeight
 }
 
-// GetMemoryArea - 壁付き盤の面積
+// GetMemoryArea - 枠付き盤の面積
 func (bc *BoardCoordinate) GetMemoryArea() int {
 	return bc.GetMemoryWidth() * bc.GetMemoryHeight()
 }
 
-func (bc *BoardCoordinate) GetBoardWidth() int {
+func (bc *BoardCoordinate) GetWidth() int {
 	// 枠の分、２つ減らす
 	return bc.memoryWidth - bothSidesWallThickness
 }
 
-func (bc *BoardCoordinate) GetBoardHeight() int {
+// GetHeight - 枠無し盤の縦幅
+func (bc *BoardCoordinate) GetHeight() int {
 	// 枠の分、２つ減らす
 	return bc.memoryHeight - bothSidesWallThickness
 }
 
-// GetBoardArea - 壁無し盤の面積
+// GetBoardArea - 枠無し盤の面積
 func (bc *BoardCoordinate) GetBoardArea() int {
-	return bc.GetBoardWidth() * bc.GetBoardWidth()
+	return bc.GetWidth() * bc.GetHeight()
 }
 
 // GetCell4Directions - ４方向（東、北、西、南）の番地。2015年講習会サンプル、GoGo とは順序が違います
@@ -125,17 +126,17 @@ func (bc *BoardCoordinate) GetZ4FromPoint(point Point) int {
 }
 
 // GetPointFromXy - x,y 形式の座標を、 point （配列のインデックス）へ変換します。
-// point は壁を含む盤上での座標です
+// point は枠を含む盤上での座標です
 //
 // Parameters
 // ----------
 // x : int
 //
-//	壁を含まない盤での筋番号。 Example: 19路盤なら0～18
+//	枠を含まない盤での筋番号。 Example: 19路盤なら0～18
 //
 // y : int
 //
-//	壁を含まない盤での段番号。 Example: 19路盤なら0～18
+//	枠を含まない盤での段番号。 Example: 19路盤なら0～18
 func (bc *BoardCoordinate) GetPointFromXy(x int, y int) Point {
 	return Point((y+1)*bc.GetMemoryWidth() + x + 1)
 }
@@ -190,13 +191,11 @@ func (bc *BoardCoordinate) GetGtpMoveFromPoint(point Point) string {
 	return fmt.Sprintf("%c%d", alphabet_x, y)
 }
 
-// ForeachPointWithoutWall -  盤の（壁を除く）全ての交点に順にアクセスします
+// ForeachPointWithoutWall -  盤の（枠を除く）全ての交点に順にアクセスします
 func (bc *BoardCoordinate) ForeachPointWithoutWall(setPoint func(Point)) {
-	var boardSize = bc.GetBoardWidth()
-
-	// x,y は壁無しの盤での0から始まる座標、 z は壁有りの盤での0から始まる座標
-	for y := 0; y < boardSize; y++ {
-		for x := 0; x < boardSize; x++ {
+	// x,y は枠無しの盤での0から始まる座標、 z は枠有りの盤での0から始まる座標
+	for y := 0; y < bc.GetHeight(); y++ {
+		for x := 0; x < bc.GetWidth(); x++ {
 			var point = bc.GetPointFromXy(x, y)
 			setPoint(point)
 		}
