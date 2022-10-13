@@ -32,11 +32,11 @@ func PrintCheckBoard(kernel *e.Kernel) {
 	b.WriteString("-+\n")
 
 	// Body
-	for y := 0; y < boardHeight; y++ {
-		b.WriteString(labelOfRows[y+1])
+	for j := 0; j < boardHeight; j++ {
+		b.WriteString(labelOfRows[j+1])
 		b.WriteString("|")
-		for x := 0; x < boardWidth; x++ {
-			var z = kernel.Position.GetBoard().GetCoordinate().GetPointFromXy(x, y)
+		for i := 0; i < boardWidth; i++ {
+			var z = kernel.Position.GetBoard().GetCoordinate().GetPointFromXy(i+1, j+1)
 
 			var mark = kernel.Position.GetCheckBoard().GetMarkAt(z)
 

@@ -109,36 +109,22 @@ func (bc *BoardCoordinate) GetSouthEastOf(point Point) Point {
 	return point + bc.cell4Directions[Cell_South] + bc.cell4Directions[Cell_East]
 }
 
-func (bc *BoardCoordinate) SetBoardSize(boardSize int) {
-	// 枠の分、２つ増える
-	bc.memoryWidth = boardSize + bothSidesWallThickness
-	bc.memoryHeight = boardSize + bothSidesWallThickness
-}
-
-// GetZ4FromPoint - z（配列のインデックス）を XXYY形式（3～4桁の数）の座標へ変換します。
-func (bc *BoardCoordinate) GetZ4FromPoint(point Point) int {
-	if point == 0 {
-		return 0
-	}
-	var y = int(point) / bc.GetMemoryWidth()
-	var x = int(point) - y*bc.GetMemoryWidth()
-	return x*100 + y
-}
-
 // GetPointFromXy - x,y 形式の座標を、 point （配列のインデックス）へ変換します。
 // point は枠を含む盤上での座標です
 //
 // Parameters
 // ----------
 // x : int
-//
-//	枠を含まない盤での筋番号。 Example: 19路盤なら0～18
-//
+// 枠を含む盤での筋番号。 Example: 19路盤なら0～20
 // y : int
+// 枠を含む盤での段番号。 Example: 19路盤なら0～20
 //
-//	枠を含まない盤での段番号。 Example: 19路盤なら0～18
+// Returns
+// -------
+// point : Point
+// 配列インデックス
 func (bc *BoardCoordinate) GetPointFromXy(x int, y int) Point {
-	return Point((y+1)*bc.GetMemoryWidth() + x + 1)
+	return Point(y*bc.GetMemoryWidth() + x)
 }
 
 // GetPointFromGtpMove - GTPの座標符号を Point に変換します
@@ -150,13 +136,13 @@ func (bc *BoardCoordinate) GetPointFromGtpMove(gtp_move string) Point {
 		return 0
 	}
 
-	// 筋
+	// 筋 0～
 	var x = gtp_move[0] - 'A' + 1
 	if gtp_move[0] >= 'I' {
 		x--
 	}
 
-	// 段
+	// 段 0～
 	var y = int(gtp_move[1] - '0')
 	if 2 < len(gtp_move) {
 		y *= 10
@@ -164,7 +150,7 @@ func (bc *BoardCoordinate) GetPointFromGtpMove(gtp_move string) Point {
 	}
 
 	// インデックス
-	var z = bc.GetPointFromXy(int(x)-1, y-1)
+	var z = bc.GetPointFromXy(int(x), y)
 	return z
 }
 
@@ -194,10 +180,20 @@ func (bc *BoardCoordinate) GetGtpMoveFromPoint(point Point) string {
 // ForeachPointWithoutWall -  盤の（枠を除く）全ての交点に順にアクセスします
 func (bc *BoardCoordinate) ForeachPointWithoutWall(setPoint func(Point)) {
 	// x,y は枠無しの盤での0から始まる座標、 z は枠有りの盤での0から始まる座標
-	for y := 0; y < bc.GetHeight(); y++ {
-		for x := 0; x < bc.GetWidth(); x++ {
-			var point = bc.GetPointFromXy(x, y)
+	for j := 0; j < bc.GetHeight(); j++ {
+		for i := 0; i < bc.GetWidth(); i++ {
+			var point = bc.GetPointFromXy(i+1, j+1)
 			setPoint(point)
 		}
 	}
+}
+
+// GetZ4FromPoint - z（配列のインデックス）を XXYY形式（3～4桁の数）の座標へ変換します。
+func (bc *BoardCoordinate) GetZ4FromPoint(point Point) int {
+	if point == 0 {
+		return 0
+	}
+	var y = int(point) / bc.GetMemoryWidth()
+	var x = int(point) - y*bc.GetMemoryWidth()
+	return x*100 + y
 }
