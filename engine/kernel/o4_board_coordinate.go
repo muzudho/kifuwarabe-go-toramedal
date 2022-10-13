@@ -5,6 +5,12 @@ import (
 	"strings"
 )
 
+// 片方の枠の厚み。東、北、西、南
+// const oneSideWallThickness = 1
+
+// 両側の枠の厚み。南北、または東西
+const bothSidesWallThickness = 2
+
 type Cell_Direction int
 
 // Cell_Dir4 配列のインデックスに対応
@@ -24,6 +30,36 @@ type BoardCoordinate struct {
 
 	// ４方向（東、北、西、南）の番地。2015年講習会サンプル、GoGo とは順序が違います
 	cellDir4 [4]Point
+}
+
+// GetMemoryBoardWidth - 枠付きの盤の水平一辺の交点数
+func (bc *BoardCoordinate) GetMemoryBoardWidth() int {
+	return bc.memoryWidth
+}
+
+// GetMemoryBoardWidth - 枠付きの盤の垂直一辺の交点数
+func (bc *BoardCoordinate) GetMemoryBoardHeight() int {
+	return bc.memoryHeight
+}
+
+// GetMemoryBoardArea - 壁付き盤の面積
+func (bc *BoardCoordinate) GetMemoryBoardArea() int {
+	return bc.GetMemoryBoardWidth() * bc.GetMemoryBoardHeight()
+}
+
+func (bc *BoardCoordinate) GetBoardWidth() int {
+	// 枠の分、２つ減らす
+	return bc.memoryWidth - bothSidesWallThickness
+}
+
+func (bc *BoardCoordinate) GetBoardHeight() int {
+	// 枠の分、２つ減らす
+	return bc.memoryHeight - bothSidesWallThickness
+}
+
+// GetBoardArea - 壁無し盤の面積
+func (bc *BoardCoordinate) GetBoardArea() int {
+	return bc.GetBoardWidth() * bc.GetBoardWidth()
 }
 
 // GetCellDir4 - ４方向（東、北、西、南）の番地。2015年講習会サンプル、GoGo とは順序が違います
@@ -73,38 +109,8 @@ func (bc *BoardCoordinate) GetSouthEastOf(point Point) Point {
 
 func (bc *BoardCoordinate) SetBoardSize(boardSize int) {
 	// 枠の分、２つ増える
-	bc.memoryWidth = boardSize + 2
-	bc.memoryHeight = boardSize + 2
-}
-
-func (bc *BoardCoordinate) GetBoardWidth() int {
-	// 枠の分、２つ減らす
-	return bc.memoryWidth - 2
-}
-
-func (bc *BoardCoordinate) GetBoardHeight() int {
-	// 枠の分、２つ減らす
-	return bc.memoryHeight - 2
-}
-
-// GetBoardArea - 壁無し盤の面積
-func (bc *BoardCoordinate) GetBoardArea() int {
-	return bc.GetBoardWidth() * bc.GetBoardWidth()
-}
-
-// GetMemoryBoardWidth - 枠付きの盤の水平一辺の交点数
-func (bc *BoardCoordinate) GetMemoryBoardWidth() int {
-	return bc.memoryWidth
-}
-
-// GetMemoryBoardWidth - 枠付きの盤の垂直一辺の交点数
-func (bc *BoardCoordinate) GetMemoryBoardHeight() int {
-	return bc.memoryHeight
-}
-
-// GetMemoryBoardArea - 壁付き盤の面積
-func (bc *BoardCoordinate) GetMemoryBoardArea() int {
-	return bc.GetMemoryBoardWidth() * bc.GetMemoryBoardHeight()
+	bc.memoryWidth = boardSize + bothSidesWallThickness
+	bc.memoryHeight = boardSize + bothSidesWallThickness
 }
 
 // GetZ4FromPoint - z（配列のインデックス）を XXYY形式（3～4桁の数）の座標へ変換します。
@@ -117,8 +123,18 @@ func (bc *BoardCoordinate) GetZ4FromPoint(point Point) int {
 	return x*100 + y
 }
 
-// GetPointFromXy - x,y 形式の座標を、 z （配列のインデックス）へ変換します。
-// x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
+// GetPointFromXy - x,y 形式の座標を、 point （配列のインデックス）へ変換します。
+// point は壁を含む盤上での座標です
+//
+// Parameters
+// ----------
+// x : int
+//
+//	壁を含まない盤での筋番号。 Example: 19路盤なら0～18
+//
+// y : int
+//
+//	壁を含まない盤での段番号。 Example: 19路盤なら0～18
 func (bc *BoardCoordinate) GetPointFromXy(x int, y int) Point {
 	return Point((y+1)*bc.GetMemoryBoardWidth() + x + 1)
 }
