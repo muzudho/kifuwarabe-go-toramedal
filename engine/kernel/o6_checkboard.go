@@ -12,16 +12,20 @@ const (
 //
 // - 呼吸点を数えるための一時盤
 type CheckBoard struct {
+	// 盤座標
+	coordinate BoardCoordinate
+
 	// 長さが可変な盤
 	//
 	// * 英語で交点は node かも知れないが、表計算でよく使われる cell の方を使う
 	cells []Mark
 }
 
-func NewCheckBoard(memoryBoardArea int) *CheckBoard {
+func NewCheckBoard(newBoardCoordinate BoardCoordinate) *CheckBoard {
 	var cb = new(CheckBoard)
 
-	cb.cells = make([]Mark, memoryBoardArea)
+	cb.coordinate = newBoardCoordinate
+	cb.cells = make([]Mark, cb.coordinate.GetMemoryArea())
 
 	return cb
 }

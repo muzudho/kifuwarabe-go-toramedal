@@ -17,10 +17,8 @@ type Position struct {
 func NewPosition(gameRule GameRule, boardSize int) *Position {
 	var p = new(Position)
 
-	var memoryBoardSize = boardSize + 2
-
 	p.board = *NewBoard(gameRule, boardSize)
-	p.checkBoard = *NewCheckBoard(memoryBoardSize * memoryBoardSize)
+	p.checkBoard = *NewCheckBoard(p.board.coordinate)
 	p.uctAlgorithm = UctAlgorithm{&p.board, 0}
 
 	return p
@@ -47,8 +45,7 @@ func (k *Kernel) InitPosition() {
 	k.Position.board.DrawEmptyBoard()
 
 	// チェック盤の作り直し
-	var memoryBoardArea = k.Position.board.coordinate.GetMemoryArea()
-	k.Position.checkBoard = *NewCheckBoard(memoryBoardArea)
+	k.Position.checkBoard = *NewCheckBoard(k.Position.board.coordinate)
 
 	// 棋譜の作り直し
 	k.Record = *NewRecord(k.Position.board.gameRule.maxPositionNumber)
