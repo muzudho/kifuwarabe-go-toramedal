@@ -9,8 +9,12 @@ const (
 )
 
 // CheckBoard - ２値ではなく多値
+//
+// - 呼吸点を数えるための一時盤
 type CheckBoard struct {
-	// 呼吸点を数えるための一時盤
+	// 長さが可変な盤
+	//
+	// * 英語で交点は node かも知れないが、表計算でよく使われる cell の方を使う
 	cells []Mark
 }
 
