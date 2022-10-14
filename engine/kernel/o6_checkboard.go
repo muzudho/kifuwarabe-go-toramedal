@@ -1,7 +1,7 @@
 package kernel
 
 // Mark - 目印
-type Mark int
+type Mark uint8
 
 const (
 	Mark_Empty Mark = iota
