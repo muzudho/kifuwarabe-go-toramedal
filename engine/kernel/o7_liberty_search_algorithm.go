@@ -26,18 +26,22 @@ func (ls *LibertySearchAlgorithm) CountLiberty(z Point, libertyArea *int, renAre
 	*renArea = 0
 
 	// チェックボードの初期化
-	var setPoint = func(z Point) {
+	var eachPoint = func(z Point) {
 		ls.checkBoard.ClearAllBitsAt(z)
 	}
-	ls.board.GetCoordinate().ForeachCellWithoutWall(setPoint)
+	ls.board.GetCoordinate().ForeachCellWithoutWall(eachPoint)
 
-	ls.countLibertySub(z, ls.board.GetStoneAt(z), libertyArea, renArea)
+	ls.searchStoneRenRecursive(z, ls.board.GetStoneAt(z), libertyArea, renArea)
 }
 
+// 石の連の探索
+//
+// * 再帰関数
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (ls *LibertySearchAlgorithm) countLibertySub(z Point, color Stone, libertyArea *int, renArea *int) {
+func (ls *LibertySearchAlgorithm) searchStoneRenRecursive(z Point, color Stone, libertyArea *int, renArea *int) {
 
+	// 石のチェック
 	ls.checkBoard.Overwrite(z, Mark_BitStone)
 
 	*renArea++
@@ -54,7 +58,7 @@ func (ls *LibertySearchAlgorithm) countLibertySub(z Point, color Stone, libertyA
 
 			*libertyArea++
 		} else if ls.board.GetStoneAt(adjZ) == color {
-			ls.countLibertySub(adjZ, color, libertyArea, renArea) // 再帰
+			ls.searchStoneRenRecursive(adjZ, color, libertyArea, renArea) // 再帰
 		}
 	}
 }

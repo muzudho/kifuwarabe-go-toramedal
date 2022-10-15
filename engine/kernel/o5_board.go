@@ -115,3 +115,23 @@ func (b *Board) FillRen(z Point, color Stone) {
 		}
 	}
 }
+
+// ForeachNeumannNeighborhood - [O13o__10o0] 隣接する４方向の定義
+func (b *Board) ForeachNeumannNeighborhood(here Point, setAdjacent func(int, Point)) {
+	// 東、北、西、南
+	for dir := 0; dir < 4; dir++ {
+		var p = here + b.coordinate.cell4Directions[dir] // 隣接する交点
+
+		// 範囲外チェック
+		if p < 0 || b.coordinate.GetMemoryArea() <= int(p) {
+			continue
+		}
+
+		// 枠チェック
+		if b.GetStoneAt(p) == Stone_Wall {
+			continue
+		}
+
+		setAdjacent(dir, p)
+	}
+}

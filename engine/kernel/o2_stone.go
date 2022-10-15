@@ -1,7 +1,7 @@
 package kernel
 
 // Stone - 石の色
-type Stone int
+type Stone uint
 
 const (
 	// Stone_Space - 空点
