@@ -21,13 +21,21 @@ type CheckBoard struct {
 	cells []Mark
 }
 
-func NewCheckBoard(newBoardCoordinate BoardCoordinate) *CheckBoard {
+// NewDirtyCheckBoard - 新規作成するが、初期化されていない
+//
+// * このメソッドを呼び出した後に Init 関数を呼び出してほしい
+func NewDirtyCheckBoard() *CheckBoard {
 	var cb = new(CheckBoard)
 
-	cb.coordinate = newBoardCoordinate
-	cb.cells = make([]Mark, cb.coordinate.GetMemoryArea())
+	cb.coordinate = BoardCoordinate{}
 
 	return cb
+}
+
+// Init - 初期化
+func (cb *CheckBoard) Init(newBoardCoordinate BoardCoordinate) {
+	cb.coordinate = newBoardCoordinate
+	cb.cells = make([]Mark, cb.coordinate.GetMemoryArea())
 }
 
 // GetMarkAt - 指定した交点の目印を取得

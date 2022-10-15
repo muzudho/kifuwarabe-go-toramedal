@@ -12,16 +12,35 @@ type Position struct {
 	uctAlgorithm UctAlgorithm
 }
 
-// NewPosition - 空っぽの局面を生成します
-// あとで InitPosition() を呼び出してください
-func NewPosition(gameRule GameRule, boardSize int) *Position {
+// NewDirtyPosition - 新規作成するが、初期化されていない
+//
+// - あとで Kernel#InitPosition() を呼び出してください
+func NewDirtyPosition(gameRule GameRule, boardSize int) *Position {
 	var p = new(Position)
 
 	p.board = *NewBoard(gameRule, boardSize)
-	p.checkBoard = *NewCheckBoard(p.board.coordinate)
+	p.checkBoard = *NewDirtyCheckBoard()
 	p.uctAlgorithm = UctAlgorithm{&p.board, 0}
 
 	return p
+}
+
+// InitPosition - 局面の初期化。
+func (k *Kernel) InitPosition() {
+	// 空っぽの盤面に設定
+	k.Position.board.DrawEmptyBoard()
+
+	// チェック盤の作り直し
+	k.Position.checkBoard.Init(k.Position.board.coordinate)
+
+	// 棋譜の作り直し
+	k.Record = *NewRecord(k.Position.board.gameRule.maxPositionNumber)
+
+	// UCTアルゴリズムの初期設定
+	k.Position.uctAlgorithm.uctChildrenSize = k.Position.board.coordinate.GetBoardArea() + 1
+
+	k.Position.Number = 0
+	k.ClearPlaceKoOfCurrentPosition() // コウの指定がないので消します
 }
 
 // GetBoard - 盤取得
@@ -37,22 +56,4 @@ func (p *Position) GetCheckBoard() *CheckBoard {
 // GetPtrUctAlgorithm - UCT算法へのポインター取得
 func (p *Position) GetPtrUctAlgorithm() *UctAlgorithm {
 	return &p.uctAlgorithm
-}
-
-// InitPosition - 局面の初期化。
-func (k *Kernel) InitPosition() {
-	// 空っぽの盤面に設定
-	k.Position.board.DrawEmptyBoard()
-
-	// チェック盤の作り直し
-	k.Position.checkBoard = *NewCheckBoard(k.Position.board.coordinate)
-
-	// 棋譜の作り直し
-	k.Record = *NewRecord(k.Position.board.gameRule.maxPositionNumber)
-
-	// UCTアルゴリズムの初期設定
-	k.Position.uctAlgorithm.uctChildrenSize = k.Position.board.coordinate.GetBoardArea() + 1
-
-	k.Position.Number = 0
-	k.ClearPlaceKoOfCurrentPosition() // コウの指定がないので消します
 }

@@ -11,7 +11,7 @@ type Kernel struct {
 func NewKernel(gameRule GameRule, boardSize int) *Kernel {
 	var k = new(Kernel)
 
-	k.Position = NewPosition(gameRule, boardSize)
+	k.Position = NewDirtyPosition(gameRule, boardSize)
 	k.Record = *NewRecord(gameRule.GetMaxPositionNumber())
 
 	return k
@@ -20,7 +20,7 @@ func NewKernel(gameRule GameRule, boardSize int) *Kernel {
 // ResizeBoard - 盤サイズの変更
 // - 別途、盤面の初期化を行ってください
 func (k *Kernel) ResizeBoard(boardSize int) {
-	k.Position = NewPosition(k.Position.board.gameRule, boardSize)
+	k.Position = NewDirtyPosition(k.Position.board.gameRule, boardSize)
 }
 
 // SetPlaceKo - 現局面のコウの番地を設定
