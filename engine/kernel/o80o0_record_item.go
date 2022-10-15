@@ -37,7 +37,7 @@ func (ri *RecordItem) GetPlaceKo() Point {
 
 // SetPlaceKo - コウの番地を設定
 func (ri *RecordItem) SetPlaceKo(placeKo Point) {
-	ri.ko.place = placeKo
+	ri.ko.SetPlace(placeKo)
 }
 
 // SetPlaceKo - コウの番地を設定
