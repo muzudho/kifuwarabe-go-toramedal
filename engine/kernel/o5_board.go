@@ -100,7 +100,7 @@ func (b *Board) EraseBoard() {
 		b.SetStoneAt(point, Stone_Space)
 	}
 
-	b.coordinate.ForeachPointWithoutWall(setPoint)
+	b.coordinate.ForeachCellWithoutWall(setPoint)
 }
 
 // FillRen - 石を打ち上げ（取り上げ、取り除き）ます。

@@ -177,12 +177,15 @@ func (bc *BoardCoordinate) GetGtpMoveFromPoint(point Point) string {
 	return fmt.Sprintf("%c%d", alphabet_x, y)
 }
 
-// ForeachPointWithoutWall -  盤の（枠を除く）全ての交点に順にアクセスします
-func (bc *BoardCoordinate) ForeachPointWithoutWall(setPoint func(Point)) {
-	// x,y は枠無しの盤での0から始まる座標、 z は枠有りの盤での0から始まる座標
-	for j := 0; j < bc.GetHeight(); j++ {
-		for i := 0; i < bc.GetWidth(); i++ {
-			var point = bc.GetPointFromXy(i+1, j+1)
+// ForeachCellWithoutWall -  盤の（枠を除く）全ての交点に順にアクセスします
+func (bc *BoardCoordinate) ForeachCellWithoutWall(setPoint func(Point)) {
+	// - x,y は枠無しの盤での0から始まる座標
+	// - point は枠無しの盤を配列にしたもので0から始まる配列の添え字
+	var heightNth = bc.memoryHeight - 1
+	var widthNth = bc.memoryWidth - 1
+	for y := 1; y < heightNth; y++ {
+		for x := 1; x < widthNth; x++ {
+			var point = bc.GetPointFromXy(x, y)
 			setPoint(point)
 		}
 	}

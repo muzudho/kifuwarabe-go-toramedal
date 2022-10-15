@@ -40,7 +40,7 @@ func getWinner(position *e.Position, turnColor e.Stone) int {
 		}
 	}
 
-	position.GetBoard().GetCoordinate().ForeachPointWithoutWall(setPoint)
+	position.GetBoard().GetCoordinate().ForeachCellWithoutWall(setPoint)
 
 	blackSum = kind[1] + blackArea
 	whiteSum = kind[2] + whiteArea

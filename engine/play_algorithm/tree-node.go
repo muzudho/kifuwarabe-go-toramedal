@@ -56,7 +56,7 @@ func CreateNode(position *e.Position) int {
 			addChild(pN, z)
 		}
 	}
-	position.GetBoard().GetCoordinate().ForeachPointWithoutWall(setPoint)
+	position.GetBoard().GetCoordinate().ForeachCellWithoutWall(setPoint)
 
 	addChild(pN, 0)
 	NodeNum++
