@@ -48,10 +48,10 @@ func (r *Record) SetTimeAt(posNum PositionNumberInt, time float64) {
 
 // GetPlaceKo - 指定局面のコウの番地を取得
 func (r *Record) GetPlaceKoAt(posNum PositionNumberInt) Point {
-	return r.items[posNum].placeKo
+	return r.items[posNum].ko.place
 }
 
 // SetPlaceKo - 指定局面のコウの番地を設定
 func (r *Record) SetPlaceKoAt(posNum PositionNumberInt, placeKo Point) {
-	r.items[posNum].placeKo = placeKo
+	r.items[posNum].ko.place = placeKo
 }
