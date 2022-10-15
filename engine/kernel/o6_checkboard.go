@@ -4,8 +4,9 @@ package kernel
 type Mark uint8
 
 const (
-	Mark_Empty Mark = iota
-	Mark_Checked
+	Mark_BitAllZeros Mark = 0b00000000
+	Mark_BitStone    Mark = 0b00000001
+	// Mark_BitLiberty  Mark = 0b00000010
 )
 
 // CheckBoard - ２値ではなく多値
@@ -38,17 +39,37 @@ func (cb *CheckBoard) Init(newBoardCoordinate BoardCoordinate) {
 	cb.cells = make([]Mark, cb.coordinate.GetMemoryArea())
 }
 
-// GetMarkAt - 指定した交点の目印を取得
-func (cb *CheckBoard) GetMarkAt(point Point) Mark {
+// GetAllBitsAt - 指定した交点の目印を取得
+func (cb *CheckBoard) GetAllBitsAt(point Point) Mark {
 	return cb.cells[point]
 }
 
-// SetCheckedAt - 指定した交点に目印を設定
-func (cb *CheckBoard) SetMarkAt(point Point, mark Mark) {
+// SetAllBitsAt - 指定した交点に目印を設定
+func (cb *CheckBoard) SetAllBitsAt(point Point, mark Mark) {
 	cb.cells[point] = mark
 }
 
-// IsEmptyAt - 指定した交点に目印は付いていないか？
-func (cb *CheckBoard) IsEmptyAt(point Point) bool {
-	return cb.cells[point] == Mark_Empty
+// ClearAllBitsAt - フラグを消す
+func (cb *CheckBoard) ClearAllBitsAt(point Point) {
+	cb.cells[point] = Mark(0)
+}
+
+// IsZeroAt - 指定した交点に目印は付いていないか？
+func (cb *CheckBoard) IsZeroAt(point Point) bool {
+	return cb.cells[point] == Mark_BitAllZeros
+}
+
+// Overwrite - 上書き
+func (cb *CheckBoard) Overwrite(point Point, mark Mark) {
+	cb.cells[point] |= mark
+}
+
+// Erase - 消す
+func (cb *CheckBoard) Erase(point Point, mark Mark) {
+	cb.cells[point] &= ^mark // ^ はビット反転
+}
+
+// Contains - 含む
+func (cb *CheckBoard) Contains(point Point, mark Mark) bool {
+	return cb.cells[point]&mark == mark
 }

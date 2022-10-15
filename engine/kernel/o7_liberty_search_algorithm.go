@@ -26,7 +26,7 @@ func (ls *LibertySearchAlgorithm) CountLiberty(z Point, libertyArea *int, renAre
 
 	// チェックボードの初期化
 	var setPoint = func(z Point) {
-		ls.checkBoard.SetMarkAt(z, Mark_Empty)
+		ls.checkBoard.ClearAllBitsAt(z)
 	}
 	ls.boardCoordinate.ForeachPointWithoutWall(setPoint)
 
@@ -37,19 +37,19 @@ func (ls *LibertySearchAlgorithm) CountLiberty(z Point, libertyArea *int, renAre
 // * `renArea` - 連の石の数
 func (ls *LibertySearchAlgorithm) countLibertySub(z Point, color Stone, libertyArea *int, renArea *int) {
 
-	ls.checkBoard.SetMarkAt(z, Mark_Checked)
+	ls.checkBoard.Overwrite(z, Mark_BitStone)
 
 	*renArea++
 	for i := 0; i < 4; i++ {
 		var adjZ = z + ls.board.coordinate.cell4Directions[i]
 
-		if !ls.checkBoard.IsEmptyAt(adjZ) {
+		if !ls.checkBoard.IsZeroAt(adjZ) {
 			continue
 		}
 
 		if ls.board.IsSpaceAt(adjZ) { // 空点
 
-			ls.checkBoard.SetMarkAt(adjZ, Mark_Checked)
+			ls.checkBoard.Overwrite(adjZ, Mark_BitStone)
 
 			*libertyArea++
 		} else if ls.board.GetStoneAt(adjZ) == color {

@@ -7,9 +7,9 @@ import (
 	e "github.com/muzudho/kifuwarabe-go-toramedal/engine/kernel"
 )
 
-// " 0" - 空点
-// " 1" - 黒石
-var numberLabels = [2]string{" 0", " 1"}
+// " ." - 0b00000000 マーク無し
+// " v" - 0b00000001 石有り
+var markLabels = [2]string{" .", " v"}
 
 // PrintCheckBoard - チェックボードを描画。
 func PrintCheckBoard(kernel *e.Kernel) {
@@ -38,9 +38,9 @@ func PrintCheckBoard(kernel *e.Kernel) {
 		for i := 0; i < boardWidth; i++ {
 			var z = kernel.Position.GetBoard().GetCoordinate().GetPointFromXy(i+1, j+1)
 
-			var mark = kernel.Position.GetCheckBoard().GetMarkAt(z)
+			var mark = kernel.Position.GetCheckBoard().GetAllBitsAt(z)
 
-			b.WriteString(numberLabels[mark])
+			b.WriteString(markLabels[mark])
 		}
 		b.WriteString(" |\n")
 	}
