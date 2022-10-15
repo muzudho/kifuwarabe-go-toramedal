@@ -1,5 +1,7 @@
 package kernel
 
+import "math"
+
 // Record - 棋譜
 type Record struct {
 	// 棋譜項目の配列
@@ -7,15 +9,19 @@ type Record struct {
 }
 
 // NewRecord - 新規作成
-func NewRecord(maxPositionNumber PositionNumberInt) *Record {
+//
+// * maxPositionNumber - 手数上限。配列サイズ決定のための判断材料
+// * memoryBoardArea - メモリー盤サイズ。配列サイズ決定のための判断材料
+func NewRecord(maxPositionNumber PositionNumberInt, memoryBoardArea int) *Record {
 	var r = new(Record)
 
 	// 動的に長さがきまる配列を生成、その内容をインスタンスで埋めます
 	// 例えば、0手目が初期局面として、 400 手目まであるとすると、要素数は401要る。だから 1 足す
-	var elementCount = maxPositionNumber + 1
-	r.items = make([]RecordItem, elementCount)
+	// しかし、プレイアウトでは終局まで打ちたいので、多めにとっておきたいのでは。盤サイズより適当に18倍（>2πe）取る
+	var positionLength = int(math.Max(float64(maxPositionNumber+1), float64(memoryBoardArea*18)))
+	r.items = make([]RecordItem, positionLength)
 
-	for i := PositionNumberInt(0); i < elementCount; i++ {
+	for i := PositionNumberInt(0); i < PositionNumberInt(positionLength); i++ {
 		r.items[i] = RecordItem{}
 	}
 

@@ -34,7 +34,7 @@ func (k *Kernel) InitPosition() {
 	k.Position.checkBoard.Init(k.Position.board.coordinate)
 
 	// 棋譜の作り直し
-	k.Record = *NewRecord(k.Position.board.gameRule.maxPositionNumber)
+	k.Record = *NewRecord(k.Position.board.gameRule.maxPositionNumber, k.Position.board.coordinate.GetMemoryArea())
 
 	// UCTアルゴリズムの初期設定
 	k.Position.uctAlgorithm.uctChildrenSize = k.Position.board.coordinate.GetBoardArea() + 1

@@ -23,20 +23,19 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 	var ls = NewLibertySearchAlgorithm(&k.Position.board, &k.Position.checkBoard)
 
 	// 呼吸点を計算します
-	for dir := Cell_4Directions(0); dir < 4; dir++ { // ４方向
+	var eachAdjacentPointWhenGetLiberty = func(dir Cell_4Directions, p Point) {
 		around[dir] = NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
-		var adjZ = z + k.Position.GetBoard().GetCoordinate().GetRelativePointOf(dir) // 隣の交点
-		var adjColor = k.Position.GetBoard().GetStoneAt(adjZ)                        // 隣(adjacent)の交点の石の色
-		if adjColor == Stone_Space {                                                 // 空点
+		var adjColor = k.Position.GetBoard().GetStoneAt(p) // 隣(adjacent)の交点の石の色
+		if adjColor == Stone_Space {                       // 空点
 			space++
-			continue
+			return
 		}
 		if adjColor == Stone_Wall { // 枠
 			wall++
-			continue
+			return
 		}
-		ls.CountLiberty(adjZ, &libertyArea, &renArea)
+		ls.CountLiberty(p, &libertyArea, &renArea)
 		around[dir].LibertyArea = libertyArea         // 呼吸点の数
 		around[dir].StoneArea = renArea               // 連の意地の数
 		around[dir].Color = adjColor                  // 石の色
@@ -46,8 +45,8 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 		if adjColor == color && 2 <= libertyArea { // 隣接する連が自分の石で、その石が呼吸点を２つ持ってるようなら
 			myBreathFriend++
 		}
-
 	}
+	k.Position.board.ForeachNeumannNeighborhood(z, eachAdjacentPointWhenGetLiberty)
 
 	// 石を置くと明らかに損なケース、また、ルール上石を置けないケースなら、石を置きません
 	if captureSum == 0 && space == 0 && myBreathFriend == 0 {
@@ -79,7 +78,7 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 	k.ClearPlaceKoOfCurrentPosition() // コウを消します
 
 	// 石を取り上げます
-	var eachAdjacentPoint = func(dir Cell_4Directions, p Point) {
+	var eachAdjacentPointWhenCaptureStone = func(dir Cell_4Directions, p Point) {
 		var lib = around[dir].LibertyArea // 隣接する連の呼吸点の数
 		var adjColor = around[dir].Color  // 隣接する連の石の色
 
@@ -95,7 +94,7 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 			}
 		}
 	}
-	k.Position.board.ForeachNeumannNeighborhood(z, eachAdjacentPoint)
+	k.Position.board.ForeachNeumannNeighborhood(z, eachAdjacentPointWhenCaptureStone)
 
 	k.Position.GetBoard().SetStoneAt(z, color)
 	ls.CountLiberty(z, &libertyArea, &renArea)
