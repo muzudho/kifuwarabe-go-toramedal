@@ -7,7 +7,7 @@ type RecordItem struct {
 	// Time - 消費時間
 	Time float64
 	// コウ
-	ko Ko
+	ko MutableKo
 }
 
 // SetPlacePlay - 着手点を設定
@@ -30,12 +30,17 @@ func (ri *RecordItem) GetTime() float64 {
 	return ri.Time
 }
 
-// GetPlaceKo - コウを取得
-func (ri *RecordItem) GetKo() Ko {
-	return ri.ko
+// GetPlaceKo - コウの番地を取得
+func (ri *RecordItem) GetPlaceKo() Point {
+	return ri.ko.place
 }
 
-// SetPlaceKo - コウを設定
-func (ri *RecordItem) SetKo(ko Ko) {
-	ri.ko = ko
+// SetPlaceKo - コウの番地を設定
+func (ri *RecordItem) SetPlaceKo(placeKo Point) {
+	ri.ko.place = placeKo
+}
+
+// SetPlaceKo - コウの番地を設定
+func (ri *RecordItem) ClearPlaceKo() {
+	ri.ko.ClearPlace()
 }
