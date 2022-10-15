@@ -39,26 +39,28 @@ func (ls *LibertySearchAlgorithm) CountLiberty(z Point, libertyArea *int, renAre
 // * 再帰関数
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (ls *LibertySearchAlgorithm) searchStoneRenRecursive(z Point, color Stone, libertyArea *int, renArea *int) {
+func (ls *LibertySearchAlgorithm) searchStoneRenRecursive(here Point, color Stone, libertyArea *int, renArea *int) {
 
 	// 石のチェック
-	ls.checkBoard.Overwrite(z, Mark_BitStone)
+	ls.checkBoard.Overwrite(here, Mark_BitStone)
 
 	*renArea++
-	for i := 0; i < 4; i++ {
-		var adjZ = z + ls.board.coordinate.cell4Directions[i]
 
-		if !ls.checkBoard.IsZeroAt(adjZ) {
-			continue
+	var eachAdjacent = func(dir int, p Point) {
+		if !ls.checkBoard.IsZeroAt(p) {
+			return // あとの処理をスキップ
 		}
 
-		if ls.board.IsSpaceAt(adjZ) { // 空点
+		if ls.board.IsSpaceAt(p) { // 空点
 
-			ls.checkBoard.Overwrite(adjZ, Mark_BitStone)
+			ls.checkBoard.Overwrite(p, Mark_BitStone)
 
 			*libertyArea++
-		} else if ls.board.GetStoneAt(adjZ) == color {
-			ls.searchStoneRenRecursive(adjZ, color, libertyArea, renArea) // 再帰
+		} else if ls.board.GetStoneAt(p) == color {
+			ls.searchStoneRenRecursive(p, color, libertyArea, renArea) // 再帰
 		}
 	}
+
+	// 隣接する４方向
+	ls.board.ForeachNeumannNeighborhood(here, eachAdjacent)
 }
