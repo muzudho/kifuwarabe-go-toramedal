@@ -79,23 +79,23 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 	k.ClearPlaceKoOfCurrentPosition() // コウを消します
 
 	// 石を取り上げます
-	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + k.Position.GetBoard().GetCoordinate().cell4Directions[dir] // 隣接する交点
-		var lib = around[dir].LibertyArea                                         // 隣接する連の呼吸点の数
-		var adjColor = around[dir].Color                                          // 隣接する連の石の色
+	var eachAdjacentPoint = func(dir Cell_4Directions, p Point) {
+		var lib = around[dir].LibertyArea // 隣接する連の呼吸点の数
+		var adjColor = around[dir].Color  // 隣接する連の石の色
 
 		if adjColor == oppColor && // 隣接する連が相手の石で（枠はここで除外されます）
 			lib == 1 && // その呼吸点は１つで、そこに今石を置いた
-			!k.Position.GetBoard().IsSpaceAt(adjZ) { // 石はまだあるなら（上と右の石がくっついている、といったことを除外）
+			!k.Position.GetBoard().IsSpaceAt(p) { // 石はまだあるなら（上と右の石がくっついている、といったことを除外）
 
-			k.Position.GetBoard().FillRen(adjZ, oppColor)
+			k.Position.GetBoard().FillRen(p, oppColor)
 
 			// もし取った石の数が１個なら、その石のある隣接した交点はコウ。また、図形上、コウは１個しか出現しません
 			if around[dir].StoneArea == 1 {
-				k.SetPlaceKoOfCurrentPosition(adjZ)
+				k.SetPlaceKoOfCurrentPosition(p)
 			}
 		}
 	}
+	k.Position.board.ForeachNeumannNeighborhood(z, eachAdjacentPoint)
 
 	k.Position.GetBoard().SetStoneAt(z, color)
 	ls.CountLiberty(z, &libertyArea, &renArea)

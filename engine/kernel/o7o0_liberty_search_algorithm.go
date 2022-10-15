@@ -46,7 +46,7 @@ func (ls *LibertySearchAlgorithm) searchStoneRenRecursive(here Point, color Ston
 
 	*renArea++
 
-	var eachAdjacent = func(dir int, p Point) {
+	var eachAdjacent = func(dir Cell_4Directions, p Point) {
 		if !ls.checkBoard.IsZeroAt(p) {
 			return // あとの処理をスキップ
 		}
