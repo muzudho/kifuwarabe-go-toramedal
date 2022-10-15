@@ -69,8 +69,8 @@ func PrintBoard(kernel *e.Kernel) {
 	var sb = &strings.Builder{}
 	sb.Grow(sz8k)
 
-	if kernel.Position.GetBoard().GetGameRule().GetMaxPositionNumber() < kernel.Position.Number {
-		sb.WriteString(fmt.Sprintf("Out of bounds max position number %d.\r", kernel.Position.Number))
+	if kernel.Position.GetBoard().GetGameRule().GetMaxPositionNumber() < kernel.Record.GetPositionNumber() {
+		sb.WriteString(fmt.Sprintf("Out of bounds max position number %d.\r", kernel.Record.GetPositionNumber()))
 	} else {
 		var boardWidth = kernel.Position.GetBoard().GetCoordinate().GetWidth()
 		var boardHeight = kernel.Position.GetBoard().GetCoordinate().GetHeight()
@@ -118,7 +118,7 @@ func PrintBoard(kernel *e.Kernel) {
 		} else {
 			sb.WriteString(kernel.Position.GetBoard().GetCoordinate().GetGtpMoveFromPoint(kernel.GetPlaceKoOfCurrentPosition()))
 		}
-		sb.WriteString(fmt.Sprintf(",positionNumber=%d", kernel.Position.Number))
+		sb.WriteString(fmt.Sprintf(",positionNumber=%d", kernel.Record.GetPositionNumber()))
 		sb.WriteString("\n")
 	}
 

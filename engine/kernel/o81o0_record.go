@@ -4,6 +4,9 @@ import "math"
 
 // Record - 棋譜
 type Record struct {
+	// 何手目。基数
+	positionNumber PositionNumberInt
+
 	// 棋譜項目の配列
 	items []RecordItem
 }
@@ -28,6 +31,17 @@ func NewRecord(maxPositionNumber PositionNumberInt, memoryBoardArea int) *Record
 	return r
 }
 
+// GetPositionNumber - 何手目取得
+func (r *Record) GetPositionNumber() PositionNumberInt {
+	return r.positionNumber
+}
+
+// SetPositionNumber - 何手目設定
+func (r *Record) SetPositionNumber(positionNumber PositionNumberInt) {
+	r.positionNumber = positionNumber
+}
+
+// SetItemAt
 func (r *Record) SetItemAt(posNum PositionNumberInt, item *RecordItem) {
 	r.items[posNum] = *item
 }

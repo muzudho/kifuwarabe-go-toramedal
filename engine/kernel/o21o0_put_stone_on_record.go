@@ -15,6 +15,6 @@ func PutStoneOnRecord(kernel *Kernel, z Point, color Stone, recItem *RecordItem)
 	}
 
 	// 棋譜に記録
-	kernel.Record.SetItemAt(kernel.Position.Number, recItem)
-	kernel.Position.Number++
+	kernel.Record.SetItemAt(kernel.Record.positionNumber, recItem)
+	kernel.Record.positionNumber++
 }

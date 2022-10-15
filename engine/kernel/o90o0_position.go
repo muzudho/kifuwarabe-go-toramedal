@@ -6,8 +6,6 @@ type Position struct {
 	board Board
 	// チェック盤。呼吸点を数えるのに使う
 	checkBoard CheckBoard
-	// Number - 手数
-	Number PositionNumberInt
 	// UCT計算アルゴリズム
 	uctAlgorithm UctAlgorithm
 }
@@ -39,7 +37,7 @@ func (k *Kernel) InitPosition() {
 	// UCTアルゴリズムの初期設定
 	k.Position.uctAlgorithm.uctChildrenSize = k.Position.board.coordinate.GetBoardArea() + 1
 
-	k.Position.Number = 0
+	k.Record.positionNumber = 0
 	k.ClearPlaceKoOfCurrentPosition() // コウの指定がないので消します
 }
 

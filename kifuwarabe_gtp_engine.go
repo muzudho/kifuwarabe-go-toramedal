@@ -153,8 +153,8 @@ func PlayComputerMoveLesson09a(
 		createPrintingOfCalc(kernel),
 		createPrintingOfCalcFin(kernel))
 
-	if 1 < kernel.Position.Number && // 初手ではないとして
-		kernel.Record.GetPlacePlayAt(kernel.Position.Number-1) == 0 && // １つ前の手がパスで
+	if 1 < kernel.Record.GetPositionNumber() && // 初手ではないとして
+		kernel.Record.GetPlacePlayAt(kernel.Record.GetPositionNumber()-1) == 0 && // １つ前の手がパスで
 		0.95 <= math.Abs(winRate) { // 95%以上の確率で勝ちか負けなら
 		// こちらもパスします
 		return 0
@@ -162,7 +162,7 @@ func PlayComputerMoveLesson09a(
 
 	var sec = time.Since(st).Seconds()
 	code.Console.Info("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,positionNumber=%d,color=%d,playouts=%d\n",
-		sec, float64(pl.AllPlayouts)/sec, kernel.Position.GetBoard().GetCoordinate().GetZ4FromPoint(z), winRate, kernel.Position.Number, color, pl.AllPlayouts)
+		sec, float64(pl.AllPlayouts)/sec, kernel.Position.GetBoard().GetCoordinate().GetZ4FromPoint(z), winRate, kernel.Record.GetPositionNumber(), color, pl.AllPlayouts)
 
 	var recItem = new(e.RecordItem)
 	recItem.SetPlacePlay(z)
