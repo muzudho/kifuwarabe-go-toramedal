@@ -15,35 +15,43 @@ type LibertyInfo struct {
 	placePlayRen Ren
 }
 
-// CalcLiberty - 呼吸点の計算
-func CalcLiberty(k *Kernel, placePlay Point, color Stone, ls *LibertySearchAlgorithm) LibertyInfo {
+// searchStoneLibInfo - 呼吸点の計算
+func searchStoneLibInfo(k *Kernel, here Point, color Stone, ls *LibertySearchAlgorithm) LibertyInfo {
 	var oppColor = FlipColor(color) //相手(opponent)の石の色
 	var libInfo = LibertyInfo{0, 0, 0, 0, [4]*Ren{nil, nil, nil, nil}, Ren{0, 0, color}}
 
-	var eachAdjacentPointWhenGetLiberty = func(dir Cell_4Directions, p Point) {
+	// 隣接する交点毎に
+	var eachAdjacent = func(dir Cell_4Directions, p Point) {
 		libInfo.around[dir] = NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
-		var adjColor = k.Position.GetBoard().GetStoneAt(p) // 隣(adjacent)の交点の石の色
-		if adjColor == Stone_Space {                       // 空点
+		var stone = k.Position.GetBoard().GetStoneAt(p) // 石の色
+		switch stone {
+
+		case Stone_Space: // 空点
 			libInfo.space++
 			return
-		}
-		if adjColor == Stone_Wall { // 枠
+
+		case Stone_Wall: // 枠
 			libInfo.wall++
 			return
 		}
+
 		ls.CountLiberty(p, &libInfo.placePlayRen)
+
 		libInfo.around[dir].LibertyArea = libInfo.placePlayRen.LibertyArea // 呼吸点の数
 		libInfo.around[dir].StoneArea = libInfo.placePlayRen.StoneArea     // 連の意地の数
-		libInfo.around[dir].Color = adjColor                               // 石の色
-		if adjColor == oppColor && libInfo.placePlayRen.LibertyArea == 1 { // 相手の石で、呼吸点が１つで、その呼吸点に今石を置いたなら
+		libInfo.around[dir].Color = stone                                  // 石の色
+
+		if stone == oppColor && libInfo.placePlayRen.LibertyArea == 1 { // 相手の石で、呼吸点が１つで、その呼吸点に今石を置いたなら
 			libInfo.captureSum += libInfo.placePlayRen.StoneArea
 		}
-		if adjColor == color && 2 <= libInfo.placePlayRen.LibertyArea { // 隣接する連が自分の石で、その石が呼吸点を２つ持ってるようなら
+		if stone == color && 2 <= libInfo.placePlayRen.LibertyArea { // 隣接する連が自分の石で、その石が呼吸点を２つ持ってるようなら
 			libInfo.myBreathFriend++
 		}
+
+		// TODO ここらへんで再帰したいが
 	}
-	k.Position.board.ForeachNeumannNeighborhood(placePlay, eachAdjacentPointWhenGetLiberty)
+	k.Position.board.ForeachNeumannNeighborhood(here, eachAdjacent)
 
 	return libInfo
 }
@@ -64,7 +72,7 @@ func PutStone(k *Kernel, placePlay Point, color Stone) int {
 	var ls = NewLibertySearchAlgorithm(&k.Position.board, &k.Position.checkBoard)
 
 	// 呼吸点を計算します
-	var libInfo = CalcLiberty(k, placePlay, color, ls)
+	var libInfo = searchStoneLibInfo(k, placePlay, color, ls)
 
 	// 石を置くと明らかに損なケース、また、ルール上石を置けないケースなら、石を置きません
 	if libInfo.captureSum == 0 && libInfo.space == 0 && libInfo.myBreathFriend == 0 {
