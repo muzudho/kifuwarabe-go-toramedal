@@ -20,10 +20,10 @@ func NewLibertySearchAlgorithm(board *Board, checkBoard *CheckBoard) *LibertySea
 	return ls
 }
 
-// CountLiberty - 呼吸点を数えます。
+// findRen - 呼吸点を数えます
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (ls *LibertySearchAlgorithm) CountLiberty(z Point) {
+func (ls *LibertySearchAlgorithm) findRen(arbitraryPoint Point) {
 	ls.foundRen.LibertyArea = 0
 	ls.foundRen.StoneArea = 0
 
@@ -33,7 +33,7 @@ func (ls *LibertySearchAlgorithm) CountLiberty(z Point) {
 	}
 	ls.board.GetCoordinate().ForeachCellWithoutWall(eachPoint)
 
-	ls.searchStoneRenRecursive(z, ls.board.GetStoneAt(z))
+	ls.searchStoneRenRecursive(arbitraryPoint, ls.board.GetStoneAt(arbitraryPoint))
 }
 
 // 石の連の探索
@@ -102,7 +102,7 @@ func (ls *LibertySearchAlgorithm) searchStoneLibInfo(k *Kernel, here Point, colo
 			return
 		}
 
-		ls.CountLiberty(p)
+		ls.findRen(p)
 
 		libInfo.around[dir].LibertyArea = ls.foundRen.LibertyArea // 呼吸点の数
 		libInfo.around[dir].StoneArea = ls.foundRen.StoneArea     // 連の意地の数
