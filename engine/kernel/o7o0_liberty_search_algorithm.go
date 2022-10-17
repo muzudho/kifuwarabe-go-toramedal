@@ -21,9 +21,9 @@ func NewLibertySearchAlgorithm(board *Board, checkBoard *CheckBoard) *LibertySea
 // CountLiberty - 呼吸点を数えます。
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (ls *LibertySearchAlgorithm) CountLiberty(z Point, libertyArea *int, renArea *int) {
-	*libertyArea = 0
-	*renArea = 0
+func (ls *LibertySearchAlgorithm) CountLiberty(z Point, placePlayRen *Ren) {
+	placePlayRen.LibertyArea = 0
+	placePlayRen.StoneArea = 0
 
 	// チェックボードの初期化
 	var eachPoint = func(z Point) {
@@ -31,7 +31,7 @@ func (ls *LibertySearchAlgorithm) CountLiberty(z Point, libertyArea *int, renAre
 	}
 	ls.board.GetCoordinate().ForeachCellWithoutWall(eachPoint)
 
-	ls.searchStoneRenRecursive(z, ls.board.GetStoneAt(z), libertyArea, renArea)
+	ls.searchStoneRenRecursive(z, ls.board.GetStoneAt(z), placePlayRen)
 }
 
 // 石の連の探索
@@ -39,12 +39,12 @@ func (ls *LibertySearchAlgorithm) CountLiberty(z Point, libertyArea *int, renAre
 // * 再帰関数
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (ls *LibertySearchAlgorithm) searchStoneRenRecursive(here Point, color Stone, libertyArea *int, renArea *int) {
+func (ls *LibertySearchAlgorithm) searchStoneRenRecursive(here Point, color Stone, placePlayRen *Ren) {
 
 	// 石のチェック
 	ls.checkBoard.Overwrite(here, Mark_BitStone)
 
-	*renArea++
+	placePlayRen.StoneArea++
 
 	var eachAdjacent = func(dir Cell_4Directions, p Point) {
 		if !ls.checkBoard.IsZeroAt(p) {
@@ -55,9 +55,9 @@ func (ls *LibertySearchAlgorithm) searchStoneRenRecursive(here Point, color Ston
 
 			ls.checkBoard.Overwrite(p, Mark_BitStone)
 
-			*libertyArea++
+			placePlayRen.StoneArea++
 		} else if ls.board.GetStoneAt(p) == color {
-			ls.searchStoneRenRecursive(p, color, libertyArea, renArea) // 再帰
+			ls.searchStoneRenRecursive(p, color, placePlayRen) // 再帰
 		}
 	}
 

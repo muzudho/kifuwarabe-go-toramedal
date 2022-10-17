@@ -1,21 +1,20 @@
 package kernel
 
 // PutStone - 石を置きます。
-// * `z` - 交点。枠有り盤の配列インデックス
+// * `placePlay` - 着手点
 //
 // # Returns
 // エラーコード
-func PutStone(k *Kernel, z Point, color Stone) int {
-	var around = [4]*Ren{}          // 隣接する４つの交点
-	var libertyArea int             // 呼吸点の数
-	var renArea int                 // 連の石の数
-	var oppColor = FlipColor(color) //相手(opponent)の石の色
-	var space = 0                   // 隣接している空点への向きの数
-	var wall = 0                    // 隣接している枠への向きの数
-	var myBreathFriend = 0          // 呼吸できる自分の石と隣接している向きの数
-	var captureSum = 0              // アゲハマの数
+func PutStone(k *Kernel, placePlay Point, color Stone) int {
+	var around = [4]*Ren{}              // 隣接する４つの交点
+	var placePlayRen = Ren{0, 0, color} // 着手点を含む連
+	var oppColor = FlipColor(color)     //相手(opponent)の石の色
+	var space = 0                       // 隣接している空点への向きの数
+	var wall = 0                        // 隣接している枠への向きの数
+	var myBreathFriend = 0              // 呼吸できる自分の石と隣接している向きの数
+	var captureSum = 0                  // アゲハマの数
 
-	if z == Cell_Pass { // 投了なら、コウを消して関数を正常終了
+	if placePlay == Cell_Pass { // 投了なら、コウを消して関数を正常終了
 		k.ClearPlaceKoOfCurrentPosition()
 		return 0
 	}
@@ -35,18 +34,18 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 			wall++
 			return
 		}
-		ls.CountLiberty(p, &libertyArea, &renArea)
-		around[dir].LibertyArea = libertyArea         // 呼吸点の数
-		around[dir].StoneArea = renArea               // 連の意地の数
-		around[dir].Color = adjColor                  // 石の色
-		if adjColor == oppColor && libertyArea == 1 { // 相手の石で、呼吸点が１つで、その呼吸点に今石を置いたなら
-			captureSum += renArea
+		ls.CountLiberty(p, &placePlayRen)
+		around[dir].LibertyArea = placePlayRen.LibertyArea         // 呼吸点の数
+		around[dir].StoneArea = placePlayRen.StoneArea             // 連の意地の数
+		around[dir].Color = adjColor                               // 石の色
+		if adjColor == oppColor && placePlayRen.LibertyArea == 1 { // 相手の石で、呼吸点が１つで、その呼吸点に今石を置いたなら
+			captureSum += placePlayRen.StoneArea
 		}
-		if adjColor == color && 2 <= libertyArea { // 隣接する連が自分の石で、その石が呼吸点を２つ持ってるようなら
+		if adjColor == color && 2 <= placePlayRen.LibertyArea { // 隣接する連が自分の石で、その石が呼吸点を２つ持ってるようなら
 			myBreathFriend++
 		}
 	}
-	k.Position.board.ForeachNeumannNeighborhood(z, eachAdjacentPointWhenGetLiberty)
+	k.Position.board.ForeachNeumannNeighborhood(placePlay, eachAdjacentPointWhenGetLiberty)
 
 	// 石を置くと明らかに損なケース、また、ルール上石を置けないケースなら、石を置きません
 	if captureSum == 0 && space == 0 && myBreathFriend == 0 {
@@ -58,7 +57,7 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 		//   o
 		return 1
 	}
-	if k.IsPutStoneOnKo(z) { // コウに石を置こうとしたか？
+	if k.IsPutStoneOnKo(placePlay) { // コウに石を置こうとしたか？
 		return 2
 	}
 	if wall+myBreathFriend == 4 {
@@ -71,7 +70,7 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 		return 3
 	}
 
-	if k.Position.GetBoard().IsMasonry(z) { // 石の上に石を置こうとしたか
+	if k.Position.GetBoard().IsMasonry(placePlay) { // 石の上に石を置こうとしたか
 		return 4
 	}
 
@@ -94,10 +93,10 @@ func PutStone(k *Kernel, z Point, color Stone) int {
 			}
 		}
 	}
-	k.Position.board.ForeachNeumannNeighborhood(z, eachAdjacentPointWhenCaptureStone)
+	k.Position.board.ForeachNeumannNeighborhood(placePlay, eachAdjacentPointWhenCaptureStone)
 
-	k.Position.GetBoard().SetStoneAt(z, color)
-	ls.CountLiberty(z, &libertyArea, &renArea)
+	k.Position.GetBoard().SetStoneAt(placePlay, color)
+	ls.CountLiberty(placePlay, &placePlayRen)
 
 	return 0
 }
