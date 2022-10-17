@@ -67,7 +67,7 @@ func PutStone(k *Kernel, placePlay Point, color Stone) int {
 	k.Position.board.ForeachNeumannNeighborhood(placePlay, eachAdjacentPointWhenCaptureStone)
 
 	k.Position.GetBoard().SetStoneAt(placePlay, color)
-	ls.CountLiberty(placePlay, &libInfo.foundRen)
+	ls.CountLiberty(placePlay)
 
 	return 0
 }

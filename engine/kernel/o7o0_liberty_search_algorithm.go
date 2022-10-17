@@ -6,6 +6,8 @@ type LibertySearchAlgorithm struct {
 	board *Board
 	// チェック盤
 	checkBoard *CheckBoard
+	// 着手点を含む連
+	foundRen Ren
 }
 
 // NewLibertySearchAlgorithm - 新規作成
@@ -21,9 +23,9 @@ func NewLibertySearchAlgorithm(board *Board, checkBoard *CheckBoard) *LibertySea
 // CountLiberty - 呼吸点を数えます。
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (ls *LibertySearchAlgorithm) CountLiberty(z Point, foundRen *Ren) {
-	foundRen.LibertyArea = 0
-	foundRen.StoneArea = 0
+func (ls *LibertySearchAlgorithm) CountLiberty(z Point) {
+	ls.foundRen.LibertyArea = 0
+	ls.foundRen.StoneArea = 0
 
 	// チェックボードの初期化
 	var eachPoint = func(z Point) {
@@ -31,7 +33,7 @@ func (ls *LibertySearchAlgorithm) CountLiberty(z Point, foundRen *Ren) {
 	}
 	ls.board.GetCoordinate().ForeachCellWithoutWall(eachPoint)
 
-	ls.searchStoneRenRecursive(z, ls.board.GetStoneAt(z), foundRen)
+	ls.searchStoneRenRecursive(z, ls.board.GetStoneAt(z))
 }
 
 // 石の連の探索
@@ -39,12 +41,12 @@ func (ls *LibertySearchAlgorithm) CountLiberty(z Point, foundRen *Ren) {
 // * 再帰関数
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (ls *LibertySearchAlgorithm) searchStoneRenRecursive(here Point, color Stone, foundRen *Ren) {
+func (ls *LibertySearchAlgorithm) searchStoneRenRecursive(here Point, color Stone) {
 
 	// 石のチェック
 	ls.checkBoard.Overwrite(here, Mark_BitStone)
 
-	foundRen.StoneArea++
+	ls.foundRen.StoneArea++
 
 	var eachAdjacent = func(dir Cell_4Directions, p Point) {
 		if !ls.checkBoard.IsZeroAt(p) {
@@ -55,9 +57,9 @@ func (ls *LibertySearchAlgorithm) searchStoneRenRecursive(here Point, color Ston
 
 			ls.checkBoard.Overwrite(p, Mark_BitStone)
 
-			foundRen.StoneArea++
+			ls.foundRen.StoneArea++
 		} else if ls.board.GetStoneAt(p) == color {
-			ls.searchStoneRenRecursive(p, color, foundRen) // 再帰
+			ls.searchStoneRenRecursive(p, color) // 再帰
 		}
 	}
 
@@ -76,14 +78,13 @@ type LibertyInfo struct {
 	wall int
 	// 隣接する４つの交点
 	around [4]*Ren
-	// 着手点を含む連
-	foundRen Ren
 }
 
 // searchStoneLibInfo - 呼吸点の計算
 func (ls *LibertySearchAlgorithm) searchStoneLibInfo(k *Kernel, here Point, color Stone) LibertyInfo {
 	var oppColor = FlipColor(color) //相手(opponent)の石の色
-	var libInfo = LibertyInfo{0, 0, 0, 0, [4]*Ren{nil, nil, nil, nil}, Ren{0, 0, color}}
+	ls.foundRen = Ren{0, 0, color}
+	var libInfo = LibertyInfo{0, 0, 0, 0, [4]*Ren{nil, nil, nil, nil}}
 
 	// 隣接する交点毎に
 	var eachAdjacent = func(dir Cell_4Directions, p Point) {
@@ -101,16 +102,16 @@ func (ls *LibertySearchAlgorithm) searchStoneLibInfo(k *Kernel, here Point, colo
 			return
 		}
 
-		ls.CountLiberty(p, &libInfo.foundRen)
+		ls.CountLiberty(p)
 
-		libInfo.around[dir].LibertyArea = libInfo.foundRen.LibertyArea // 呼吸点の数
-		libInfo.around[dir].StoneArea = libInfo.foundRen.StoneArea     // 連の意地の数
-		libInfo.around[dir].Color = stone                              // 石の色
+		libInfo.around[dir].LibertyArea = ls.foundRen.LibertyArea // 呼吸点の数
+		libInfo.around[dir].StoneArea = ls.foundRen.StoneArea     // 連の意地の数
+		libInfo.around[dir].Color = stone                         // 石の色
 
-		if stone == oppColor && libInfo.foundRen.LibertyArea == 1 { // 相手の石で、呼吸点が１つで、その呼吸点に今石を置いたなら
-			libInfo.captureSum += libInfo.foundRen.StoneArea
+		if stone == oppColor && ls.foundRen.LibertyArea == 1 { // 相手の石で、呼吸点が１つで、その呼吸点に今石を置いたなら
+			libInfo.captureSum += ls.foundRen.StoneArea
 		}
-		if stone == color && 2 <= libInfo.foundRen.LibertyArea { // 隣接する連が自分の石で、その石が呼吸点を２つ持ってるようなら
+		if stone == color && 2 <= ls.foundRen.LibertyArea { // 隣接する連が自分の石で、その石が呼吸点を２つ持ってるようなら
 			libInfo.myBreathFriend++
 		}
 
