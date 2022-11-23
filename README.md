@@ -137,7 +137,7 @@ BoardData = '''
 
 ![20220130thr-go1a2.png](./docs/img/20220130thr-go1a2.png)  
 
-📖 [きふわらべのGo言語インストール解説](./doc/install/go.md)  
+📖 [きふわらべのGo言語インストール解説](./docs/install/go.md)  
 
 👆 Go言語のインストール方法を解説しました。読んでください  
 
@@ -157,6 +157,7 @@ go build
 # Run
 
 ターミナルで以下のコマンドを打鍵すると、ターミナルで実行することもできます。  
+（Power shell ではなく、 Command Prompt です）  
 
 ```shell
 # GTP形式の思考エンジンとして対局するなら
