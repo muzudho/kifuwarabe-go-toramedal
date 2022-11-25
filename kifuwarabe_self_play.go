@@ -48,12 +48,15 @@ func GetComputerMoveDuringSelfPlay(kernel *e.Kernel, color e.Stone) e.Point {
 	var start = time.Now()
 	pl.AllPlayouts = 0
 
+	// var z, winRate = pl.GetBestZByUct(
+	// 	kernel,
+	// 	color,
+	// 	createPrintingOfCalc(kernel),
+	// 	createPrintingOfCalcFin(kernel))
 	var z, winRate = pl.GetBestZByUct(
 		kernel,
-		color,
-		createPrintingOfCalc(kernel),
-		createPrintingOfCalcFin(kernel))
-
+		color)
+	
 	var sec = time.Since(start).Seconds()
 	code.Console.Info("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,positionNumber=%d,color=%d,playouts=%d\n",
 		sec, float64(pl.AllPlayouts)/sec, kernel.Position.GetBoard().GetCoordinate().GetZ4FromPoint(z), winRate, kernel.Record.GetPositionNumber(), color, pl.AllPlayouts)

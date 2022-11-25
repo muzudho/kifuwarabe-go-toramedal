@@ -147,11 +147,14 @@ func PlayComputerMoveLesson09a(
 	var st = time.Now()
 	pl.AllPlayouts = 0
 
+	// var z, winRate = pl.GetBestZByUct(
+	// 	kernel,
+	// 	color,
+	// 	createPrintingOfCalc(kernel),
+	// 	createPrintingOfCalcFin(kernel))
 	var z, winRate = pl.GetBestZByUct(
 		kernel,
-		color,
-		createPrintingOfCalc(kernel),
-		createPrintingOfCalcFin(kernel))
+		color)
 
 	if 1 < kernel.Record.GetPositionNumber() && // 初手ではないとして
 		kernel.Record.GetPlacePlayAt(kernel.Record.GetPositionNumber()-1) == 0 && // １つ前の手がパスで
