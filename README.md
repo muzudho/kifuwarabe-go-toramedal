@@ -148,7 +148,11 @@ Visual Studio Code に戻りまして。
 ![20220130go75a2.png](./docs/img/20220130go75a2.png)  
 
 ```shell
+# debug build
 go build
+
+# release build
+go build -ldflags "-s -w"
 ```
 
 👆 ターミナルに上記のコマンドを打鍵してください。 `kifuwarabe-go-toramedal.exe` 実行ファイルが作成されます。  
